@@ -98,6 +98,9 @@ button(base, accent)
 ::-webkit-scrollbar {
     width: 5px
 }
+::-webkit-scrollbar:horizontal {
+    height: 5px
+}
 ::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.2)
 }
@@ -353,6 +356,7 @@ body {
     padding: 40px 20px 30px 20px
     font-family: "Lora", serif
     position: relative
+    transition: margin 250ms ease-in-out
 
     .sidebar-active & {
         margin-left: 350px
@@ -519,8 +523,21 @@ body {
 .sidebar-overlay {
     position: fixed
     height: 100%
-    width: 100%
+    width: 0px
     z-index: 100
+    opacity: 0
+    transition: opacity 250ms ease-in-out
+
+
+
+    .sidebar-active & {
+        width: 100%
+        opacity: 1
+
+        .sidebar {
+            margin-left: 0px
+        }
+    }
 
     .sidebar {
         background: invert-base-colour
@@ -529,6 +546,8 @@ body {
         height: 100%
         padding: 10px
         overflow-y: auto
+        margin-left: -300px
+        transition: margin 250ms ease-in-out
 
         input {
             height: 32px
