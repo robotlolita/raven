@@ -4,20 +4,33 @@ module.exports = function(screenManager, storage) {
   var components = require('./components');
   var zenpen     = require('../zenpen');
 
+  function countWords(text) {
+    return text.trim().split(/\s+/).length
+  }
+
   var Editor = React.createClass({
     getInitialState: function() {
-      return { words: 0 }
+      return { words: 0, modified: false }
     },
 
     componentDidMount: function() {
-      zenpen.init()
+      zenpen.init();
+      zenpen.onChange.add(this.handleStateUpdate);
+    },
+
+    handleStateUpdate: function(data) {
+      this.setState({ words: countWords(data.headerText) + countWords(data.contentText),
+                      modified: true });
     },
 
     render: function() {
+      var modified = this.state.modified? 'Modified' : 'Saved'
+      
       return (
         <div className="editor-container">
           <div className="statusbar">
             <div id="wordcount"><strong>{this.state.words}</strong> words</div>
+            <div id="docstate">{ modified }</div>
           </div>
 
           <section className="editor">
@@ -35,12 +48,8 @@ module.exports = function(screenManager, storage) {
               </div>
             </div>
   
-            <header contentEditable={true} className="header">
-              Title
-            </header>
-            <article contentEditable={true} className="content">
-              Write things here
-            </article>
+            <header contentEditable={true} className="header">Title</header>
+            <article contentEditable={true} className="content">Content</article>
           </section>
         </div>
       )

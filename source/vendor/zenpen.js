@@ -5,6 +5,7 @@
  */
 var localStorage = window.localStorage
 var setTimeout   = window.setTimeout
+var signal       = require('shoutout')
 
 // Utility functions
 function supportsHtmlStorage() {
@@ -46,6 +47,22 @@ var editor = (function() {
 
   var lastSelection;
 
+  var onChange = signal();
+
+  var timer;
+  function notifyChange() {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function() {
+              timer = null;
+              onChange({
+                header: headerField,
+                content: contentField,
+                headerText: headerField.innerText,
+                contentText: contentField.innerText
+              });
+            }, 250);
+  }
+
 	function init() {
 
 		composing = false;
@@ -74,6 +91,7 @@ var editor = (function() {
 			document.onkeyup = function( event ) {
 				checkTextHighlighting( event );
 				saveState();
+        notifyChange();
 			}
 
 		} else {
@@ -269,6 +287,7 @@ var editor = (function() {
 		if ( localStorage[ 'content' ] ) {
 			contentField.innerHTML = localStorage[ 'content' ];
 		}
+    notifyChange()
 	}
 
 	function onBoldClick() {
@@ -389,7 +408,8 @@ var editor = (function() {
 	return {
 		init: init,
 		saveState: saveState,
-		getWordCount: getWordCount
+		getWordCount: getWordCount,
+    onChange: onChange
 	}
 
 })();
