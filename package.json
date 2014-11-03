@@ -1,4 +1,37 @@
 {
   "name": "raven-editor",
-  "main": "zenpen/index.html"
+  "main": "zenpen/index.html",
+  "description": "A minimalist editor for writers.",
+  "version": "0.1.0",
+  "keywords": ["text editor", "minimalist", "writing"],
+  "maintainers": [{
+    "name": "Quildreen Motta",
+    "email": "quildreen@gmail.com",
+    "web": "http://robotlolita.me"
+  }],
+  "bugs": "https://github.com/robotlolita/raven/issues",
+  "licences": [
+    {
+      "type": "MIT",
+      "url": "https://raw.githubusercontent.com/robotlolita/raven/master/LICENCE"
+    },
+    {
+      "type": "Apachev2",
+      "url": "https://raw.githubusercontent.com/robotlolita/raven/master/zenpen/licence.md"
+    }
+  ],
+  "repositories": [{
+    "type": "git",
+    "url": "http://github.com/robotlolita/raven.git"
+  }],
+  "window": {
+    "title": "Raven",
+    "toolbar": false,
+    "frame": true,
+    "width": 800,
+    "height": 700,
+    "min_width": 480,
+    "min_height": 300,
+    "resizable": true
+  }
 }
