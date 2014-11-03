@@ -8,11 +8,67 @@ jsk-grid-width = 100%
 
 base-font-colour = #424242
 base-colour = #f3f3f3
+control-colour = #aec6cf
+control-focus-colour = #779ecb
 
-// ---------------------------------------------------------------------
+primary-accent-colour = #c44878
+primary-base-colour = #e0749e
+primary-light-colour = #e08faf
+primary-dark-colour = #952450
 
+secondary-accent-colour = #1a6b62
+secondary-colour = #37756e
+secondary-light-colour = #7dc3bc
+secondary-alternate-colour = #338d83
+
+tertiary-accent-colour = #e3dc53
+tertiary-colour = #bcb759
+tertiary-light-colour = #f0eb7c
+
+entypo-define('Entypo', '../fonts/entypo/entypo', 'entypo')
+
+.icon-import:before
+  @extend .entypo-book:before
+
+.icon-book:before
+  @extend .entypo-book:before
+
+.icon-new:before
+  @extend .entypo-plus:before
+
+// -- Functions --------------------------------------------------------
+button(base, accent)
+  cursor: pointer
+  margin: 10px 0
+  text-align: center
+  height: 48px
+  line-height: 48px
+  display: block
+  font-weight: 600
+  color: #eee
+  text-transform: uppercase
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4)
+  background: base
+  border-bottom: 3px solid accent
+  transition: all 0.3s ease-out
+  &:hover
+    background: lighten(base, 10%)
+  &:active
+    border-bottom-width: 1px
+    padding-top: 2px
+    background: darken(base, 10%)
+    transition: all 0.1s ease-out
+
+
+// -- Base elements ----------------------------------------------------
+* {
+    box-sizing: border-box
+}
+html, body, #app, .screen {
+    height: 100%
+}
 body {
-    font-family: "Open Sans", sans
+    font-family: "Source Sans Pro", sans
     color: base-font-colour
     background: base-colour
 }
@@ -21,8 +77,215 @@ body {
     position: fixed
     right: 10px
     bottom: 10px
-    font-size: 14px
+    font-size: 16px
     color: #aaa
     text-transform: uppercase
+    font-weight: 600
 }
 
+// -- Screens, Fields and Buttons --------------------------------------
+.hidden {
+    display: none
+}
+.centred {
+    margin: 0 auto
+}
+.welcome {
+    width: 70%
+}
+.half {
+    width: 50%
+}
+
+.vertically-centred {
+    position: relative
+    top: 50%
+    transform: translateY(-50%)
+}
+
+
+.screen {
+    .section-info, .section-subinfo {
+        text-align: center
+        line-height: 140%
+    }
+    .section-info {
+        font-size: 2em
+        font-weight: 600
+    }
+    .section-subinfo {
+        font-size: 1.5em
+        font-weight: 300
+        color: #888
+    }
+    .section-heading {
+        margin-bottom: 2em
+    }
+    .form-feed {
+        margin-bottom: 4em
+    }
+}
+
+.field {
+    margin: 0.5em 0 1em 0
+
+    label {
+        display: block
+        font-size: 0.9em
+        text-transform: uppercase
+        color: #999
+        padding: 5px 0
+    }
+}
+
+.text-field {
+    position: relative
+
+    input {
+        background: transparent
+        box-shadow: none
+        border: none
+        border-bottom: 2px solid control-colour
+        font-size: 20px
+        color: #aaa
+        display: block
+        width: 100%
+        height: 48px
+        line-height: 48px
+        padding: 0 10px
+        letter-spacing: 1px
+
+        &:focus {
+            outline: none
+            color: control-focus-colour
+            border-color: control-focus-colour
+        }
+        &::-webkit-input-placeholder {
+            color: #ccc
+        }
+    }
+    &:before, &:after {
+        content: ""
+        display: block
+        width: 2px
+        height: 8px
+        position: absolute
+        bottom: 0px
+        background: control-colour
+    }
+    &:before {
+        left: 0px
+    }
+    &:after {
+        right: 0px
+    }
+}
+
+.button {
+    text-decoration: none
+}
+.submit-button {
+    button: secondary-colour secondary-accent-colour
+}
+
+.action-list .action {
+    padding-left: 64px
+    margin-bottom: 1em
+    position: relative
+    cursor: pointer
+    color: #777
+    transition: all 0.3s ease-out
+    
+    .title {
+        font-weight: 600
+        font-size: 1.2em
+        line-height: 150%
+    }
+    &:before {
+        font-size: 48px
+        line-height: 50px
+        width: 64px
+        text-align: center
+        position: absolute
+        left: 0px
+        top: 0px
+    }
+    &:hover {
+        color: base-font-colour
+    }
+    &:active {
+        transition: all 0.1s ease-out
+        transform: scale3d(0.9, 0.9, 1)
+    }
+}
+
+.book-list {
+    clearfix()
+    text-align: center
+    margin-bottom: 2em
+    color: #888
+    
+    .book, .more {
+        position: relative
+        display: inline-block
+        width: 100px
+        height: 130px
+        margin: 0 10px 10px 0
+        border: 1px solid transparent
+        transition: all 0.3s ease-out
+        vertical-align: top
+        overflow: hidden
+        cursor: pointer
+
+        strong {
+            position: absolute
+            z-index: 3
+            bottom: 0
+            left: 0
+            text-align: center
+            height: 30px
+            width: 100px
+            line-height: 30px
+            padding: 0 5px
+            whitespace: nowrap
+            text-overflow: ellipsis
+            overflow: hidden
+            font-weight: 600
+            background: rgba(255, 255, 255, 0.6)
+        }
+        img {
+            z-index: 2
+            top: 50%
+            left: 50%
+            position: absolute
+            transform: translateX(-50%) translateY(-50%)
+            opacity: 0.6
+        }
+        &:before {
+            position: absolute
+            top: 0px
+            left: 0px
+            width: 100px
+            height: 100px
+            line-height: 100px
+            font-size: 64px
+            text-align: center
+        }
+        &:hover {
+            color: base-font-colour
+            border: 1px solid #ddd
+            background: #fafafa
+            img {
+                opacity: 0.8
+            }
+        }
+        &:active {
+            transition: all 0.1s ease-out
+            transform: scale3d(0.9, 0.9, 1)
+        }
+    }
+    .more {
+        line-height: 130px
+        font-size: 1.4em
+    }
+}

@@ -25,6 +25,7 @@ $(LIB_DIR)/%.js: $(SRC_DIR)/%.sjs
 	       --module lambda-chop/macros \
 	       --module es6-macros/macros/destructure \
 	       --module macros.operators/macros \
+	       --module sweet-jsx \
 	       --output $@ \
 	       $<
 
@@ -38,6 +39,9 @@ scripts: $(TGT)
 clean:
 	rm -rf www node_modules
 
+fonts:
+	cp -R source/fonts www
+
 css:
 	mkdir -p $(STYLE_DST)
 	$(stylus) $(STYLUS_PATHS) $$STYLUS_OPTIONS -o $(STYLE_DST) $(STYLE_SRC)
@@ -45,7 +49,7 @@ css:
 css-watch:
 	STYLUS_OPTIONS="--watch" $(MAKE) css
 
-run: www/index.html css scripts
+run: www/index.html fonts css scripts
 	$(nw) .
 
-.PHONY: css css-watch clean
+.PHONY: css css-watch fonts clean
