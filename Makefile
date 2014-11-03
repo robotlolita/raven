@@ -1,7 +1,7 @@
-bin = $(shell npm bin)
+bin    = $(shell npm bin)
 stylus = $(bin)/stylus
-sjs = $(bin)/sjs
-
+sjs    = $(bin)/sjs
+nw     = nw
 
 # -- OPTIONS -----------------------------------------------------------
 STYLUS_PATHS = -I node_modules/nib/lib \
@@ -28,11 +28,15 @@ $(LIB_DIR)/%.js: $(SRC_DIR)/%.sjs
 	       --output $@ \
 	       $<
 
+www/index.html: source/index.html
+	mkdir -p www
+	cp $< $@
+
 # -- TASKS -------------------------------------------------------------
-all: $(TGT)
+scripts: $(TGT)
 
 clean:
-	rm -rf $(LIB_DIR) $(STYLE_DST) node_modules
+	rm -rf www node_modules
 
 css:
 	mkdir -p $(STYLE_DST)
@@ -40,5 +44,8 @@ css:
 
 css-watch:
 	STYLUS_OPTIONS="--watch" $(MAKE) css
+
+run: www/index.html css scripts
+	$(nw) .
 
 .PHONY: css css-watch clean
