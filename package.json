@@ -53,7 +53,7 @@
     "stylus": "~0.49.2",
     "nib": "~1.0.4",
     "sweet.js": "~0.7.2",
-    "sweet-jsx": "~0.2.0"
+    "jsx-reader": "~0.1.1"
   },
   "dependencies": {
     "react": "~0.12.0",
@@ -62,6 +62,7 @@
     "core.lambda": "~1.0.0",
     "control.async": "~0.4.0",
     "control.monads": "~0.5.1",
-    "jquery-browserify": "~1.8.1"
+    "jquery-browserify": "~1.8.1",
+    "react-tools": "~0.12.0"
   }
 }

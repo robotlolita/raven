@@ -164,6 +164,15 @@ body {
 
 
 .screen {
+    transition: all 250ms ease-in-out
+    position: relative
+    left: 0px
+
+    &.fading {
+        opacity: 0
+        left: -30%
+    }
+    
     .section-info, .section-subinfo {
         text-align: center
         line-height: 140%
@@ -355,13 +364,6 @@ body {
     overflow-y: scroll
     padding: 40px 20px 30px 20px
     font-family: "Lora", serif
-    position: relative
-    transition: margin 250ms ease-in-out
-
-    .sidebar-active & {
-        margin-left: 350px
-        overflow: hidden
-    }
 
     .text-options {
         transition: opacity 250ms, margin 250ms
@@ -427,7 +429,7 @@ body {
             .italic {
                 font-style: italic
             }
-            .useicons {
+            .entypo {
                 font-family: 'Entypo'
             }
             button {
@@ -484,6 +486,7 @@ body {
         margin-left: -19px
         padding-left: 15px
         margin-right: 0px
+        margin-bottom: 1.5em
     }
     p {
         margin: 0.5em 0 1.5em 0
@@ -496,6 +499,17 @@ body {
     
     a:hover {
 	      text-decoration: underline;
+    }
+
+}
+.editor-container {
+    height: 100%
+    position: relative
+    transition: margin 250ms ease-in-out
+
+    .sidebar-active & {
+        margin-left: 350px
+        overflow: hidden
     }
 
     .statusbar {

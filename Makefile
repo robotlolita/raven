@@ -25,11 +25,11 @@ VENDOR_TGT = ${VENDOR_SRC:$(VENDOR_DIR)/%.js=$(LIB_DIR)/%.js}
 $(LIB_DIR)/%.js: $(SRC_DIR)/%.sjs
 	mkdir -p $(dir $@)
 	$(sjs) --readable-names \
+	       --load-readtable jsx-reader \
 	       --module sweet-fantasies/src/do \
 	       --module lambda-chop/macros \
 	       --module es6-macros/macros/destructure \
 	       --module macros.operators/macros \
-	       --module sweet-jsx \
 	       --output $@ \
 	       $<
 
