@@ -1,14 +1,20 @@
 {
   "name": "raven-editor",
-  "main": "zenpen/index.html",
+  "main": "www/index.html",
   "description": "A minimalist editor for writers.",
   "version": "0.1.0",
-  "keywords": ["text editor", "minimalist", "writing"],
-  "maintainers": [{
-    "name": "Quildreen Motta",
-    "email": "quildreen@gmail.com",
-    "web": "http://robotlolita.me"
-  }],
+  "keywords": [
+    "text editor",
+    "minimalist",
+    "writing"
+  ],
+  "maintainers": [
+    {
+      "name": "Quildreen Motta",
+      "email": "quildreen@gmail.com",
+      "web": "http://robotlolita.me"
+    }
+  ],
   "bugs": "https://github.com/robotlolita/raven/issues",
   "licences": [
     {
@@ -20,10 +26,12 @@
       "url": "https://raw.githubusercontent.com/robotlolita/raven/master/zenpen/licence.md"
     }
   ],
-  "repositories": [{
-    "type": "git",
-    "url": "http://github.com/robotlolita/raven.git"
-  }],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "http://github.com/robotlolita/raven.git"
+    }
+  ],
   "window": {
     "title": "Raven",
     "toolbar": false,
@@ -33,5 +41,17 @@
     "min_width": 480,
     "min_height": 300,
     "resizable": true
+  },
+  "devDependencies": {
+    "jsk-grid": "~1.0.0",
+    "entypo-stylus": "~0.1.0",
+    "sweet-fantasies": "git://github.com/robotlolita/sweet-fantasies#patch-compatibility",
+    "lambda-chop": "~0.1.5",
+    "es6-macros": "0.0.7",
+    "adt-simple": "~0.1.3",
+    "macros.operators": "~0.5.1",
+    "stylus": "~0.49.2",
+    "nib": "~1.0.4",
+    "sweet.js": "~0.7.2"
   }
 }
