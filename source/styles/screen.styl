@@ -94,6 +94,21 @@ button(base, accent)
     transition: all 0.1s ease-out
 
 
+// -- Browser elements -------------------------------------------------
+::-webkit-scrollbar {
+    width: 5px
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2)
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 3px
+    background: control-focus-colour
+}
+::-webkit-scrollbar-thumb:inactive {
+    background: control-colour
+}
+
 // -- Base elements ----------------------------------------------------
 * {
     box-sizing: border-box
@@ -513,6 +528,7 @@ body {
         width: 300px
         height: 100%
         padding: 10px
+        overflow-y: auto
 
         input {
             height: 32px
