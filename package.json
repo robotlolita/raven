@@ -61,6 +61,7 @@
     "data.future": "~2.3.0",
     "core.lambda": "~1.0.0",
     "control.async": "~0.4.0",
-    "control.monads": "~0.5.1"
+    "control.monads": "~0.5.1",
+    "jquery-browserify": "~1.8.1"
   }
 }
