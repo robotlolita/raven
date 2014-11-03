@@ -64,6 +64,9 @@ button(base, accent)
 * {
     box-sizing: border-box
 }
+*:focus {
+    outline: none
+}
 html, body, #app, .screen {
     height: 100%
 }
@@ -287,5 +290,148 @@ body {
     .more {
         line-height: 130px
         font-size: 1.4em
+    }
+}
+
+// -- Editor -----------------------------------------------------------
+.editor {
+    height: 100%
+    overflow-y: scroll
+    padding: 40px 20px 30px 20px
+    font-family: "Lora", serif
+
+    .text-options {
+        transition: opacity 250ms, margin 250ms
+        position: absolute
+        left: -999px
+        top: -999px
+        color: #fff
+        height: 0px
+        width: 0px
+        z-index: 5
+        margin-top: 5px
+        opacity: 0
+
+        &.fade {
+            opacity: 0
+            margin-top: -5px
+        }
+        &.active {
+            opacity: 1
+            margin-top: 0
+        }
+
+        .options {
+            background-color: rgba(0, 0, 0, 0.9)
+            position: absolute
+            margin-left: -63ox
+            margin-top: -46px
+            z-index: 1000
+            padding: 5px 4px 5px 5px
+            width: 125px
+            height: 40px
+            transition: all 300ms ease-in-out
+
+            &:before {
+                content: ""
+                border: 5px solid transparent
+                border-top-color: rgba(0, 0, 0, 0.9)
+                position: absolute
+                margin-left: -5px
+                bottom: -15px
+                height: 5px
+                width: 0px
+                left: 50%
+            }
+
+            &.url-mode {
+                width: 275px
+                margin-left: -137px
+
+                .bold, .italic, .quote {
+                    width: 0px
+                    overflow: hidden
+                    margin-right: 0px
+                    opacity: 0
+                }
+                input {
+                    border-left: 2px solid transparent
+                    padding-right: 5px
+                    padding-left: 5px
+                    width: 236px
+                }
+            }
+            .italic {
+                font-style: italic
+            }
+            .useicons {
+                font-family: 'Entypo'
+            }
+            button {
+                transition: all 250ms ease-in-out
+                float: left
+                width: 28px
+                opacity: 0.7
+                height: 30px
+                margin-rigth: 1px
+                font-family: Lora
+                font-size: 1.4em
+                border: none
+                background: none
+                color: #eee
+
+                &.active {
+                    background-color: rgba(255, 255, 255, 0.4)
+                    opacity: 1
+                }
+                &:hover {
+                    opacity: 0.95
+                }
+            }
+            input {
+                overflow: hidden
+                outline: 0px
+                height: 30px
+                padding: 0px
+                margin: 0px
+                border: 0px
+                float: left
+                width: 0px
+            }
+        }
+    }
+
+    header, article {
+        max-width: 70%
+        min-width: 500px
+        margin: 0 auto
+    }
+    header {
+        font-size: 2em
+        font-weight: bold
+        margin-bottom: 1em
+    }
+    article {
+        padding-bottom: 50px
+        line-height: 1.4em
+        font-size: 1.4em
+    }
+    blockquote {
+        border-left: 4px solid deepskyblue
+        margin-left: -19px
+        padding-left: 15px
+        margin-right: 0px
+    }
+    p {
+        margin: 0.5em 0 1.5em 0
+    }
+    
+    a {
+	      text-decoration: none;
+	      color: deepskyblue;
+    }
+    
+    a:hover {
+	      text-decoration: underline;
     }
 }

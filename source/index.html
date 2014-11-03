@@ -3,14 +3,62 @@
   <head>
     <title>Raven</title>
     <meta charset="utf-8">
-    <link href="css/screen.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700"
+          rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Arvo:400,700|Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="styles/screen.css" rel="stylesheet">
   </head>
   <body>
-    <h1 class="app-title">Raven</h1>
+    <h1 id="app-title">Raven</h1>
 
     <div id="app">
+
+      <section class="editor screen">
+		<div class="text-options">
+			<div class="options">
+				<span class="no-overflow">
+					<span class="lengthen ui-inputs">
+						<button class="url entypo">📎</button>
+						<input class="url-input" type="text" placeholder="Type or Paste URL here"/>
+						<button class="bold">b</button>
+						<button class="italic">i</button>
+						<button class="quote entypo">❞</button>
+					</span>
+				</span>
+			</div>
+		</div>
+
+
+        <header contenteditable="true" class="header">
+          Chapter I
+        </header>
+        <article contenteditable="true" class="content">
+				<p>
+					A minimalist writing zone, where you can block out all distractions and get to what's important. The writing!
+				</p>
+
+				<p>
+					To get started, all you need to do is delete this text (seriously, just highlight it and hit delete), and fill the page with your own fantastic words.
+				</p>
+
+				<p>
+					You can use <b>bold</b>, <i>italics</i>, <b><i>both</i></b> and <a href="http://zenpen.io"> urls </a> just by highlighting the text and selecting them from the tiny options box that appears above it.
+				</p>
+
+				<blockquote>
+					Quotes are easy to add too!
+				</blockquote>
+
+				<p>
+					For <i>questions</i> and <b>open source info</b>, Click that little question mark at the bottom left of the screen.
+				</p>
+
+				<p>Happy Typing! ~ <b>Tim Holman (@twholman)</b></p>
+        </article>
+      </section>
     </div>
 
+    <script src="scripts/jquery.js"></script>
     <script src="scripts/raven.js"></script>
   </body>
 </html>
