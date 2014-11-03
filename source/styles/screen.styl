@@ -11,6 +11,9 @@ base-colour = #f3f3f3
 control-colour = #aec6cf
 control-focus-colour = #779ecb
 
+invert-base-colour = base-font-colour
+invert-base-font-colour = base-colour
+
 primary-accent-colour = #c44878
 primary-base-colour = #e0749e
 primary-light-colour = #e08faf
@@ -25,6 +28,12 @@ tertiary-accent-colour = #e3dc53
 tertiary-colour = #bcb759
 tertiary-light-colour = #f0eb7c
 
+@font-face
+  font-family: 'Typicons'
+  font-weight: normal
+  font-style: normal
+  font-source: '../fonts/typicons/typicons', 'typicons'
+
 entypo-define('Entypo', '../fonts/entypo/entypo', 'entypo')
 
 .icon-import:before
@@ -35,6 +44,31 @@ entypo-define('Entypo', '../fonts/entypo/entypo', 'entypo')
 
 .icon-new:before
   @extend .entypo-plus:before
+
+.icon-new-item:before
+//  content: '\e0cf'
+//  font-family: 'Typicons'
+  @extend .entypo-plus:before
+
+.icon-document:before
+//  content: '\e063'
+//  font-family: 'Typicons'
+  @extend .entypo-docs:before
+
+.icon-picture:before
+//  content: '\e08d'
+//  font-family: 'Typicons'
+  @extend .entypo-picture:before
+
+.icon-text:before
+//  content: '\e062'
+//  font-family: 'Typicons'
+  @extend .entypo-text-doc:before
+
+.icon-search:before
+//  content: '\e14f'
+//  font-family: 'Typicons'
+  @extend .entypo-search:before
 
 // -- Functions --------------------------------------------------------
 button(base, accent)
@@ -67,6 +101,9 @@ button(base, accent)
 *:focus {
     outline: none
 }
+html {
+    overflow: hidden
+}
 html, body, #app, .screen {
     height: 100%
 }
@@ -84,6 +121,7 @@ body {
     color: #aaa
     text-transform: uppercase
     font-weight: 600
+    z-index: 200
 }
 
 // -- Screens, Fields and Buttons --------------------------------------
@@ -299,6 +337,12 @@ body {
     overflow-y: scroll
     padding: 40px 20px 30px 20px
     font-family: "Lora", serif
+    position: relative
+
+    .sidebar-active & {
+        margin-left: 350px
+        overflow: hidden
+    }
 
     .text-options {
         transition: opacity 250ms, margin 250ms
@@ -324,9 +368,9 @@ body {
         .options {
             background-color: rgba(0, 0, 0, 0.9)
             position: absolute
-            margin-left: -63ox
+            margin-left: -63px
             margin-top: -46px
-            z-index: 1000
+            z-index: 50
             padding: 5px 4px 5px 5px
             width: 125px
             height: 40px
@@ -433,5 +477,120 @@ body {
     
     a:hover {
 	      text-decoration: underline;
+    }
+
+    .statusbar {
+        position: absolute
+        bottom: 0px
+        left: 0px
+        padding: 0 10px
+        text-transform: uppercase
+        font-family: "Source Sans Pro", sans
+        color: #999
+        font-size: 0.8em
+        background: #f3f3f3
+        width: 100%
+        z-index: 10
+        height: 32px
+        line-height: 32px
+        
+        strong {
+            font-weight: 600
+            padding-right: 0.3em
+            font-size: 1.2em
+        }
+    }
+}
+.sidebar-overlay {
+    position: fixed
+    height: 100%
+    width: 100%
+    z-index: 100
+
+    .sidebar {
+        background: invert-base-colour
+        color: invert-base-font-colour
+        width: 300px
+        height: 100%
+        padding: 10px
+
+        input {
+            height: 32px
+            line-height: 32px
+            font-size: 18px
+        }
+        .search-field i {
+            position: absolute
+            right: 10px
+            width: 32px
+            height: 32px
+            font-size: 40px
+            line-height: 25px
+            text-align: right
+            color: #999
+            font-style: normal
+        }
+        input::-webkit-input-placeholder {
+            color: #888
+        }
+        input:focus {
+            color: control-colour
+        }
+
+        .tooling-section {
+            margin-bottom: 1.5em
+        }
+        
+        .tooling-section-title {
+            font-weight: 600
+            text-transform: uppercase
+            color: #999
+            font-size: 0.9em
+            line-height: 120%
+            margin-bottom: 5px
+
+            .num-docs {
+                float: right
+                color: #ccc
+                font-size: 1.1em
+                margin-right: 20px
+            }
+        }
+
+        .tooling-links {
+            li {
+                position: relative
+            }
+            li:before {
+                position: absolute
+                top: 0
+                left: 0
+                width: 32px
+                height: 24px
+                line-height: 24px
+                font-size: 32px
+                text-align: center
+            }
+
+            a {
+                color: invert-base-font-colour
+                text-decoration: none
+                font-size: 1.1em
+                line-height: 130%
+                margin-bottom: 5px
+                display: block
+                padding-left: 32px
+                height: 24px
+                line-height: 24px
+            }
+            .new-item a, .more-items a {
+                color: darken(invert-base-font-colour, 15%)
+                text-transform: uppercase
+                font-size: 0.9em
+            }
+            .more-items a {
+                text-align: center
+            }
+        }
     }
 }
