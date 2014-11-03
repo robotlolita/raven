@@ -17,6 +17,10 @@ LIB_DIR = www/scripts
 SRC     = $(wildcard $(SRC_DIR)/*.sjs $(SRC_DIR)/**/*.sjs)
 TGT     = ${SRC:$(SRC_DIR)/%.sjs=$(LIB_DIR)/%.js}
 
+VENDOR_DIR = source/vendor
+VENDOR_SRC = $(wildcard $(VENDOR_DIR)/*.js)
+VENDOR_TGT = ${VENDOR_SRC:$(VENDOR_DIR)/%.js=$(LIB_DIR)/%.js}
+
 # -- COMPILATION -------------------------------------------------------
 $(LIB_DIR)/%.js: $(SRC_DIR)/%.sjs
 	mkdir -p $(dir $@)
@@ -29,12 +33,16 @@ $(LIB_DIR)/%.js: $(SRC_DIR)/%.sjs
 	       --output $@ \
 	       $<
 
+$(LIB_DIR)/%.js: $(VENDOR_DIR)/%.js
+	mkdir -p $(dir $@)
+	cp $< $@
+
 www/index.html: source/index.html
 	mkdir -p www
 	cp $< $@
 
 # -- TASKS -------------------------------------------------------------
-scripts: $(TGT)
+scripts: $(TGT) $(VENDOR_TGT)
 
 clean:
 	rm -rf www node_modules
