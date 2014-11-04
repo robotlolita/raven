@@ -1,5 +1,7 @@
 var Future  = require('data.future');
 var Maybe   = require('data.maybe');
+var utils   = require('./utils');
+var path    = require('path');
 
 module.exports = function(window, document, $) {
   global.window    = window;
@@ -23,7 +25,7 @@ module.exports = function(window, document, $) {
   }());
 
   var screenManager = (function() {
-    function changeToScreen(screen, props, data) {
+    function changeToScreen(screen, data) {
       return new Future(function(reject, resolve) {
         if ($('#app > .screen').length === 0)  return doChange();
         
@@ -50,6 +52,7 @@ module.exports = function(window, document, $) {
 
   
   return $do {
+    utils.makeDir(path.join(utils.novelHome())) <|> Future.of();
     screenManager.changeTo(Screens.Entry())
   }
 }

@@ -49,18 +49,13 @@ var editor = (function() {
 
   var onChange = signal();
 
-  var timer;
   function notifyChange() {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(function() {
-              timer = null;
-              onChange({
-                header: headerField,
-                content: contentField,
-                headerText: headerField.innerText,
-                contentText: contentField.innerText
-              });
-            }, 250);
+    onChange({
+      header: headerField,
+      content: contentField,
+      headerText: headerField.innerText,
+      contentText: contentField.innerText
+    })
   }
 
 	function init() {
@@ -76,11 +71,6 @@ var editor = (function() {
 		selection.addRange(range);
 
 		createEventBindings();
-
-		// Load state if storage is supported
-		if ( supportsHtmlStorage() ) {
-			loadState();
-		}
 	}
 
 	function createEventBindings() {
@@ -90,7 +80,6 @@ var editor = (function() {
 
 			document.onkeyup = function( event ) {
 				checkTextHighlighting( event );
-				saveState();
         notifyChange();
 			}
 
@@ -272,24 +261,6 @@ var editor = (function() {
 		return !!nodeList[ name ];
 	}
 
-	function saveState( event ) {
-		
-		localStorage[ 'header' ] = headerField.innerHTML;
-		localStorage[ 'content' ] = contentField.innerHTML;
-	}
-
-	function loadState() {
-
-		if ( localStorage[ 'header' ] ) {
-			headerField.innerHTML = localStorage[ 'header' ];
-		}
-
-		if ( localStorage[ 'content' ] ) {
-			contentField.innerHTML = localStorage[ 'content' ];
-		}
-    notifyChange()
-	}
-
 	function onBoldClick() {
 		document.execCommand( 'bold', false );
 	}
@@ -407,8 +378,6 @@ var editor = (function() {
 
 	return {
 		init: init,
-		saveState: saveState,
-		getWordCount: getWordCount,
     onChange: onChange
 	}
 

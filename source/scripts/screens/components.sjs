@@ -1,4 +1,5 @@
-var React = require('react/addons');
+var React  = require('react/addons');
+var extend = require('xtend');
 
 var TextField = React.createClass({
   getInitialState: function() {
@@ -21,6 +22,7 @@ var TextField = React.createClass({
     var fieldClasses = React.addons.classSet({
       'field': true,
       'text-field': true,
+      'search-field': this.props.isSearchField,
       'focused-field': this.state.isFocused
     });
     
@@ -38,7 +40,11 @@ var TextField = React.createClass({
   }
 });
 
+function SearchField(props) {
+  return TextField(extend(props, { isSearchField: true }))
+}
 
 module.exports = {
-  TextField: TextField
+  TextField: TextField,
+  SearchField: SearchField
 }

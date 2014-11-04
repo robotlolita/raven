@@ -1,8 +1,11 @@
 module.exports = function(screenManager, storage) {
   
-  var React      = require('react');
+  var React      = require('react/addons');
   var components = require('./components');
   var zenpen     = require('../zenpen');
+  var utils      = require('../utils');
+
+  var SAVE_DELAY = 1000;
 
   function countWords(text) {
     return text.trim().split(/\s+/).length
@@ -10,7 +13,7 @@ module.exports = function(screenManager, storage) {
 
   var Editor = React.createClass({
     getInitialState: function() {
-      return { words: 0, modified: false }
+      return { words: 0, modified: false, text: this.props.initialText }
     },
 
     componentDidMount: function() {
@@ -18,9 +21,18 @@ module.exports = function(screenManager, storage) {
       zenpen.onChange.add(this.handleStateUpdate);
     },
 
+    onSaved: function() {
+      this.setState({ modified: false });
+    },
+
     handleStateUpdate: function(data) {
-      this.setState({ words: countWords(data.headerText) + countWords(data.contentText),
-                      modified: true });
+      this.setState({ 
+        words: countWords(data.contentText),
+        text: data.content.innerHTML,
+        modified: true
+      });
+
+      if (this.props.onChange) this.props.onChange(data)
     },
 
     render: function() {
@@ -29,8 +41,8 @@ module.exports = function(screenManager, storage) {
       return (
         <div className="editor-container">
           <div className="statusbar">
-            <div id="wordcount"><strong>{this.state.words}</strong> words</div>
-            <div id="docstate">{ modified }</div>
+            <div className="statusbar-panel" id="wordcount"><strong>{this.state.words}</strong> words</div>
+            <div className="statusbar-panel" id="docstate">{ modified }</div>
           </div>
 
           <section className="editor">
@@ -48,19 +60,79 @@ module.exports = function(screenManager, storage) {
               </div>
             </div>
   
-            <header contentEditable={true} className="header">Title</header>
-            <article contentEditable={true} className="content">Content</article>
+            <header className="header">{this.props.novel}</header>
+            <article contentEditable={true} className="content" ref="article" dangerouslySetInnerHTML={{__html: this.state.text }}></article>
           </section>
         </div>
       )
     }
   });
 
-  var Screen = React.createClass({
+  var Sidebar = React.createClass({
+    notifyCancel: function() {
+      if (this.props.onCancel) this.props.onCancel()
+    },
+    
     render: function() {
       return (
-        <div id="editor-screen" className="screen">
-          <Editor />
+        <div className="sidebar-overlay">
+          <div className="overlay-area" onClick={this.notifyCancel}></div>
+          <div className="sidebar">
+            <components.SearchField placeholder="Search anything..." />
+            
+          </div>
+        </div>
+      )
+    }
+  });
+
+  var Heading = React.createClass({
+    notifyMenuClick: function() {
+      if (this.props.onMenu) this.props.onMenu()
+    },
+    
+    render: function() {
+      return (
+        <div className="editor-heading">
+          <a href="#" onClick={this.notifyMenuClick} className="menu-button icon-menu"></a>
+        </div>
+      )
+    }
+  })
+
+  var Screen = React.createClass({
+    getInitialState: function() {
+      return { isSidebarActive: false }
+    },
+
+    deactivateSidebar: function() {
+      this.setState({ isSidebarActive: false })
+    },
+
+    activateSidebar: function() {
+      this.setState({ isSidebarActive: true })
+    },
+
+    handleChanges: function(data) {
+      var novel = this.props.novel;
+      var editor = this.refs.editor;
+      utils.run($do {
+        utils.write(utils.novelPath(novel), data.headerText + '\n' + data.content.innerHTML);
+        return editor.onSaved();
+      })
+    },
+    
+    render: function() {
+      var screenClasses = React.addons.classSet({
+        'screen': true,
+        'sidebar-active': this.state.isSidebarActive
+      })
+      
+      return (
+        <div id="editor-screen" className={screenClasses}>
+          <Heading onMenu={this.activateSidebar} />
+          <Editor onChange={utils.debounce(this.handleChanges, SAVE_DELAY)} initialText={this.props.initialText} novel={this.props.novel} ref="editor" />
+          <Sidebar onCancel={this.deactivateSidebar} ref="sidebar" />
         </div>
       )
     }
