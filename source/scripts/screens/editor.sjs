@@ -33,6 +33,10 @@ module.exports = function(screenManager, storage) {
       });
       zenpen.init();
       zenpen.onChange.add(this.handleStateUpdate);
+      if (this.props.onLoaded)  this.props.onLoaded({
+        content: article,
+        contentText: article.innerText
+      })
     },
 
     onSaved: function() {
@@ -103,7 +107,23 @@ module.exports = function(screenManager, storage) {
     },
 
     closeProject: function() {
-      screenManager.navigate('/')
+      utils.run(screenManager.navigate('/'))
+    },
+
+    onTextUpdated: function(data) {
+      var headings = [].slice.call(data.content.querySelectorAll('h2'))
+                       .map(function(a) {
+                         return { element: a, text: a.innerText }
+                       });
+      console.log('>>> Getting headings: ' + headings);
+      console.log('>>> From data: ' + data.content);
+      this.setState({ sections: headings });
+    },
+
+    navigateToSection: function(element) {
+      return function() {
+        element.scrollIntoView()
+      }
     },
 
     render: function() {
@@ -117,6 +137,15 @@ module.exports = function(screenManager, storage) {
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
+                  {
+                    this.state.sections.map(function(section, i) {
+                      return (
+                        <li className="item icon-text">
+                          <a href="#" onClick={this.navigateToSection(section.element)}>{section.text}</a>
+                        </li>
+                      )
+                    }.bind(this))
+                  }
                 </ul>
               </li>
         
@@ -167,10 +196,16 @@ module.exports = function(screenManager, storage) {
     handleChanges: function(data) {
       var novel = this.props.novel;
       var editor = this.refs.editor;
+      var sidebar = this.refs.sidebar;
       utils.run($do {
         utils.write(utils.novelPath(novel), data.headerText + '\n' + data.content.innerHTML);
         return editor.onSaved();
+        return sidebar.onTextUpdated(data);
       })
+    },
+
+    updateSidebar: function(data) {
+      this.refs.sidebar.onTextUpdated(data)
     },
     
     render: function() {
@@ -182,7 +217,11 @@ module.exports = function(screenManager, storage) {
       return (
         <div id="editor-screen" className={screenClasses}>
           <Heading onMenu={this.activateSidebar} />
-          <Editor onChange={utils.debounce(this.handleChanges, SAVE_DELAY)} initialText={this.props.initialText} novel={this.props.novel} ref="editor" />
+          <Editor onChange={utils.debounce(this.handleChanges, SAVE_DELAY)}
+                  onLoaded={this.updateSidebar}
+                  initialText={this.props.initialText}
+                  novel={this.props.novel}
+                  ref="editor" />
           <Sidebar onCancel={this.deactivateSidebar} ref="sidebar" />
         </div>
       )

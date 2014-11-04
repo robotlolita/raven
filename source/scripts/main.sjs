@@ -43,10 +43,11 @@ module.exports = function(window, document, $) {
     }
 
     function navigate(url, props, data) {
+      console.log('>>> Navigating to ' + url + ' - ' + screenMap[url]);
       if (!(url in screenMap))
         throw new Error('No screen for ' + url);
 
-      changeToScreen(screenMap[url](props), data);
+      return changeToScreen(screenMap[url](props), data);
     }
 
     function register(url, screen) {
@@ -58,7 +59,7 @@ module.exports = function(window, document, $) {
 
     return {
       changeTo: changeToScreen,
-      naviate: navigate,
+      navigate: navigate,
       register: register
     }
 
