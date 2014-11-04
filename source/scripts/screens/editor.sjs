@@ -5,7 +5,7 @@ module.exports = function(screenManager, storage) {
   var zenpen     = require('../zenpen');
   var utils      = require('../utils');
 
-  var SAVE_DELAY = 1000;
+  var SAVE_DELAY = 5000;
 
   function countWords(text) {
     return text.trim().split(/\s+/).length
