@@ -74,6 +74,15 @@ var editor = (function() {
 		createEventBindings();
 	}
 
+  function moveToEnd() {
+    var range = document.createRange();
+    range.selectNodeContents(contentField);
+    range.collapse(false);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+
 	function createEventBindings() {
 
 		// Key up bindings
@@ -394,7 +403,8 @@ var editor = (function() {
 
 	return {
 		init: init,
-    onChange: onChange
+    onChange: onChange,
+    moveToEnd: moveToEnd
 	}
 
 })();

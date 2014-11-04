@@ -54,6 +54,13 @@ module.exports = function(screenManager, storage) {
       if (this.props.onChange) this.props.onChange(data)
     },
 
+    addNewSection: function() {
+      var editorContainer = this.refs.editorContainer.getDOMNode();
+      var article = this.refs.article.getDOMNode();
+      zenpen.moveToEnd();
+      editorContainer.scrollTop = article.scrollHeight
+    },
+
     render: function() {
       var modified = this.state.modified? 'Modified' : 'Saved'
       var wrapperClasses = React.addons.classSet({
@@ -68,7 +75,7 @@ module.exports = function(screenManager, storage) {
             <div className="statusbar-panel" id="docstate">{ modified }</div>
           </div>
 
-          <section className="editor">
+          <section className="editor" ref="editorContainer">
             <div className="text-options">
               <div className="options">
                 <span className="no-overflow">
@@ -124,6 +131,10 @@ module.exports = function(screenManager, storage) {
       }
     },
 
+    newSection: function() {
+      if (this.props.onNewSection)  this.props.onNewSection()
+    },
+
     render: function() {
       return (
         <div className="sidebar-overlay">
@@ -144,6 +155,9 @@ module.exports = function(screenManager, storage) {
                       )
                     }.bind(this))
                   }
+                  <li className="item new-item icon-new-item">
+                    <a href="#" onClick={this.newSection}>New Section</a>
+                  </li>
                 </ul>
               </li>
         
@@ -205,6 +219,10 @@ module.exports = function(screenManager, storage) {
     updateSidebar: function(data) {
       this.refs.sidebar.onTextUpdated(data)
     },
+
+    addNewSection: function() {
+      this.refs.editor.addNewSection()
+    },
     
     render: function() {
       var screenClasses = React.addons.classSet({
@@ -220,7 +238,9 @@ module.exports = function(screenManager, storage) {
                   initialText={this.props.initialText}
                   novel={this.props.novel}
                   ref="editor" />
-          <Sidebar onCancel={this.deactivateSidebar} ref="sidebar" />
+          <Sidebar onCancel={this.deactivateSidebar} 
+                   onNewSection={this.addNewSection}
+                   ref="sidebar" />
         </div>
       )
     }
