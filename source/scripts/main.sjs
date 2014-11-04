@@ -42,11 +42,11 @@ module.exports = function(window, document, $) {
       });
     }
 
-    function navigate(url, data) {
+    function navigate(url, props, data) {
       if (!(url in screenMap))
         throw new Error('No screen for ' + url);
 
-      changeToScreen(screenMap[url], data);
+      changeToScreen(screenMap[url](props), data);
     }
 
     function register(url, screen) {
