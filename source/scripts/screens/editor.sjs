@@ -18,6 +18,10 @@ module.exports = function(screenManager, storage) {
 
     componentDidMount: function() {
       this.refs.article.getDOMNode().innerHTML = this.props.initialText
+      this.setState({
+        words: countWords(this.refs.article.getDOMNode().innerText),
+        modified: false
+      });
       zenpen.init();
       zenpen.onChange.add(this.handleStateUpdate);
     },
