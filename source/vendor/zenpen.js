@@ -48,6 +48,7 @@ var editor = (function() {
   var lastSelection;
 
   var onChange = signal();
+  var onSelect = signal();
 
   function notifyChange() {
     onChange({
@@ -66,7 +67,7 @@ var editor = (function() {
 		// Set cursor position
 		var range = document.createRange();
 		var selection = window.getSelection();
-		range.setStart(headerField, 1);
+		range.setStart(contentField, 1);
 		selection.removeAllRanges();
 		selection.addRange(range);
 
@@ -154,6 +155,7 @@ var editor = (function() {
 
 		var selection = window.getSelection();
 
+    onSelect(selection);
 
 		if ( (event.target.className === "url-input" ||
 		    event.target.classList.contains( "url" ) ||
@@ -404,7 +406,8 @@ var editor = (function() {
 	return {
 		init: init,
     onChange: onChange,
-    moveToEnd: moveToEnd
+    onSelect: onSelect,
+    moveToEnd: moveToEnd    
 	}
 
 })();

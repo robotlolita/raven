@@ -11,13 +11,41 @@ module.exports = function(screenManager, storage) {
     return text.trim().split(/\s+/).length
   }
 
+
+
+  var WordCount = React.createClass({
+    getDefaultProps: function() {
+      return { text: '', selection: '' }
+    },
+
+    selectedText: function(words) {
+      return (
+        <span className="selected-words-panel">
+          (<strong>{words}</strong> selected)
+        </span>
+      )
+    },
+
+    render: function() {
+      return (
+        <div className="statusbar-panel" id="wordcount">
+          <strong>{countWords(this.props.text)}</strong> words
+          {
+            this.props.selection?   this.selectedText(countWords(this.props.selection))
+            : /* otherwise */       <span />
+          }
+        </div>
+      )
+    }
+  });
+
   var Editor = React.createClass({
     getInitialState: function() {
       return {
-        words: 0,
         modified: false,
         text: this.props.initialText,
-        plainText: ''
+        plainText: '',
+        selectedText: ''
       }
     },
 
@@ -26,13 +54,13 @@ module.exports = function(screenManager, storage) {
       article.innerHTML = this.props.initialText;
       var text = article.innerText;
       this.setState({
-        words: countWords(text),
         text: article.innerHTML,
         plainText: text,
         modified: false
       });
       zenpen.init();
       zenpen.onChange.add(this.handleStateUpdate);
+      zenpen.onSelect.add(this.handleSelectionChange);
       if (this.props.onLoaded)  this.props.onLoaded({
         content: article,
         contentText: article.innerText
@@ -43,11 +71,14 @@ module.exports = function(screenManager, storage) {
       this.setState({ modified: false });
     },
 
+    handleSelectionChange: function(selection) {
+      this.setState({ selectedText: selection.toString() })
+    },
+
     handleStateUpdate: function(data) {
       this.setState({ 
-        words: countWords(data.contentText),
         text: data.content.innerHTML,
-        plainText: data.content.innerText,
+        plainText: data.contentText,
         modified: true
       });
 
@@ -71,7 +102,7 @@ module.exports = function(screenManager, storage) {
       return (
         <div className="editor-container">
           <div className="statusbar">
-            <div className="statusbar-panel" id="wordcount"><strong>{this.state.words}</strong> words</div>
+            <WordCount text={this.state.plainText} selection={this.state.selectedText} />
             <div className="statusbar-panel" id="docstate">{ modified }</div>
           </div>
 
