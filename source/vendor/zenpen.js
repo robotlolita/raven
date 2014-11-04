@@ -41,7 +41,7 @@ var editor = (function() {
 	var headerField, contentField, cleanSlate, lastType, currentNodeList, savedSelection;
 
 	// Editor Bubble elements
-	var textOptions, optionsBox, boldButton, italicButton, quoteButton, urlButton, urlInput;
+	var textOptions, optionsBox, boldButton, italicButton, quoteButton, headerButton, urlButton, urlInput;
 
 	var composing;
 
@@ -70,21 +70,16 @@ var editor = (function() {
 		selection.removeAllRanges();
 		selection.addRange(range);
 
+    document.execCommand('defaultParagraphSeparator', false, 'p');
 		createEventBindings();
 	}
 
 	function createEventBindings() {
 
 		// Key up bindings
-		if ( supportsHtmlStorage() ) {
-
-			document.onkeyup = function( event ) {
-				checkTextHighlighting( event );
-        notifyChange();
-			}
-
-		} else {
-			document.onkeyup = checkTextHighlighting;
+	  document.onkeyup = function( event ) {
+		  checkTextHighlighting( event );
+      notifyChange();
 		}
 
 		// Mouse bindings
@@ -119,7 +114,10 @@ var editor = (function() {
 
 		headerField = document.querySelector( '.header' );
 		contentField = document.querySelector( '.content' );
+    window.$(contentField).on('click', notifyChange);
+
 		textOptions = document.querySelector( '.text-options' );
+    window.$(textOptions).on('click', notifyChange);
 
 		optionsBox = textOptions.querySelector( '.options' );
 
@@ -131,6 +129,9 @@ var editor = (function() {
 
 		quoteButton = textOptions.querySelector( '.quote' );
 		quoteButton.onclick = onQuoteClick;
+
+    headerButton = textOptions.querySelector( '.add-header' );
+    headerButton.onclick = onHeaderClick;
 
 		urlButton = textOptions.querySelector( '.url' );
 		urlButton.onmousedown = onUrlClick;
@@ -211,6 +212,12 @@ var editor = (function() {
 			quoteButton.className = "quote entypo"
 		}
 
+    if ( hasNode( currentNodeList, 'H2' ) ) {
+      headerButton.className = 'header active'
+    } else {
+      headerButton.className = 'header'
+    }
+
 		if ( hasNode( currentNodeList, 'A') ) {
 			urlButton.className = "url entypo active"
 		} else {
@@ -260,6 +267,15 @@ var editor = (function() {
 
 		return !!nodeList[ name ];
 	}
+
+  function onHeaderClick() {
+    var nodeNames = findNodes(window.getSelection().focusNode);
+    if (hasNode(nodeNames, 'H2')) {
+      document.execCommand('formatBlock', false, 'p');
+    } else {
+      document.execCommand('formatBlock', false, 'H2');
+    } 
+  }
 
 	function onBoldClick() {
 		document.execCommand( 'bold', false );

@@ -480,7 +480,7 @@ body {
         }
     }
 
-    header, article {
+    header, .article-wrapper {
         max-width: 70%
         min-width: 500px
         margin: 0 auto
@@ -489,12 +489,28 @@ body {
         font-size: 2.5em
         font-weight: bold
         margin-bottom: 1em
-        font-family: "PT Sans Caption", sans-serif;
+        font-family: "PT Sans Caption", sans-serif
     }
     article {
+        height: 100%
+    }
+    .article-wrapper {
         padding-bottom: 50px
         line-height: 1.4em
         font-size: 1.4em
+        position: relative
+
+        .article-placeholder {
+            color: #ccc
+            font-style: italic
+            position: absolute
+            top: 0
+            left: 0
+            z-index: -1
+        }
+        &.has-text .article-placeholder {
+            display: none
+        }
     }
     blockquote {
         border-left: 4px solid deepskyblue
@@ -505,6 +521,13 @@ body {
     }
     p {
         margin: 0.5em 0 1.5em 0
+    }
+    h2 {
+        font-size: 2em
+        font-weight: bold
+        margin: 1.5em 0 0.8em 0
+        font-family: "PT Sans Caption", sans-serif
+        color: #777
     }
     
     a {

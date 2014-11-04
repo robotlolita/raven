@@ -13,7 +13,12 @@ module.exports = function(screenManager, storage) {
 
   var Editor = React.createClass({
     getInitialState: function() {
-      return { words: 0, modified: false, text: this.props.initialText }
+      return {
+        words: 0,
+        modified: false,
+        text: this.props.initialText,
+        plainText: ''
+      }
     },
 
     componentDidMount: function() {
@@ -34,6 +39,7 @@ module.exports = function(screenManager, storage) {
       this.setState({ 
         words: countWords(data.contentText),
         text: data.content.innerHTML,
+        plainText: data.content.innerText,
         modified: true
       });
 
@@ -42,6 +48,10 @@ module.exports = function(screenManager, storage) {
 
     render: function() {
       var modified = this.state.modified? 'Modified' : 'Saved'
+      var wrapperClasses = React.addons.classSet({
+        'article-wrapper': true,
+        'has-text': this.state.plainText.trim().length
+      });
       
       return (
         <div className="editor-container">
@@ -57,6 +67,7 @@ module.exports = function(screenManager, storage) {
                   <span className="lengthen ui-inputs">
                     <button className="url entypo">📎</button>
                     <input className="url-input" type="text" placeholder="Type or Paste URL here" />
+                    <button className="add-header">H</button>
                     <button className="bold">b</button>
                     <button className="italic">i</button>
                     <button className="quote entypo">❞</button>
@@ -66,7 +77,12 @@ module.exports = function(screenManager, storage) {
             </div>
   
             <header className="header">{this.props.novel}</header>
-            <article contentEditable={true} className="content" ref="article"></article>
+            <div className={ wrapperClasses } >
+              <div className="article-placeholder">
+                Type your novel here...
+              </div>
+              <article contentEditable={true} className="content" ref="article"></article>
+            </div>
           </section>
         </div>
       )
@@ -93,7 +109,7 @@ module.exports = function(screenManager, storage) {
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Project</h3>
                 <ul className="tooling-links">
-                  <li class="item icon-close"><a href="#" onClick={this.closeProject}>Close</a></li>
+                  <li className="item icon-close"><a href="#" onClick={this.closeProject}>Close</a></li>
                 </ul>
               </li>
             </ul>
@@ -120,6 +136,10 @@ module.exports = function(screenManager, storage) {
   var Screen = React.createClass({
     getInitialState: function() {
       return { isSidebarActive: false }
+    },
+
+    getDefaultProps: function() {
+      return { initialText: '<p><br></p>' }
     },
 
     deactivateSidebar: function() {
