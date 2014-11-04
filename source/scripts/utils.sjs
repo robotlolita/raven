@@ -31,7 +31,6 @@ exports.makeDir = function(path) {
 
 exports.write = function(path, data) {
   return new Future(function(reject, resolve) {
-    console.log('Saving ' + path + ' with ' + data);
     fs.writeFile(path, data, { encoding: 'utf-8' }, function(error) {
       if (error)  reject(error)
       else        resolve()

@@ -46,32 +46,25 @@ entypo-define('Entypo', '../fonts/entypo/entypo', 'entypo')
   @extend .entypo-plus:before
 
 .icon-new-item:before
-//  content: '\e0cf'
-//  font-family: 'Typicons'
   @extend .entypo-plus:before
 
 .icon-document:before
-//  content: '\e063'
-//  font-family: 'Typicons'
   @extend .entypo-docs:before
 
 .icon-picture:before
-//  content: '\e08d'
-//  font-family: 'Typicons'
   @extend .entypo-picture:before
 
 .icon-text:before
-//  content: '\e062'
-//  font-family: 'Typicons'
   @extend .entypo-text-doc:before
 
 .icon-search:before
-//  content: '\e14f'
-//  font-family: 'Typicons'
   @extend .entypo-search:before
 
 .icon-menu:before
   @extend .entypo-list:before
+
+.icon-close:before
+  @extend .entypo-cross:before
 
 // -- Functions --------------------------------------------------------
 button(base, accent)
@@ -493,9 +486,10 @@ body {
         margin: 0 auto
     }
     header {
-        font-size: 2em
+        font-size: 2.5em
         font-weight: bold
         margin-bottom: 1em
+        font-family: "PT Sans Caption", sans-serif;
     }
     article {
         padding-bottom: 50px

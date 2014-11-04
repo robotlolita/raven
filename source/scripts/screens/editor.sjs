@@ -17,6 +17,7 @@ module.exports = function(screenManager, storage) {
     },
 
     componentDidMount: function() {
+      this.refs.article.getDOMNode().innerHTML = this.props.initialText
       zenpen.init();
       zenpen.onChange.add(this.handleStateUpdate);
     },
@@ -61,7 +62,7 @@ module.exports = function(screenManager, storage) {
             </div>
   
             <header className="header">{this.props.novel}</header>
-            <article contentEditable={true} className="content" ref="article" dangerouslySetInnerHTML={{__html: this.state.text }}></article>
+            <article contentEditable={true} className="content" ref="article"></article>
           </section>
         </div>
       )
@@ -72,7 +73,11 @@ module.exports = function(screenManager, storage) {
     notifyCancel: function() {
       if (this.props.onCancel) this.props.onCancel()
     },
-    
+
+    closeProject: function() {
+
+    },
+
     render: function() {
       return (
         <div className="sidebar-overlay">
@@ -80,6 +85,14 @@ module.exports = function(screenManager, storage) {
           <div className="sidebar">
             <components.SearchField placeholder="Search anything..." />
             
+            <ul className="tooling-list">
+              <li className="tooling-section">
+                <h3 className="tooling-section-title">Project</h3>
+                <ul className="tooling-links">
+                  <li class="item icon-close"><a href="#" onClick={this.closeProject}>Close</a></li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
       )
