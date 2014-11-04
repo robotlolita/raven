@@ -22,9 +22,13 @@ module.exports = function(screenManager, storage) {
     },
 
     componentDidMount: function() {
-      this.refs.article.getDOMNode().innerHTML = this.props.initialText
+      var article = this.refs.article.getDOMNode();
+      article.innerHTML = this.props.initialText;
+      var text = article.innerText;
       this.setState({
-        words: countWords(this.refs.article.getDOMNode().innerText),
+        words: countWords(text),
+        text: article.innerHTML,
+        plainText: text,
         modified: false
       });
       zenpen.init();
