@@ -115,8 +115,6 @@ module.exports = function(screenManager, storage) {
                        .map(function(a) {
                          return { element: a, text: a.innerText }
                        });
-      console.log('>>> Getting headings: ' + headings);
-      console.log('>>> From data: ' + data.content);
       this.setState({ sections: headings });
     },
 
