@@ -144,6 +144,6 @@ module.exports = function(screenManager, storage) {
       )
     }
   });
-  
+
   return Screen;
 }

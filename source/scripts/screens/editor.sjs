@@ -94,12 +94,16 @@ module.exports = function(screenManager, storage) {
   });
 
   var Sidebar = React.createClass({
+    getInitialState: function() {
+      return { sections: [] }
+    },
+
     notifyCancel: function() {
       if (this.props.onCancel) this.props.onCancel()
     },
 
     closeProject: function() {
-
+      screenManager.navigate('/')
     },
 
     render: function() {
@@ -110,6 +114,12 @@ module.exports = function(screenManager, storage) {
             <components.SearchField placeholder="Search anything..." />
             
             <ul className="tooling-list">
+              <li className="tooling-section">
+                <h3 className="tooling-section-title">Novel</h3>
+                <ul className="tooling-links">
+                </ul>
+              </li>
+        
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Project</h3>
                 <ul className="tooling-links">

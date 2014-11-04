@@ -25,6 +25,8 @@ module.exports = function(window, document, $) {
   }());
 
   var screenManager = (function() {
+    var screenMap = {};
+
     function changeToScreen(screen, data) {
       return new Future(function(reject, resolve) {
         if ($('#app > .screen').length === 0)  return doChange();
@@ -40,8 +42,24 @@ module.exports = function(window, document, $) {
       });
     }
 
+    function navigate(url, data) {
+      if (!(url in screenMap))
+        throw new Error('No screen for ' + url);
+
+      changeToScreen(screenMap[url], data);
+    }
+
+    function register(url, screen) {
+      if (url in screenMap)
+        throw new Error(url + ' is already registered.');
+      
+      screenMap[url] = screen;
+    }
+
     return {
-      changeTo: changeToScreen
+      changeTo: changeToScreen,
+      naviate: navigate,
+      register: register
     }
 
   }());
@@ -50,6 +68,9 @@ module.exports = function(window, document, $) {
   var React   = require('react/addons');
   var Screens = require('./screens')(screenManager, storage);
 
+  screenManager.register('/', Screens.Entry);
+  screenManager.register('/editor', Screens.Editor);
+  
   
   return $do {
     utils.makeDir(path.join(utils.novelHome())) <|> Future.of();
