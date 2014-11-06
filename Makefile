@@ -5,8 +5,7 @@ nw     = nw
 
 # -- OPTIONS -----------------------------------------------------------
 STYLUS_PATHS = -I node_modules/nib/lib \
-               -I node_modules/entypo-stylus \
-               -I node_modules/jsk-grid
+               -I node_modules/entypo-stylus
 
 # -- CONFIGURATION -----------------------------------------------------
 STYLE_SRC = source/styles
