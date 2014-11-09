@@ -43,7 +43,7 @@ module.exports = function(window, document, $) {
     }
 
     function navigate(url, props, data) {
-      console.log('>>> Navigating to ' + url + ' - ' + screenMap[url]);
+      console.log('>>> Navigating to ' + url);
       if (!(url in screenMap))
         throw new Error('No screen for ' + url);
 
