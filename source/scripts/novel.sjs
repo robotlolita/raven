@@ -3,14 +3,15 @@ var fs       = require('fs');
 var path     = require('path');
 var Future   = require('data.future');
 var Maybe    = require('data.maybe');
-var utils    = require('./utils');
-var FS       = require('io.filesystem')(fs);
-var filterM  = require('control.monads').filterM;
-var parallel = require('control.async')(Future).parallel;
-var unary    = require('core.arity').unary;
-var flip     = require('core.lambda').flip;
-var zipWith  = require('data.array/zips/zip-with');
 var extend   = require('xtend');
+var FS       = require('io.filesystem')(fs);
+var utils    = require('./utils');
+
+var { filterM }  = require('control.monads');
+var { parallel } = require('control.async')(Future);
+var { unary }    = require('core.arity');
+var { flip }     = require('core.lambda');
+var zipWith      = require('data.array/zips/zip-with');
 
 module.exports = function(homePath) {
 
