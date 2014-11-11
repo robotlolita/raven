@@ -116,8 +116,7 @@ module.exports = function(screenManager, storage) {
                 {this.props.books.map(Book)}
               </ul>
             </div>
-  
-        </div>
+          </div>
       )
     }
   });

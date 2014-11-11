@@ -74,6 +74,10 @@ module.exports = function(screenManager, storage) {
       this.setState({ modified: false });
     },
 
+    onClosed: function() {
+      zenpen.cleanup()
+    },
+
     handleSelectionChange: function(selection) {
       this.setState({ selectedText: selection.toString() })
     },
@@ -148,7 +152,7 @@ module.exports = function(screenManager, storage) {
     },
 
     closeProject: function() {
-      utils.run(screenManager.navigate('/'))
+      if (this.props.onClose)  this.props.onClose()
     },
 
     onTextUpdated: function(data) {
@@ -239,6 +243,11 @@ module.exports = function(screenManager, storage) {
       this.setState({ isSidebarActive: true })
     },
 
+    close: function() {
+      this.refs.editor.onClosed();
+      utils.run(screenManager.navigate('/'))
+    },
+
     handleChanges: function(data) {
       var self = this;
       var novel = this.state.novel;
@@ -276,6 +285,7 @@ module.exports = function(screenManager, storage) {
                   ref="editor" />
           <Sidebar onCancel={this.deactivateSidebar} 
                    onNewSection={this.addNewSection}
+                   onClose={this.close}
                    ref="sidebar" />
         </div>
       )

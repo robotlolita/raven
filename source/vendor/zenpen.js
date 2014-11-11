@@ -49,6 +49,7 @@ var editor = (function() {
 
   var onChange = signal();
   var onSelect = signal();
+  var isInitialised = false;
 
   function notifyChange() {
     onChange({
@@ -73,7 +74,14 @@ var editor = (function() {
 
     document.execCommand('defaultParagraphSeparator', false, 'p');
 		createEventBindings();
+
+    isInitialised = true;
 	}
+
+  function cleanup() {
+    onChange.removeAll();
+    onSelect.removeAll();
+  }
 
   function moveToEnd() {
     var range = document.createRange();
@@ -85,6 +93,7 @@ var editor = (function() {
   }
 
 	function createEventBindings() {
+    if (isInitialised)  return;
 
 		// Key up bindings
 	  document.onkeyup = function( event ) {
@@ -405,9 +414,10 @@ var editor = (function() {
 
 	return {
 		init: init,
+    cleanup: cleanup,
     onChange: onChange,
     onSelect: onSelect,
-    moveToEnd: moveToEnd    
+    moveToEnd: moveToEnd  
 	}
 
 })();
