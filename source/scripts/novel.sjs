@@ -5,6 +5,7 @@ var Maybe    = require('data.maybe');
 var extend   = require('xtend');
 var FS       = require('io.filesystem')(fs);
 
+var { v4:uuid }     = require('node-uuid');
 var { slugify }     = require('./utils');
 var { filterM }     = require('control.monads');
 var { parallel }    = require('control.async')(Future);
@@ -75,7 +76,7 @@ module.exports = function(homePath) {
   exports.make = make;
   function make(title) {
     return $do {
-      var dir = path.join(homePath, slugify(title));
+      var dir = path.join(homePath, slugify(title) + '-' + uuid());
       FS.makeDirectory("775", dir);
       return {
         title: title,

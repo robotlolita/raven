@@ -70,6 +70,7 @@
     "io.filesystem": "0.0.1",
     "core.arity": "~1.0.0",
     "data.array": "~0.1.3",
-    "moment": "~2.8.3"
+    "moment": "~2.8.3",
+    "node-uuid": "~1.4.1"
   }
 }
