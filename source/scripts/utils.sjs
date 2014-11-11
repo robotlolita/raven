@@ -9,7 +9,12 @@ exports.slugify = function(text) {
 
 exports.run = function(future) {
   future.fork(
-    function(error){ if (error) console.log('Error: ' + error + '\n' + error.stack) },
+    function(error){
+      if (error) {
+        console.log('Error: ' + error + '\n' + error.stack)
+      }
+      alert(error);
+    },
     function(){ }
   )
 }

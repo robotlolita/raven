@@ -4,6 +4,8 @@ module.exports = function(screenManager, storage) {
   var components = require('./components');
   var zenpen     = require('../zenpen');
   var utils      = require('../utils');
+  var Novel      = require('../novel')(utils.novelHome());
+  var extend     = require('xtend');
 
   var SAVE_DELAY = 5000;
 
@@ -45,7 +47,8 @@ module.exports = function(screenManager, storage) {
         modified: false,
         text: this.props.initialText,
         plainText: '',
-        selectedText: ''
+        selectedText: '',
+        novelTitle: this.props.novelTitle
       }
     },
 
@@ -122,7 +125,7 @@ module.exports = function(screenManager, storage) {
               </div>
             </div>
   
-            <header className="header">{this.props.novel}</header>
+            <header className="header">{this.state.novelTitle}</header>
             <div className={ wrapperClasses } >
               <div className="article-placeholder">
                 Type your novel here...
@@ -221,7 +224,7 @@ module.exports = function(screenManager, storage) {
 
   var Screen = React.createClass({
     getInitialState: function() {
-      return { isSidebarActive: false }
+      return { isSidebarActive: false, novel: this.props.novel }
     },
 
     getDefaultProps: function() {
@@ -237,11 +240,13 @@ module.exports = function(screenManager, storage) {
     },
 
     handleChanges: function(data) {
-      var novel = this.props.novel;
+      var self = this;
+      var novel = this.state.novel;
       var editor = this.refs.editor;
       var sidebar = this.refs.sidebar;
       utils.run($do {
-        utils.write(utils.novelPath(novel), data.headerText + '\n' + data.content.innerHTML);
+        newNovel <- Novel.save(extend(novel, { title: data.headerText }), data.content.innerHTML);
+        return self.setState({ novel: newNovel });
         return editor.onSaved();
         return sidebar.onTextUpdated(data);
       })
@@ -267,7 +272,7 @@ module.exports = function(screenManager, storage) {
           <Editor onChange={utils.debounce(this.handleChanges, SAVE_DELAY)}
                   onLoaded={this.updateSidebar}
                   initialText={this.props.initialText}
-                  novel={this.props.novel}
+                  novelTitle={this.state.novel.title}
                   ref="editor" />
           <Sidebar onCancel={this.deactivateSidebar} 
                    onNewSection={this.addNewSection}
