@@ -6,6 +6,7 @@ module.exports = function(screenManager, storage) {
   var utils      = require('../utils');
   var Novel      = require('../novel')(utils.novelHome());
   var path       = require('path');
+  var moment     = require('moment');
   
   var sorted = λ f xs -> xs.slice().sort(f);
 
@@ -77,10 +78,18 @@ module.exports = function(screenManager, storage) {
       })
     },
 
+    bookAge: function() {
+      return this.props.modifiedAt.cata({
+        Nothing: λ(_) -> '',
+        Just:    λ(a) -> moment(a).fromNow()
+      })
+    },
+
     render: function() {
       return (
         <li className="book icon-book" onClick={this.loadBook}>
-          <strong>{this.props.title}</strong>
+          <div className="book-title">{this.props.title}</div>
+          <div className="book-update">{this.bookAge()}</div>
         </li>
       )
     }
@@ -101,8 +110,8 @@ module.exports = function(screenManager, storage) {
   
             <div className="form-feed">
               <ul className="book-list">
-                <li className="book icon-new" onClick={this.notifyCreate}>
-                  <strong>New Book</strong>
+                <li className="book icon-new new-item" onClick={this.notifyCreate}>
+                  <div className="book-title">New Book</div>
                 </li>
                 {this.props.books.map(Book)}
               </ul>

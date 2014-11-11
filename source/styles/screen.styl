@@ -305,12 +305,12 @@ body {
     text-align: center
     margin-bottom: 2em
     color: #888
-    
+
     .book, .more {
         position: relative
         display: inline-block
-        width: 100px
-        height: 130px
+        width: 150px
+        height: 170px
         margin: 0 10px 10px 0
         border: 1px solid transparent
         transition: all 0.3s ease-out
@@ -318,22 +318,32 @@ body {
         overflow: hidden
         cursor: pointer
 
-        strong {
+        .book-title, .book-update {
             position: absolute
             z-index: 3
-            bottom: 0
             left: 0
             text-align: center
-            height: 30px
-            width: 100px
-            line-height: 30px
+            width: 100%
             padding: 0 5px
             whitespace: nowrap
             text-overflow: ellipsis
             overflow: hidden
-            font-weight: 600
             background: rgba(255, 255, 255, 0.6)
         }
+        .book-title {
+            bottom: 20px;
+            height: 30px
+            line-height: 30px
+            font-weight: 600
+        }
+        .book-update {
+            bottom: 0px;
+            height: 22px;
+            line-height: 20px;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: #aaa;
+        }        
         img {
             z-index: 2
             top: 50%
@@ -346,9 +356,9 @@ body {
             position: absolute
             top: 0px
             left: 0px
-            width: 100px
-            height: 100px
-            line-height: 100px
+            width: 100%
+            height: 120px
+            line-height: 120px
             font-size: 64px
             text-align: center
         }
@@ -365,8 +375,17 @@ body {
             transform: scale3d(0.9, 0.9, 1)
         }
     }
+    .new-item .book-title {
+        height: 50px;
+        line-height: 50px;
+        font-weight: normal;
+        font-size: 0.9em;
+        text-transform: uppercase;
+        bottom: 0px;
+        color: #aaa;
+    }
     .more {
-        line-height: 130px
+        line-height: 170px
         font-size: 1.4em
     }
 }
