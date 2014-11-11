@@ -13,7 +13,7 @@ exports.run = function(future) {
       if (error) {
         console.log('Error: ' + error + '\n' + error.stack)
       }
-      alert(error);
+      window.alert(error);
     },
     function(){ }
   )
