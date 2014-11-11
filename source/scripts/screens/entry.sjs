@@ -7,6 +7,14 @@ module.exports = function(screenManager, storage) {
   var Novel      = require('../novel')(utils.novelHome());
   var path       = require('path');
   
+  var sorted = λ f xs -> xs.slice().sort(f);
+
+  function byModification(a, b) {
+    return a.modifiedAt.isNothing?   1
+    :      b.modifiedAt.isNothing?  -1
+    :      /* otherwise */           b.modifiedAt.get() - a.modifiedAt.get()
+  }
+
   var NewNovel = React.createClass({
     getInitialState: function() {
       return { name: '' }
@@ -93,10 +101,10 @@ module.exports = function(screenManager, storage) {
   
             <div className="form-feed">
               <ul className="book-list">
-                {this.props.books.map(Book)}
                 <li className="book icon-new" onClick={this.notifyCreate}>
                   <strong>New Book</strong>
                 </li>
+                {this.props.books.map(Book)}
               </ul>
             </div>
   
@@ -115,7 +123,7 @@ module.exports = function(screenManager, storage) {
       var self = this;
       utils.run($do {
         books <- Novel.list(utils.novelHome());
-        return self.setState({ loaded: true, books: books })
+        return self.setState({ loaded: true, books: sorted(byModification)(books) })
       })
     },
 
