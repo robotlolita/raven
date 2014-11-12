@@ -275,7 +275,8 @@ module.exports = function(screenManager, storage) {
     },
 
     addNewSection: function() {
-      this.refs.editor.addNewSection()
+      this.refs.editor.addNewSection();
+      this.deactivateSidebar();
     },
     
     render: function() {
