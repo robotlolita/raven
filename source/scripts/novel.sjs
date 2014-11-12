@@ -17,14 +17,19 @@ module.exports = function(homePath) {
 
   var exports = {};
 
-  var novelHome      = λ[homePath];
-  var joinPath       = λ a b -> path.join(a, b);
-  var appendPath     = flip(joinPath);
-  var extendWithPath = λ(data, path) -> extend(data, { path: path });
-  var toNullable     = λ(a) -> a.cata({ Nothing: λ(_) -> null,
+  var novelHome        = λ[homePath];
+  var joinPath         = λ a b -> path.join(a, b);
+  var appendPath       = flip(joinPath);
+  var extendWithPath   = λ(data, path) -> extend(data, { path: path });
+  var toNullable       = λ(a) -> a.cata({ Nothing: λ(_) -> null,
                                         Just:    λ(a) -> a });
-  var writeAsText    = FS.write({ encoding: 'utf16le' });
-  var readAsText     = FS.read({ encoding: 'utf16le' });
+  var writeAsText      = FS.write({ encoding: 'utf16le' });
+  var readAsText       = FS.read({ encoding: 'utf16le' });
+  var isNovelDirectory = λ(dir) -> $do {
+                           isDir   <- FS.isDirectory(dir);
+                           hasMeta <- FS.exists(path.join(dir, 'novel.json'));
+                           return isDir && hasMeta
+                         }
 
   function normaliseNovel(a) {
     if (a.title == null)
@@ -51,7 +56,7 @@ module.exports = function(homePath) {
   function list() {
     return $do {
       folders <- FS.listDirectory(homePath);
-      dirs    <- filterM(Future, FS.isDirectory, folders.map(joinPath(homePath)));
+      dirs    <- filterM(Future, isNovelDirectory, folders.map(joinPath(homePath)));
       files   <- parallel(dirs.map(appendPath('novel.json') ->> readAsText));
       var data = files.map(unary(JSON.parse) ->> normaliseNovel)
       return zipWith(extendWithPath, data, dirs);
