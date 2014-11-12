@@ -1,11 +1,12 @@
 module.exports = function(screenManager, storage) {
   
-  var React      = require('react/addons');
-  var components = require('./components');
-  var zenpen     = require('../zenpen');
-  var utils      = require('../utils');
-  var Novel      = require('../novel')(utils.novelHome());
-  var extend     = require('xtend');
+  var React        = require('react/addons');
+  var components   = require('./components');
+  var utils        = require('../utils');
+  var Novel        = require('../novel')(utils.novelHome());
+  var extend       = require('xtend');
+  var MediumEditor = require('medium-editor');
+  var $            = jQuery;
 
   var SAVE_DELAY = 5000;
 
@@ -53,17 +54,31 @@ module.exports = function(screenManager, storage) {
     },
 
     componentDidMount: function() {
+      var root = this.refs.editorContainer.getDOMNode();
       var article = this.refs.article.getDOMNode();
-      article.innerHTML = this.props.initialText;
+      var header = this.refs.header.getDOMNode();
+
+      article.innerHTML = this.state.text;
+      header.innerText = this.state.novelTitle;
       var text = article.innerText;
       this.setState({
         text: article.innerHTML,
         plainText: text,
-        modified: false
+        modified: false,
+        editor: new MediumEditor(root.querySelectorAll('.editable'))
       });
-      zenpen.init();
-      zenpen.onChange.add(this.handleStateUpdate);
-      zenpen.onSelect.add(this.handleSelectionChange);
+      
+      $(root).on('input', '.editable', function() {
+        this.handleStateUpdate({
+          content: article,
+          header: header,
+          contentText: article.innerText,
+          headerText: header.innerText
+        })
+      }.bind(this));
+
+      $(root).on('mouseup mousedown', this.handleSelectionChange);
+
       if (this.props.onLoaded)  this.props.onLoaded({
         content: article,
         contentText: article.innerText
@@ -75,11 +90,12 @@ module.exports = function(screenManager, storage) {
     },
 
     onClosed: function() {
-      zenpen.cleanup()
+      this.state.editor.deactivate();
+      $(root).off('input select')
     },
 
-    handleSelectionChange: function(selection) {
-      this.setState({ selectedText: selection.toString() })
+    handleSelectionChange: function() {
+      this.setState({ selectedText: window.getSelection().toString() })
     },
 
     handleStateUpdate: function(data) {
@@ -95,16 +111,17 @@ module.exports = function(screenManager, storage) {
     addNewSection: function() {
       var editorContainer = this.refs.editorContainer.getDOMNode();
       var article = this.refs.article.getDOMNode();
-      zenpen.moveToEnd();
+      var range = document.createRange();
+      range.selectNodeContents(article);
+      range.collapse(false);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
       editorContainer.scrollTop = article.scrollHeight
     },
 
     render: function() {
       var modified = this.state.modified? 'Modified' : 'Saved'
-      var wrapperClasses = React.addons.classSet({
-        'article-wrapper': true,
-        'has-text': this.state.plainText.trim().length
-      });
       
       return (
         <div className="editor-container">
@@ -129,12 +146,9 @@ module.exports = function(screenManager, storage) {
               </div>
             </div>
   
-            <header className="header">{this.state.novelTitle}</header>
-            <div className={ wrapperClasses } >
-              <div className="article-placeholder">
-                Type your novel here...
-              </div>
-              <article contentEditable={true} className="content" ref="article"></article>
+            <header id="editor-header" className="editable header" ref="header"></header>
+            <div className="article-wrapper">
+              <article id="editor-article" className="editable content" ref="article"></article>
             </div>
           </section>
         </div>

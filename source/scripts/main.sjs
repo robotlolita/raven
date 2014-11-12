@@ -7,6 +7,7 @@ module.exports = function(window, document, $) {
   global.window    = window;
   global.document  = document;
   global.navigator = window.navigator;
+  global.jQuery    = $;
 
   var storage = (function() {
     var store = window.localStorage;
