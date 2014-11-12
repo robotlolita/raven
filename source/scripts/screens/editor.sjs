@@ -65,7 +65,16 @@ module.exports = function(screenManager, storage) {
         text: article.innerHTML,
         plainText: text,
         modified: false,
-        editor: new MediumEditor(root.querySelectorAll('.editable'))
+        headerEditor: new MediumEditor([header], {
+          buttons: [],
+          disableReturn: true,
+          placeholder: 'Your novel\'s title'
+        }),
+        editor: new MediumEditor([article], {
+          buttons: ['bold', 'italic', 'underline', 'header1', 'quote'],
+          firstHeader: 'h2',
+          placeholder: 'Type your novel here...'
+        })
       });
       
       $(root).on('input', '.editable', function() {
@@ -91,7 +100,8 @@ module.exports = function(screenManager, storage) {
 
     onClosed: function() {
       this.state.editor.deactivate();
-      $(root).off('input select')
+      this.state.headerEditor.deactivate();
+      $(root).off('input select mouseup mousedown')
     },
 
     handleSelectionChange: function() {
@@ -131,21 +141,6 @@ module.exports = function(screenManager, storage) {
           </div>
 
           <section className="editor" ref="editorContainer">
-            <div className="text-options">
-              <div className="options">
-                <span className="no-overflow">
-                  <span className="lengthen ui-inputs">
-                    <button className="url entypo">📎</button>
-                    <input className="url-input" type="text" placeholder="Type or Paste URL here" />
-                    <button className="add-header">H</button>
-                    <button className="bold">b</button>
-                    <button className="italic">i</button>
-                    <button className="quote entypo">❞</button>
-                  </span>
-                </span>
-              </div>
-            </div>
-  
             <header id="editor-header" className="editable header" ref="header"></header>
             <div className="article-wrapper">
               <article id="editor-article" className="editable content" ref="article"></article>
