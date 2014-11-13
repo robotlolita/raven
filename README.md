@@ -33,5 +33,5 @@ $ make run                      # This assumes `nw` is in your PATH
 
 
 - - -
-Raven is MIT licensed, ZenPen is under the Apache licence;
+Raven is MIT licensed
 
