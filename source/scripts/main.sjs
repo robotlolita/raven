@@ -15,13 +15,17 @@ module.exports = function(window, document, $) {
     
     return {
       at: function(key) {
-        return key in store?    Future.of(JSON.parse(store[key]))
-        :      /* otherwise */  Future.rejected(new Error('Key not in the storage'))
+        return new Future(function(reject, resolve) {
+            key in store?    resolve(JSON.parse(store[key]))
+          : /* otherwise */  reject(new Error('Key not in the storage'))
+        })
       },
 
       put: function(key, value) {
-        store[key] = JSON.stringify(value);
-        return Future.of(store[key])
+        return new Future(function(reject, resolve) {
+          store[key] = JSON.stringify(value);
+          resolve(store[key])
+        })
       }
     }
   }());
