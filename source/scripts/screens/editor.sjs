@@ -187,8 +187,6 @@ module.exports = function(screenManager, storage) {
         <div className="sidebar-overlay">
           <div className="overlay-area" onClick={this.notifyCancel}></div>
           <div className="sidebar">
-            <components.SearchField placeholder="Search anything..." />
-            
             <ul className="tooling-list">
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Chapters</h3>
