@@ -56,7 +56,19 @@ css:
 css-watch:
 	STYLUS_OPTIONS="--watch" $(MAKE) css
 
-run: www/index.html fonts css scripts
+prebuild: www/index.html fonts css scripts
+
+run: prebuild
 	$(nw) .
+
+package: prebuild
+	rm -rf dist
+	mkdir -p dist/app
+	cp package.json dist/app
+	cp www dist/app -R
+	cd dist/app && npm install --production
+	node ./tools/build
+	rm -rf dist/app
+
 
 .PHONY: css css-watch fonts clean

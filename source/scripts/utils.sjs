@@ -1,12 +1,10 @@
-var slug = require('slug');
+var slug = require('to-slug');
 var fs = require('fs');
 var path = require('path');
 var Future = require('data.future');
 var $ = jQuery;
 
-exports.slugify = function(text) {
-  return slug(text).toLowerCase()
-}
+exports.slugify = slug;
 
 exports.run = function(future) {
   future.fork(
