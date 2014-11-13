@@ -30,8 +30,8 @@ Raven is a minimal, distraction-free text editor with good typography.
 
 [linux-32]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-linux32.zip
 [linux-64]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-linux64.zip
-[win]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-osx.zip
-[mac]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-win.zip
+[mac]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-osx.zip
+[win]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-win.zip
 
 ## Building
 
