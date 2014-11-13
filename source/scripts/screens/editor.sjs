@@ -191,7 +191,7 @@ module.exports = function(screenManager, storage) {
             
             <ul className="tooling-list">
               <li className="tooling-section">
-                <h3 className="tooling-section-title">Novel</h3>
+                <h3 className="tooling-section-title">Chapters</h3>
                 <ul className="tooling-links">
                   {
                     this.state.sections.map(function(section, i) {
@@ -203,13 +203,13 @@ module.exports = function(screenManager, storage) {
                     }.bind(this))
                   }
                   <li className="item new-item icon-new-item">
-                    <a href="#" onClick={this.newSection}>New Section</a>
+                    <a href="#" onClick={this.newSection}>New Chapter</a>
                   </li>
                 </ul>
               </li>
         
               <li className="tooling-section">
-                <h3 className="tooling-section-title">Project</h3>
+                <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
                   <li className="item icon-close"><a href="#" onClick={this.closeProject}>Close</a></li>
                 </ul>
