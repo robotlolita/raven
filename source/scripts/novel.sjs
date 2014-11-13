@@ -13,11 +13,11 @@ var { unary }       = require('core.arity');
 var { flip, curry } = require('core.lambda');
 var zipWith         = require('data.array/zips/zip-with');
 
-module.exports = function(homePath) {
+module.exports = function(storage) {
 
   var exports = {};
 
-  var novelHome        = λ[homePath];
+  var novelHome        = storage.at('settings.home');
   var joinPath         = λ a b -> path.join(a, b);
   var appendPath       = flip(joinPath);
   var extendWithPath   = λ(data, path) -> extend(data, { path: path });
@@ -55,8 +55,9 @@ module.exports = function(homePath) {
   exports.list = list;
   function list() {
     return $do {
-      folders <- FS.listDirectory(homePath);
-      dirs    <- filterM(Future, isNovelDirectory, folders.map(joinPath(homePath)));
+      dir     <- novelHome;
+      folders <- FS.listDirectory(dir);
+      dirs    <- filterM(Future, isNovelDirectory, folders.map(joinPath(dir)));
       files   <- parallel(dirs.map(appendPath('novel.json') ->> readAsText));
       var data = files.map(unary(JSON.parse) ->> normaliseNovel)
       return zipWith(extendWithPath, data, dirs);
@@ -81,7 +82,8 @@ module.exports = function(homePath) {
   exports.make = make;
   function make(title) {
     return $do {
-      var dir = path.join(homePath, slugify(title) + '-' + uuid());
+      base <- novelHome;
+      var dir = path.join(base, slugify(title) + '-' + uuid());
       FS.makeDirectory("775", dir);
       return {
         title: title,

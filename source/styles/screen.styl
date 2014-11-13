@@ -125,6 +125,9 @@ body {
     color: base-font-colour
     background: base-colour
 }
+input {
+    font-family: "Source Sans Pro", sans;
+}
 
 #app-title {
     position: fixed
@@ -746,5 +749,31 @@ body {
                 text-align: center
             }
         }
+    }
+}
+#novel-home-selection {
+    .current-home {
+        height: 48px;
+        line-height: 48px;
+
+        input {
+            font-size: 16px;
+            font-weight: 300;
+            padding: 5px 20px;
+        }
+        .input-action-button {
+            button: control-focus-colour control-focus-colour;
+            position: absolute;
+            margin: 0px;
+            padding: 0 20px;
+            right: 0px;
+            top: 0px;
+            z-index: 3;
+        }
+    }
+    .footer-notes {
+        text-align: center;
+        color: #aaa;
+        font-size: 1.1em;
     }
 }

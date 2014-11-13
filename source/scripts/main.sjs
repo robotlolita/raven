@@ -1,6 +1,5 @@
 var Future  = require('data.future');
 var Maybe   = require('data.maybe');
-var utils   = require('./utils');
 var path    = require('path');
 
 module.exports = function(window, document, $) {
@@ -8,6 +7,8 @@ module.exports = function(window, document, $) {
   global.document  = document;
   global.navigator = window.navigator;
   global.jQuery    = $;
+
+  var utils   = require('./utils');
 
   var storage = (function() {
     var store = window.localStorage;
@@ -74,8 +75,9 @@ module.exports = function(window, document, $) {
   screenManager.register('/editor', Screens.Editor);
   
   
-  return $do {
-    utils.makeDir(path.join(utils.novelHome())) <|> Future.of();
-    screenManager.changeTo(Screens.Entry())
-  }
+  return storage.at('settings.home').cata({
+    Rejected: λ(_) -> screenManager.changeTo(Screens.SetupFolder()),
+    Resolved: λ(_) -> screenManager.changeTo(Screens.Entry())
+  }).chain(λ(a) -> a);
+
 }

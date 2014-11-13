@@ -2,6 +2,7 @@ var slug = require('slug');
 var fs = require('fs');
 var path = require('path');
 var Future = require('data.future');
+var $ = jQuery;
 
 exports.slugify = function(text) {
   return slug(text).toLowerCase()
@@ -25,50 +26,6 @@ exports.home = function() {
   :      /* otherwise */                env.HOME
 }
 
-exports.makeDir = function(path) {
-  return new Future(function(reject, resolve) {
-    fs.mkdir(path, function(error) {
-      if (error)  reject(error)
-      else        resolve()
-    })
-  })
-}
-
-exports.write = function(path, data) {
-  return new Future(function(reject, resolve) {
-    fs.writeFile(path, data, { encoding: 'utf-8' }, function(error) {
-      if (error)  reject(error)
-      else        resolve()
-    })
-  })
-}
-
-exports.read = function(path) {
-  return new Future(function(reject, resolve) {
-    fs.readFile(path, { encoding: 'utf-8' }, function(error, data) {
-      if (error)  reject(error)
-      else        resolve(data)
-    })
-  })
-}
-
-exports.listDir = function(path) {
-  return new Future(function(reject, resolve) {
-    fs.readdir(path, function(error, data) {
-      if (error)  reject(error)
-      else        resolve(data)
-    })
-  })
-}
-
-exports.novelHome = function() {
-  return path.join(exports.home(), 'Dropbox', '.Raven')
-}
-
-exports.novelPath = function(name) {
-  return path.join(exports.novelHome(), exports.slugify(name) + '.md')
-}
-
 exports.debounce = function(f, time) {
   var timer;
   return function() {
@@ -79,4 +36,22 @@ exports.debounce = function(f, time) {
       f.apply(_this, args)
     }, time)
   }
+}
+
+exports.selectDirectory = function(initial) {
+  return new Future(function(reject, resolve) {
+    var i = document.createElement('input');
+    i.type = "file";
+    i.nwdirectory = 'nwdirectory';
+    if (initial)  i.nwworkingdir = initial;
+    $(i).hide()
+        .on('change', notifySelection)
+        .appendTo($('body'))
+        .click();
+
+    function notifySelection() {
+      resolve(i.value);
+      $(i).detach();
+    }
+  })
 }

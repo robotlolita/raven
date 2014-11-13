@@ -4,7 +4,7 @@ module.exports = function(screenManager, storage) {
   var components = require('./components');
   var Editor     = require('./editor')(screenManager, storage);
   var utils      = require('../utils');
-  var Novel      = require('../novel')(utils.novelHome());
+  var Novel      = require('../novel')(storage);
   var path       = require('path');
   var moment     = require('moment');
   
@@ -130,7 +130,7 @@ module.exports = function(screenManager, storage) {
     componentWillMount: function() {
       var self = this;
       utils.run($do {
-        books <- Novel.list(utils.novelHome());
+        books <- Novel.list();
         return self.setState({ loaded: true, books: sorted(byModification)(books) })
       })
     },
