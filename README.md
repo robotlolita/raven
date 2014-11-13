@@ -17,6 +17,24 @@ Raven is a minimal, distraction-free text editor with good typography.
 
 ## Getting Started
 
+ 1. Download the right distribution for your platform:
+
+     *  __Linux__: [32 bit][linux-32] / [64 bit][linux-64]
+     *  [__Windows__][win]
+     *  [__Mac OS X__][mac]
+
+ 2. Unzip it wherever you want the application to be;
+ 3. Double click the `Raven` / `Raven.exe` / `Raven.app` file;
+ 4. Select the folder where you want to store your novels;
+ 5. Create a new novel, and start writing.
+
+[linux-32]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-linux32.zip
+[linux-64]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-linux64.zip
+[win]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-osx.zip
+[mac]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-win.zip
+
+## Building
+
 You'll need [Node Webkit][], [Node][], `Make` and other *NIX tools (like `cat`)
 installed. Once you do, just run the following commands:
 
