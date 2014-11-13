@@ -6,6 +6,7 @@ module.exports = function(screenManager, storage) {
   var Novel        = require('../novel')(storage);
   var extend       = require('xtend');
   var MediumEditor = require('medium-editor');
+  var Window       = WebkitUI.Window.get();
   var $            = jQuery;
 
   var SAVE_DELAY = 5000;
@@ -190,6 +191,10 @@ module.exports = function(screenManager, storage) {
       if (this.props.onExport)  this.props.onExport()
     },
 
+    exitProgram: function() {
+      Window.close()
+    },
+
     render: function() {
       return (
         <div className="sidebar-overlay">
@@ -217,11 +222,20 @@ module.exports = function(screenManager, storage) {
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
-                  <li className="item item-export">
+                  <li className="item icon-export">
                     <a href="#" onClick={this.exportNovel}>Export as markdown</a>
                   </li>
                   <li className="item icon-close">
                     <a href="#" onClick={this.closeProject}>Close</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="tooling-section">
+                <h3 className="tooling-section-title">Raven</h3>
+                <ul className="tooling-links">
+                  <li className="item icon-close">
+                    <a href="#" onClick={this.exitProgram}>Exit</a>
                   </li>
                 </ul>
               </li>

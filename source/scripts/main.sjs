@@ -2,12 +2,13 @@ var Future  = require('data.future');
 var Maybe   = require('data.maybe');
 var path    = require('path');
 
-module.exports = function(window, document, $, md) {
+module.exports = function(window, document, $, md, gui) {
   global.window         = window;
   global.document       = document;
   global.navigator      = window.navigator;
   global.jQuery         = window.$;
-  global.htmlToMarkdown = window.md;
+  global.htmlToMarkdown = md;
+  global.WebkitUI       = gui;
 
   var utils   = require('./utils');
 
