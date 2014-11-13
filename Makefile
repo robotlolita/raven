@@ -44,7 +44,7 @@ www/index.html: source/index.html
 scripts: $(TGT) $(VENDOR_TGT)
 
 clean:
-	rm -rf www node_modules
+	rm -rf www node_modules dist
 
 fonts:
 	cp -R source/fonts www
