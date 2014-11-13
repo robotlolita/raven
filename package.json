@@ -35,7 +35,7 @@
   "window": {
     "title": "Raven",
     "toolbar": false,
-    "frame": true,
+    "frame": false,
     "width": 800,
     "height": 700,
     "min_width": 480,

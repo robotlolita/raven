@@ -231,14 +231,6 @@ module.exports = function(screenManager, storage) {
                 </ul>
               </li>
 
-              <li className="tooling-section">
-                <h3 className="tooling-section-title">Raven</h3>
-                <ul className="tooling-links">
-                  <li className="item icon-close">
-                    <a href="#" onClick={this.exitProgram}>Exit</a>
-                  </li>
-                </ul>
-              </li>
             </ul>
           </div>
         </div>
