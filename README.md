@@ -18,9 +18,7 @@ Raven is a minimal, distraction-free text editor with good typography.
 ## Getting Started
 
 You'll need [Node Webkit][], [Node][], `Make` and other *NIX tools (like `cat`)
-installed. You'll also need a `Dropbox` folder on your `HOME` folder (this will
-change once the screen for choosing said folder is implemented, ofc). Once you
-do, just run the following commands:
+installed. Once you do, just run the following commands:
 
 ```shell
 $ git clone git://github.com/robotlolita/raven
@@ -32,11 +30,6 @@ $ make run                      # This assumes `nw` is in your PATH
 [Node Webkit]: https://github.com/rogerwang/node-webkit
 [Node]: http://nodejs.org/
 
-
-
-## Acknowledgements
-
-This project borrows quite a bit from the [ZenPen](http://www.zenpen.io/) project;
 
 
 - - -
