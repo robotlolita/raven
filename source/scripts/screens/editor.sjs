@@ -118,6 +118,10 @@ module.exports = function(screenManager, storage) {
       if (this.props.onChange) this.props.onChange(data)
     },
 
+    getArticle: function() {
+      return this.refs.article.getDOMNode().innerHTML;
+    },
+
     addNewSection: function() {
       var editorContainer = this.refs.editorContainer.getDOMNode();
       var article = this.refs.article.getDOMNode();
@@ -182,6 +186,10 @@ module.exports = function(screenManager, storage) {
       if (this.props.onNewSection)  this.props.onNewSection()
     },
 
+    exportNovel: function() {
+      if (this.props.onExport)  this.props.onExport()
+    },
+
     render: function() {
       return (
         <div className="sidebar-overlay">
@@ -209,7 +217,12 @@ module.exports = function(screenManager, storage) {
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
-                  <li className="item icon-close"><a href="#" onClick={this.closeProject}>Close</a></li>
+                  <li className="item item-export">
+                    <a href="#" onClick={this.exportNovel}>Export as markdown</a>
+                  </li>
+                  <li className="item icon-close">
+                    <a href="#" onClick={this.closeProject}>Close</a>
+                  </li>
                 </ul>
               </li>
             </ul>
@@ -276,6 +289,15 @@ module.exports = function(screenManager, storage) {
       this.refs.editor.addNewSection();
       this.deactivateSidebar();
     },
+
+    exportNovel: function() {
+      var self = this;
+      var editor = this.refs.editor;
+      utils.run($do {
+        Novel.saveAsMarkdown(self.state.novel, editor.getArticle());
+        return window.alert('Novel successfully exported.');
+      })
+    },
     
     render: function() {
       var screenClasses = React.addons.classSet({
@@ -293,6 +315,7 @@ module.exports = function(screenManager, storage) {
                   ref="editor" />
           <Sidebar onCancel={this.deactivateSidebar} 
                    onNewSection={this.addNewSection}
+                   onExport={this.exportNovel}
                    onClose={this.close}
                    ref="sidebar" />
         </div>

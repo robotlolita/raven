@@ -55,3 +55,19 @@ exports.selectDirectory = function(initial) {
     }
   })
 }
+
+exports.saveAsDialog = function(initial) {
+  return new Future(function(reject, resolve) {
+    var i = document.createElement('input');
+    $(i).attr({ type: 'file', nwsaveas: initial })
+        .hide()
+        .on('change', notifySelection)
+        .appendTo($('body'))
+        .click();
+
+    function notifySelection() {
+      resolve(i.value);
+      $(i).detach();
+    }
+  })
+}

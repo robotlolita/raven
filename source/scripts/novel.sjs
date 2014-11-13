@@ -4,14 +4,15 @@ var Future   = require('data.future');
 var Maybe    = require('data.maybe');
 var extend   = require('xtend');
 var FS       = require('io.filesystem')(fs);
+var entities = new (require('html-entities').AllHtmlEntities);
 
-var { v4:uuid }     = require('node-uuid');
-var { slugify }     = require('./utils');
-var { filterM }     = require('control.monads');
-var { parallel }    = require('control.async')(Future);
-var { unary }       = require('core.arity');
-var { flip, curry } = require('core.lambda');
-var zipWith         = require('data.array/zips/zip-with');
+var { v4:uuid }               = require('node-uuid');
+var { slugify, saveAsDialog } = require('./utils');
+var { filterM }               = require('control.monads');
+var { parallel }              = require('control.async')(Future);
+var { unary }                 = require('core.arity');
+var { flip, curry }           = require('core.lambda');
+var zipWith                   = require('data.array/zips/zip-with');
 
 module.exports = function(storage) {
 
@@ -92,6 +93,15 @@ module.exports = function(storage) {
         tags: [],
         path: dir
       }
+    }
+  }
+
+  exports.saveAsMarkdown = curry(2, saveAsMarkdown);
+  function saveAsMarkdown(novel, text) {
+    return $do {
+      var md = htmlToMarkdown('<h1>' + entities.encode(novel.title) + '</h1>' + text);
+      file <- saveAsDialog(slugify(novel.title) + '.md');
+      FS.writeAsText(file, md);
     }
   }
 
