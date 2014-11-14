@@ -43,9 +43,9 @@ module.exports = function(screenManager, storage) {
             </div>
 
             <div className="home-selection form-feed">
-              <div className="current-home text-field field">
-                <input type="text" value={this.state.novelHome} />
-                <a href="#" className="button input-action-button" onClick={this.changeHome}>Change</a>
+              <div className="current-home text-field field" onClick={this.changeHome} >
+                <input type="text" value={this.state.novelHome} disabled="disabled" />
+                <a href="#" className="button input-action-button">Change</a>
               </div>
               <a href="#" className="button submit-button" onClick={this.selectHome}>Use this folder</a>
             </div>
