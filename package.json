@@ -40,7 +40,8 @@
     "height": 700,
     "min_width": 480,
     "min_height": 300,
-    "resizable": true
+    "resizable": true,
+    "icon": "resources/icons/png/64.png"
   },
   "devDependencies": {
     "jsk-grid": "~1.0.0",
