@@ -668,17 +668,6 @@ input, textarea {
                     left: 10px
                 }
             }
-
-            a, li {
-                action-button()
-                color: darken(invert-base-font-colour, 20%)
-                &:hover {
-                    color: invert-base-font-colour
-                }
-            }
-            li {
-                transition-property: background, color
-            }
             a {
                 color: invert-base-font-colour
                 text-decoration: none
@@ -690,10 +679,23 @@ input, textarea {
                 height: 24px
                 line-height: 24px
             }
-            .new-item a, .more-items a {
-                color: darken(invert-base-font-colour, 15%)
+            a, li {
+                action-button()
+                color: darken(invert-base-font-colour, 20%)
+                &:hover {
+                    color: invert-base-font-colour
+                }
+            }
+            li {
+                transition-property: background, color
+            }
+            .new-item, .more-items {
                 text-transform: uppercase
-                font-size: 0.9em
+
+                &, & a {
+                    color: darken(invert-base-font-colour, 35%)
+                    font-size: 0.9em
+                }
             }
             .more-items a {
                 text-align: center
