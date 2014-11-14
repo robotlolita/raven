@@ -69,13 +69,15 @@ module.exports = function(screenManager, storage) {
         headerEditor: new MediumEditor([header], {
           buttons: [],
           disableReturn: true,
-          placeholder: 'Your novel\'s title'
+          placeholder: 'Your novel\'s title',
+          disableToolbar: true
         }),
         editor: new MediumEditor([article], {
           buttons: ['bold', 'italic', 'underline', 'header1', 'quote'],
           firstHeader: 'h2',
           placeholder: 'Type your novel here...',
-          insertHrOnDoubleReturn: true
+          insertHrOnDoubleReturn: true,
+          elementsContainer: root
         })
       });
       
