@@ -12,7 +12,7 @@ window.onload = function() {
 
 
 $('#app-close-button').on('click', function() {
-  ui.Window.get().close()
+  ui.App.quit()
 });
 
 if (process.platform === 'darwin') {
