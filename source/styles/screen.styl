@@ -35,38 +35,6 @@ tertiary-light-colour = #f0eb7c
 
 entypo-define('Entypo', '../fonts/entypo/entypo', 'entypo')
 
-.icon-import:before
-  @extend .entypo-book:before
-
-.icon-book:before
-  @extend .entypo-book:before
-
-.icon-new:before
-  @extend .entypo-plus:before
-
-.icon-new-item:before
-  @extend .entypo-plus:before
-
-.icon-document:before
-  @extend .entypo-docs:before
-
-.icon-picture:before
-  @extend .entypo-picture:before
-
-.icon-text:before
-  @extend .entypo-text-doc:before
-
-.icon-search:before
-  @extend .entypo-search:before
-
-.icon-menu:before
-  @extend .entypo-list:before
-
-.icon-close:before
-  @extend .entypo-cross:before
-
-.icon-export:before
-  @extend .entypo-export:before
 
 // -- Functions --------------------------------------------------------
 actionable(x)
@@ -106,6 +74,34 @@ button(base, accent)
     padding-top: 2px
     background: darken(base, 10%)
     transition: all 0.1s ease-out
+
+icon(char)
+  &:before
+    font-family: "Typicons"
+    content: char
+
+
+// -- Icons ------------------------------------------------------------
+.icon-book:before
+  icon: "\e032"
+
+.icon-new:before
+  icon: "\e0cf"
+
+.icon-new-item:before
+  icon: "\e0cf"
+
+.icon-text
+  icon: "\e062"
+
+.icon-menu
+  icon: "\e116"
+
+.icon-close
+  icon: ""
+
+.icon-export
+  icon: "\e06d"
 
 
 // -- Browser elements -------------------------------------------------
@@ -165,7 +161,7 @@ input, textarea {
     action-button()
     position: fixed
     text-decoration: none
-    font-size: 32px
+    font-size: 24px
     color: #aaa
     right: 20px
     top: 10px
@@ -401,8 +397,9 @@ input, textarea {
             width: 100%
             height: 120px
             line-height: 120px
-            font-size: 64px
             text-align: center
+            font-size: 48px
+            color: #ccc
         }
         &:hover {
             color: base-font-colour
@@ -421,6 +418,9 @@ input, textarea {
         text-transform: uppercase;
         bottom: 0px;
         color: #aaa;
+    }
+    .new-item .icon-new {
+        icon: "\e0ce"
     }
     .more {
         line-height: 170px
@@ -543,16 +543,16 @@ input, textarea {
     position: absolute
     top: 0px
     left: 0px
-    padding: 24px
+    padding: 10px 20px
     z-index: 20
 
     .menu-button {
         action-button()
-        color: #999
-        font-size: 64px
-        line-height: 48px
-        width: 64px
-        height: 64px
+        color: #aaa
+        font-size: 24px
+        line-height: 32px
+        width: 32px
+        height: 32px
         display: inline-block
         text-decoration: none
         text-align: center
@@ -656,7 +656,7 @@ input, textarea {
                 width: 32px
                 height: 24px
                 line-height: 24px
-                font-size: 32px
+                font-size: 16px
                 text-align: center
             }
 

@@ -16,19 +16,23 @@ $('#app-close-button').on('click', function() {
 });
 
 if (process.platform === 'darwin') {
-  Mousetrap.bindGlobal("command+a", function() {
+  Mousetrap.bind("command+a", function() {
     document.execCommand("selectAll");
   });
 
-  Mousetrap.bindGlobal("command+x", function() {
+  Mousetrap.bind("command+x", function() {
     document.execCommand("cut");
   });
 
-  Mousetrap.bindGlobal("command+c", function() {
+  Mousetrap.bind("command+c", function() {
     document.execCommand("copy");
   });
 
-  Mousetrap.bindGlobal("command+v", function() {
+  Mousetrap.bind("command+v", function() {
     document.execCommand("paste");
   });
 }
+
+Mousetrap.bind("ctrl+shift+i", function() {
+  ui.Window.get().showDevTools('raven', false);
+});
