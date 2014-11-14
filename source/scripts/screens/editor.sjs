@@ -74,7 +74,8 @@ module.exports = function(screenManager, storage) {
         editor: new MediumEditor([article], {
           buttons: ['bold', 'italic', 'underline', 'header1', 'quote'],
           firstHeader: 'h2',
-          placeholder: 'Type your novel here...'
+          placeholder: 'Type your novel here...',
+          insertHrOnDoubleReturn: true
         })
       });
       
