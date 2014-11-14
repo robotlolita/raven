@@ -1,5 +1,6 @@
 var React  = require('react/addons');
 var extend = require('xtend');
+var { run, selectDirectory } = require('../utils');
 
 var TextField = React.createClass({
   getInitialState: function() {
@@ -44,7 +45,59 @@ function SearchField(props) {
   return TextField(extend(props, { isSearchField: true }))
 }
 
+var DirectoryField = React.createClass({
+  getInitialState: function() {
+    return {
+      value: this.props.initialDirectory,
+      isOver: false
+    }
+  },
+
+  getDefaultProps: function() {
+    return {
+      onChange: function(){}
+    }
+  },
+
+  selectDirectory: function() {
+    var self = this;
+    run($do {
+      newDir <- selectDirectory(self.state.value);
+      return self.setState({ value: newDir })
+      return self.props.onChange(newDir)
+    })
+  },
+
+  mouseOver: function() {
+    this.setState({ isOver: true })
+  },
+
+  mouseOut: function() {
+    this.setState({ isOver: false })
+  },
+
+  render: function() {
+    var fieldClass = React.addons.classSet({
+      'file-field': true,
+      'field': true,
+      'hovered': this.state.isOver
+    })
+    
+    return (
+      <div className={ fieldClass }
+           onClick={ this.selectDirectory }
+           onMouseEnter={ this.mouseOver }
+           onMouseLeave={ this.mouseOut }
+      >
+        <input type="text" value={ this.state.value } disabled="disabled" />
+        <a href="#" className="button input-action-button">Change</a>
+      </div>
+    )
+  }
+})
+
 module.exports = {
   TextField: TextField,
-  SearchField: SearchField
+  SearchField: SearchField,
+  DirectoryField: DirectoryField
 }

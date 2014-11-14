@@ -3,8 +3,9 @@ module.exports = function(screenManager, storage) {
   var React = require('react');
   var Future = require('data.future');
   var path  = require('path');
-  var { home, selectDirectory, run } = require('../utils');
+  var { home, run } = require('../utils');
   var { makeDirectory, exists } = require('io.filesystem')(require('fs'));
+  var { DirectoryField } = require('./components');
 
   var Screen = React.createClass({
     getInitialState: function() {
@@ -14,13 +15,8 @@ module.exports = function(screenManager, storage) {
       }
     },
 
-    changeHome: function() {
-      var oldDir = this.state.novelHome;
-      var self = this;
-      run($do {
-        newDir <- selectDirectory(oldDir);
-        return self.setState({ novelHome: newDir });
-      })
+    changeHome: function(value) {
+      this.setState({ novelHome: value })
     },
 
     selectHome: function() {
@@ -43,9 +39,9 @@ module.exports = function(screenManager, storage) {
             </div>
 
             <div className="home-selection form-feed">
-              <div className="current-home text-field field" onClick={this.changeHome} >
-                <input type="text" value={this.state.novelHome} disabled="disabled" />
-                <a href="#" className="button input-action-button">Change</a>
+              <div className="current-home">
+                <DirectoryField initialDirectory={ this.state.novelHome }
+                                onChange={ this.changeHome } />
               </div>
               <a href="#" className="button submit-button" onClick={this.selectHome}>Use this folder</a>
             </div>

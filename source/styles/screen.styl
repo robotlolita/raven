@@ -288,6 +288,51 @@ input, textarea {
     }
 }
 
+.file-field {
+    actionable: true
+    position: relative
+    height: 48px
+    line-height: 48px
+
+    input {
+        @extend .text-field input
+        font-size: 16px;
+        font-weight: 300;
+        padding: 5px 20px;
+        cursor: pointer
+
+        &:hover {
+            @extend .text-field input:focus
+        }
+    }
+    &:before {
+        @extend .text-field:before
+    }
+    &:after {
+        @extend .text-field:after
+    }
+    .input-action-button {
+        button: control-focus-colour control-focus-colour;
+        position: absolute;
+        margin: 0px;
+        padding: 0 20px;
+        right: 0px;
+        top: 0px;
+        z-index: 3;
+    }
+    &.hovered {
+        input {
+            @extend .file-field input:hover
+        }
+        &:before, &:after {
+            background-color: control-focus-colour
+        }
+        .input-action-button {
+            @extend .file-field .input-action-button:hover
+        }
+    }
+}
+
 .button {
     text-decoration: none
     actionable: true
@@ -737,26 +782,7 @@ input, textarea {
     }
 }
 #novel-home-selection {
-    .current-home {
-        height: 48px;
-        line-height: 48px;
-
-        input {
-            font-size: 16px;
-            font-weight: 300;
-            padding: 5px 20px;
-        }
-        .input-action-button {
-            button: control-focus-colour control-focus-colour;
-            position: absolute;
-            margin: 0px;
-            padding: 0 20px;
-            right: 0px;
-            top: 0px;
-            z-index: 3;
-        }
-    }
-    .footer-notes {
+     .footer-notes {
         text-align: center;
         color: #aaa;
         font-size: 1.1em;
