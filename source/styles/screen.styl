@@ -82,13 +82,13 @@ icon(char)
 
 
 // -- Icons ------------------------------------------------------------
-.icon-book:before
+.icon-book
   icon: "\e032"
 
-.icon-new:before
+.icon-new
   icon: "\e0cf"
 
-.icon-new-item:before
+.icon-new-item
   icon: "\e0cf"
 
 .icon-text
@@ -659,7 +659,26 @@ input, textarea {
                 font-size: 16px
                 text-align: center
             }
+            li:hover {
+                background: lighten(invert-base-colour, 5%)
+                margin: 0 -10px
+                padding: 0 10px
 
+                &:before {
+                    left: 10px
+                }
+            }
+
+            a, li {
+                action-button()
+                color: darken(invert-base-font-colour, 20%)
+                &:hover {
+                    color: invert-base-font-colour
+                }
+            }
+            li {
+                transition-property: background, color
+            }
             a {
                 color: invert-base-font-colour
                 text-decoration: none
