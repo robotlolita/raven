@@ -239,14 +239,30 @@ module.exports = function(screenManager, storage) {
   });
 
   var Heading = React.createClass({
+    getInitialState: function() {
+      return { inKiosk: Window.isKioskMode }
+    },
+    
     notifyMenuClick: function() {
       if (this.props.onMenu) this.props.onMenu()
     },
+
+    changeScreenMode: function() {
+      Window.toggleKioskMode()
+      this.setState({ inKiosk: !this.state.inKiosk });
+    },
     
     render: function() {
+      var screenModeClass = React.addons.classSet({
+        'menu-button': true,
+        'icon-fullscreen': !Window.isKioskMode,
+        'icon-restore-window': Window.isKioskMode
+      });
+
       return (
         <div className="editor-heading">
           <a href="#" onClick={this.notifyMenuClick} className="menu-button icon-menu"></a>
+          <a href="#" onClick={this.changeScreenMode} className={ screenModeClass }></a>
         </div>
       )
     }
