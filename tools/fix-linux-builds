@@ -1,0 +1,9 @@
+#!/bin/bash
+
+DISTDIR="$(pwd)/dist/Raven"
+FOLDERS="linux32 linux64"
+
+for folder in $FOLDERS; do
+    mv "$DISTDIR/$folder/Raven" "$DISTDIR/$folder/app"
+    cp resources/launchers/Raven.sh "$DISTDIR/$folder"
+done
