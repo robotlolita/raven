@@ -80,6 +80,23 @@ icon(char)
     font-family: "Typicons"
     content: char
 
+// -- Base classes -----------------------------------------------------
+.icon-button {
+    action-button()
+    color: #aaa
+    font-size: 24px
+    line-height: 32px
+    width: 32px
+    height: 32px
+    display: inline-block
+    text-decoration: none
+    text-align: center
+    
+    &:hover {
+        color: base-font-colour
+    }
+}
+
 
 // -- Icons ------------------------------------------------------------
 .icon-book
@@ -108,6 +125,12 @@ icon(char)
 
 .icon-restore-window
   icon: "\e014"
+
+.icon-back
+  icon: "\e047"
+
+.icon-settings
+  icon: "\e050"
 
 // -- Browser elements -------------------------------------------------
 ::-webkit-scrollbar {
@@ -240,6 +263,44 @@ input, textarea {
     }
 }
 
+.regular-screen {
+    padding: 20px 60px
+    
+    .screen-heading {
+        margin-bottom: 3em
+        position: relative
+
+        .screen-title {
+            text-transform: uppercase
+            font-weight: 600
+            color: #aaa
+            padding-top: 8px
+        }
+        .heading-buttons {
+            position: absolute
+            top: 0
+            left: -32px
+        }
+        .heading-button {
+            @extend .icon-button
+        }
+    }
+}
+
+.pretty-form {
+    .button-group {
+        text-align: right
+        margin-top: 4em
+
+        .button {
+            display: inline-block
+            margin-left: 2em
+            padding-left: 30px
+            padding-right: 30px
+        }
+    }
+}
+
 .field {
     margin: 0.5em 0 1em 0
 
@@ -297,10 +358,20 @@ input, textarea {
 
 .file-field {
     actionable: true
-    position: relative
-    height: 48px
-    line-height: 48px
 
+    .base-field-group {
+        position: relative
+        height: 48px
+        line-height: 48px
+
+        &:before {
+            @extend .text-field:before
+        }
+        &:after {
+            @extend .text-field:after
+        }
+    }
+    
     input {
         @extend .text-field input
         font-size: 16px;
@@ -311,12 +382,6 @@ input, textarea {
         &:hover {
             @extend .text-field input:focus
         }
-    }
-    &:before {
-        @extend .text-field:before
-    }
-    &:after {
-        @extend .text-field:after
     }
     .input-action-button {
         button: control-focus-colour control-focus-colour;
@@ -331,7 +396,7 @@ input, textarea {
         input {
             @extend .file-field input:hover
         }
-        &:before, &:after {
+        .base-field-group:before, .base-field-group:after {
             background-color: control-focus-colour
         }
         .input-action-button {
@@ -630,19 +695,7 @@ input, textarea {
     z-index: 20
 
     .menu-button {
-        action-button()
-        color: #aaa
-        font-size: 24px
-        line-height: 32px
-        width: 32px
-        height: 32px
-        display: inline-block
-        text-decoration: none
-        text-align: center
-
-        &:hover {
-            color: base-font-colour
-        }
+        @extend .icon-button
     }
 }
 .sidebar-overlay {

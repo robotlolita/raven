@@ -123,8 +123,10 @@ module.exports = function(window, document, $, md, gui) {
 
   screenManager.register('/', Screens.Entry);
   screenManager.register('/editor', Screens.Editor);
+  screenManager.register('/dialog/settings', Screens.Settings);
   
-  
+
+
   return storage.at('settings.home').cata({
     Rejected: λ(_) -> screenManager.changeTo(screenManager.DONT_STACK, Screens.SetupFolder()),
     Resolved: λ(_) -> screenManager.changeTo(screenManager.DONT_STACK, Screens.Entry())

@@ -55,7 +55,8 @@ var DirectoryField = React.createClass({
 
   getDefaultProps: function() {
     return {
-      onChange: function(){}
+      onChange: function(){},
+      label: ''
     }
   },
 
@@ -89,8 +90,11 @@ var DirectoryField = React.createClass({
            onMouseEnter={ this.mouseOver }
            onMouseLeave={ this.mouseOut }
       >
-        <input type="text" value={ this.state.value } disabled="disabled" />
-        <a href="#" className="button input-action-button">Change</a>
+        <label>{ this.props.label }</label>
+        <div className="base-field-group">
+          <input type="text" value={ this.state.value } disabled="disabled" />
+          <a href="#" className="button input-action-button">Change</a>
+        </div>
       </div>
     )
   }

@@ -1,6 +1,7 @@
 module.exports = function(screenManager, storage) {
   
   var React        = require('react/addons');
+  var Future       = require('data.future');
   var components   = require('./components');
   var utils        = require('../utils');
   var Novel        = require('../novel')(storage);
@@ -194,8 +195,15 @@ module.exports = function(screenManager, storage) {
       if (this.props.onExport)  this.props.onExport()
     },
 
-    exitProgram: function() {
-      Window.close()
+    showSettings: function() {
+      utils.run($do {
+        home <- storage.at('settings.home') <|> Future.of(path.join(utils.home(), '.Raven'));
+        author <- storage.at('settings.author') <|> Future.of('');
+        screenManager.navigate(screenManager.STACK, '/dialog/settings', {
+          initialHome: home,
+          initialAuthor: author
+        })
+      })
     },
 
     render: function() {
@@ -230,6 +238,15 @@ module.exports = function(screenManager, storage) {
                   </li>
                   <li className="item icon-close">
                     <a href="#" onClick={this.closeProject}>Close</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li className="tooling-section">
+                <h3 className="tooling-section-title">Raven</h3>
+                <ul className="tooling-links">
+                  <li className="item icon-settings">
+                    <a href="#" onClick={this.showSettings}>Settings</a>
                   </li>
                 </ul>
               </li>

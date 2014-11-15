@@ -19,6 +19,7 @@ module.exports = function(storage) {
   var exports = {};
 
   var novelHome        = storage.at('settings.home');
+  var authorName       = storage.at('settings.author');
   var joinPath         = λ a b -> path.join(a, b);
   var appendPath       = flip(joinPath);
   var extendWithPath   = λ(data, path) -> extend(data, { path: path });
@@ -65,6 +66,20 @@ module.exports = function(storage) {
     }
   }
 
+  exports.migrate = migrate;
+  function migrate(oldDir, newDir) {
+    if (oldDir === newDir)  return Future.of(null);
+    
+    return $do {
+      flag <- FS.exists(newDir);
+      flag? Future.of(null) : makeDirectory("775", newDir);
+      files <- FS.listDirectory(oldDir);
+      folders <- filterM(Future, isNovelDirectory, files.map(joinPath(oldDir)));
+      parallel <| folders.map(λ(a) -> FS.rename(a, path.join(newDir, path.basename(a))))
+      return null
+    }
+  }
+
   exports.load = load;
   function load(novel) {
     return readAsText(path.join(novel.path, 'contents'));
@@ -84,11 +99,12 @@ module.exports = function(storage) {
   function make(title) {
     return $do {
       base <- novelHome;
+      author <- authorName.cata({ Rejected: λ(_) -> Maybe.Nothing(), Resolved: Maybe.of });
       var dir = path.join(base, slugify(title) + '-' + uuid());
       FS.makeDirectory("775", dir);
       return {
         title: title,
-        author: Maybe.Nothing(),
+        author: author,
         modifiedAt: Maybe.Nothing(),
         tags: [],
         path: dir
