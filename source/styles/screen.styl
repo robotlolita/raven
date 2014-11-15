@@ -85,6 +85,16 @@ icon(char)
     font-family: "Typicons"
     content: char
 
+inactive-section()
+  opacity: 0
+  position: absolute
+  top: -1000%
+
+active-section()
+  transition: opacity 250ms ease-in
+  opacity: 1
+  position: static
+
 // -- Base classes -----------------------------------------------------
 .icon-button {
     action-button()
@@ -936,16 +946,10 @@ input, textarea {
     }
 
     .selecting-section, .saving-section, .error-section {
-        opacity: 0
-        position: absolute
-        top: -1000%
+        inactive-section()
     }
     &.mode-selecting .selecting-section, &.mode-saving .saving-section, &.mode-error .error-section {
-        transition: opacity 250ms ease-in
-        opacity: 1
-        position: relative
-        transition: none
-        z-index: 2
+        active-section()
         background: base-colour
     }
     .export-formats {
