@@ -1,6 +1,6 @@
 module.exports = function(screenManager, storage) {
 
-  var React      = require('react');
+  var React      = require('react/addons');
   var components = require('./components');
   var utils      = require('../utils');
   var Novel      = require('../novel')(storage);
@@ -44,23 +44,47 @@ module.exports = function(screenManager, storage) {
     }
   })
   
-  var FirstTime = React.createClass({
-    notifyCancel: function() {
-      if (this.props.onCancel)  this.props.onCancel()
+  var CreateBook = React.createClass({
+    getDefaultProps: function() {
+      return {
+        isFirstTime: true,
+        onCancel: function(){ }
+      }
+    },
+
+    renderFirstTimeHeading: function() {
+      return (
+        <div className="section-heading">
+          <h2 className="section-info">Hey, looks like you’re new here</h2>
+          <h3 className="section-subinfo">
+            You may create a new novel, or import an existing one.
+          </h3>
+        </div>
+      )
+    },
+    
+    renderCreateHeading: function() {
+      return (
+        <div className="section-heading">
+          <h2 className="section-info">Create a new book</h2>
+          <h3 className="section-subinfo">
+            Choose the title of your next big novel to start writing!
+          </h3>
+        </div>
+      )
     },
 
     render: function() {
       return (
-          <div className="create-a-book">
-            <div className="section-heading">
-              <h2 className="section-info">Hey, looks like you’re new here</h2>
-              <h3 className="section-subinfo">You may create a new novel, or import
-              an existing one.</h3>
-            </div>
+          <div className="create-a-book create-section">
+            {
+              this.props.isFirstTime?  this.renderFirstTimeHeading()
+              : /* otherwise */        this.renderCreateHeading()
+            }
   
             <div className="centred half form-feed">
               <NewNovel />
-              <a href="#" className="button cancel-button" onClick={this.notifyCancel}>Cancel</a>
+              <a href="#" className="button cancel-button" onClick={this.props.onCancel}>Cancel</a>
             </div>
   
           </div>
@@ -101,7 +125,7 @@ module.exports = function(screenManager, storage) {
 
     render: function() {
       return (
-        <div className="load-a-book">
+        <div className="load-a-book load-section">
             <div className="section-heading">
               <h2 className="section-info">No books open</h2>
               <h3 className="section-subinfo">Open a book to begin writing.</h3>
@@ -122,37 +146,47 @@ module.exports = function(screenManager, storage) {
 
   
   var Screen = React.createClass({
+    MODE_NONE: -1,
+    MODE_AUTO: 0,
+    MODE_LOAD: 1,
+    MODE_NEW: 2,
+    
     getInitialState: function() {
-      return { books: [], loaded: false, mode: '' }
+      return { books: [], mode: this.MODE_NONE }
     },
 
     componentWillMount: function() {
       var self = this;
       utils.run($do {
         books <- Novel.list();
-        return self.setState({ loaded: true, books: sorted(byModification)(books) })
+        return self.setState({ mode: self.MODE_AUTO, books: sorted(byModification)(books) })
       })
     },
 
     createMode: function() {
-      this.setState({ mode: 'new' })
+      this.setState({ mode: this.MODE_NEW })
     },
 
     resetMode: function() {
-      this.setState({ mode: '' })
+      this.setState({ mode: this.MODE_AUTO })
     },
 
     render: function() {
+      var screenClass = React.addons.classSet({
+        'screen': true,
+        'mode-new': (this.state.mode === this.MODE_AUTO && this.state.books.length === 0)
+                 || this.state.mode === this.MODE_NEW,
+        'mode-load': (this.state.mode === this.MODE_AUTO && this.state.books.length > 0)
+                  || this.state.mode === this.MODE_LOAD
+      });
+      
       return (
-        <div id="entry-screen" className="screen">
+        <div id="entry-screen" className={ screenClass }>
           <div className="centred welcome vertically-centred">
-            { !this.state.loaded?             
-                <div />
-            : this.state.books.length === 0 || this.state.mode == 'new'?
-                <FirstTime onCancel={this.resetMode} />
-            : /* otherwise */                 
-                <LoadABook books={this.state.books} onNew={this.createMode} />
-            }
+            <CreateBook isFirstTime={ this.state.mode === this.MODE_AUTO }
+                        onCancel={ this.resetMode }  />
+            <LoadABook books={ this.state.books } 
+                       onNew={ this.createMode } />
           </div>
         </div>
       )

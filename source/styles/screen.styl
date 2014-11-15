@@ -941,18 +941,30 @@ input, textarea {
 }
 
 #export-story-screen {
-    .welcome {
-        position: relative
-    }
+    position: relative
 
     .selecting-section, .saving-section, .error-section {
         inactive-section()
-    }
-    &.mode-selecting .selecting-section, &.mode-saving .saving-section, &.mode-error .error-section {
-        active-section()
         background: base-colour
+    }
+    &.mode-selecting .selecting-section,
+    &.mode-saving .saving-section,
+    &.mode-error .error-section {
+        active-section()
     }
     .export-formats {
         margin: 4em
+    }
+}
+#entry-screen {
+    position: relative
+
+    .load-section, .create-section {
+        inactive-section()
+        background: base-colour
+    }
+    &.mode-new .create-section,
+    &.mode-load .load-section {
+        active-section()
     }
 }
