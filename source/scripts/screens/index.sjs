@@ -9,7 +9,8 @@ module.exports = function(screenManager, storage) {
     SettingsDialog: require('./raven-config')(screenManager, storage),
     AboutDialog: require('./about')(screenManager, storage),
     StoryDialog: require('./story-metadata')(screenManager, storage),
-    ExportDialog: require('./export-novel')(screenManager, storage)
+    ExportDialog: require('./export-novel')(screenManager, storage),
+    ImportDialog: require('./import-novel')(screenManager, storage)
   }
 
 }

@@ -16,7 +16,8 @@ var zipWith                   = require('data.array/zips/zip-with');
 module.exports = function(storage) {
 
   var exports = {
-    exporters: require('./exporters')(storage)
+    exporters: require('./exporters')(storage),
+    importers: require('./importers')(storage)
   };
 
 
@@ -79,6 +80,24 @@ module.exports = function(storage) {
       folders <- filterM(Future, isNovelDirectory, files.map(joinPath(oldDir)));
       parallel <| folders.map(λ(a) -> FS.rename(a, path.join(newDir, path.basename(a))))
       return null
+    }
+  }
+
+  exports.doImport = doImport;
+  function doImport(data) {
+    return $do {
+      base <- novelHome;
+      defaultAuthor <- authorName.cata({ Rejected: λ(_) -> Maybe.Nothing(), Resolved: Maybe.of });
+      author <- return data.author <|> defaultAuthor;
+      var dir = path.join(base, slugify(data.title) + '-' + uuid());
+      FS.makeDirectory("775", dir);
+      save({
+        title: data.title,
+        author: author,
+        modifiedAt: data.modifiedAt,
+        tags: data.tags,
+        path: dir
+      }, data.text);
     }
   }
 

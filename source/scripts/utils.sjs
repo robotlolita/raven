@@ -73,6 +73,30 @@ exports.saveAsDialog = function(initial) {
   })
 };
 
+exports.chooseFileDialog = function(accept, multiple, initialDir) {
+  return new Future(function(reject, resolve) {
+    var i = document.createElement('input');
+    $(i).attr({
+      type: 'file',
+      multiple: multiple,
+      accept: accept.join(','),
+      nwworkingdir: initialDir
+    });
+    i.files.append(new window.File('', ''));
+
+    $(i).hide()
+        .on('change', notifySelection)
+        .appendTo($('body'))
+        .click();
+
+    function notifySelection() {
+      if (i.value)  resolve(i.value);
+      else          reject(new Error(''));
+      $(i).detach();
+    }
+  })
+};
+
 exports.values = function(object) {
   return Object.keys(object).map(λ(k) -> object[k])
 };

@@ -159,6 +159,9 @@ active-section()
 .icon-text-plain
   icon: "\e062"
 
+.icon-import
+  icon: "\e065"
+
 // -- Browser elements -------------------------------------------------
 ::-webkit-scrollbar {
     width: 5px
@@ -940,15 +943,15 @@ input, textarea {
     actionable: true
 }
 
-#export-story-screen {
+#export-story-screen, #import-story-screen {
     position: relative
 
-    .selecting-section, .saving-section, .error-section {
+    .selecting-section, .progress-section, .error-section {
         inactive-section()
         background: base-colour
     }
     &.mode-selecting .selecting-section,
-    &.mode-saving .saving-section,
+    &.mode-saving .progress-section,
     &.mode-error .error-section {
         active-section()
     }
@@ -956,6 +959,16 @@ input, textarea {
         margin: 4em
     }
 }
+#import-story-screen {
+    .rename-section {
+        inactive-section()
+        background: base-colour
+    }
+    &.mode-renaming .rename-section {
+        active-section()
+    }
+}
+
 #entry-screen {
     position: relative
 

@@ -5,28 +5,28 @@ module.exports = function(screenManager, storage) {
   var { run, values } = require('../utils');
   var Novel = require('../novel')(storage);
   
-  var SELECT_FORMAT   = 0;
-  var SAVING_PROGRESS = 1;
-  var SAVING_ERROR    = 2;
-
   var Screen = React.createClass({
+    MODE_SELECT: 0,
+    MODE_PROGRESS: 1,
+    MODE_ERROR: 2,
+    
     getInitialState: function() {
       return {
-        mode: SELECT_FORMAT,
+        mode: this.MODE_SELECT,
         format: { title: '' },
         errorMessage: ''
       }
     },
 
     showError: function(error) {
-      this.setState({ mode: SAVING_ERROR, errorMessage: error.message });
+      this.setState({ mode: this.MODE_ERROR, errorMessage: error.message });
       return Future.rejected();
     },
 
     exportAs: function(format) {
       var self = this;
       return function() {
-        self.setState({ mode: SAVING_PROGRESS, format: format });
+        self.setState({ mode: self.MODE_PROGRESS, format: format });
 
         return run($do {
           format.save(self.props.novel, self.props.text).orElse(self.showError);
@@ -49,7 +49,7 @@ module.exports = function(screenManager, storage) {
 
     renderFormat: function(format) {
       return (
-        <li className={ "action icon-import " + format.icon } onClick={ this.exportAs(format) }>
+        <li className={ "action " + format.icon } onClick={ this.exportAs(format) }>
           <div className="title">{ format.title }</div>
           <div className="info">{ format.description }</div>
         </li>
@@ -59,9 +59,9 @@ module.exports = function(screenManager, storage) {
     render: function() {
       var screenClass = React.addons.classSet({
         'screen': true,
-        'mode-selecting': this.state.mode === SELECT_FORMAT,
-        'mode-saving': this.state.mode === SAVING_PROGRESS,
-        'mode-error': this.state.mode === SAVING_ERROR
+        'mode-selecting': this.state.mode === this.MODE_SELECT,
+        'mode-saving': this.state.mode === this.MODE_PROGRESS,
+        'mode-error': this.state.mode === this.MODE_ERROR
       });
 
       return (
@@ -82,7 +82,7 @@ module.exports = function(screenManager, storage) {
               <a href="#" className="button cancel-button" onClick={ this.goBack }>Cancel</a>
             </div>
 
-            <div className="saving-section">
+            <div className="progress-section">
               <div className="section-heading">
                 <h2 className="section-info">Saving as { this.state.format.title }</h2>
                 <h3 className="section-subinfo">Hang on a little. We’re saving your novel.</h3>
@@ -101,7 +101,7 @@ module.exports = function(screenManager, storage) {
               <div className="frameless-buttons">
                 <a href="#" className="button submit-button" onClick={ this.reset }>Choose a different format</a>
                 <a href="#" className="button submit-button" onClick={ this.retry }>Retry exporting as { this.state.format.title }</a>
-                <a href="#" className="button cancel-button" onClick={ this.goBack }>Back</a>
+                <a href="#" className="button cancel-button" onClick={ this.goBack }>Cancel exporting</a>
               </div>
             </div>
 

@@ -110,7 +110,7 @@ module.exports = function(screenManager, storage) {
 
     render: function() {
       return (
-        <li className="book icon-book" onClick={this.loadBook}>
+        <li className="book icon-book" onClick={this.loadBook} key={ this.props.path }>
           <div className="book-title">{this.props.title}</div>
           <div className="book-update">{this.bookAge()}</div>
         </li>
@@ -150,12 +150,22 @@ module.exports = function(screenManager, storage) {
     MODE_AUTO: 0,
     MODE_LOAD: 1,
     MODE_NEW: 2,
+    RELOAD_DELAY: 5000,
     
     getInitialState: function() {
-      return { books: [], mode: this.MODE_NONE }
+      return { books: [], mode: this.MODE_NONE, reloader: null }
     },
 
     componentWillMount: function() {
+      this.reload();
+      this.setState({ reloader: setInterval(this.reload, this.RELOAD_DELAY) });
+    },
+
+    componentWillUnmount: function() {
+      clearInterval(this.state.reloader);
+    },
+
+    reload: function() {
       var self = this;
       utils.run($do {
         books <- Novel.list();
@@ -169,6 +179,12 @@ module.exports = function(screenManager, storage) {
 
     resetMode: function() {
       this.setState({ mode: this.MODE_AUTO })
+    },
+
+    importNovel: function() {
+      utils.run(screenManager.navigate(screenManager.STACK, '/dialog/import', {
+        onImported: this.reload
+      }))
     },
 
     render: function() {
@@ -187,6 +203,13 @@ module.exports = function(screenManager, storage) {
                         onCancel={ this.resetMode }  />
             <LoadABook books={ this.state.books } 
                        onNew={ this.createMode } />
+
+            <ul className="action-list">
+              <li className="action icon-import" onClick={ this.importNovel }>
+                <div className="title">Import a novel</div>
+                <div className="info">Imports an existing book to <strong>Raven</strong></div>
+              </li>
+            </ul>
           </div>
         </div>
       )

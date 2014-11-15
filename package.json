@@ -74,6 +74,7 @@
     "node-uuid": "~1.4.1",
     "medium-editor": "git://github.com/robotlolita/medium-editor#raven-1.0.0",
     "html-entities": "~1.1.1",
-    "to-slug": "0.0.0"
+    "to-slug": "0.0.0",
+    "marked": "~0.3.2"
   }
 }
