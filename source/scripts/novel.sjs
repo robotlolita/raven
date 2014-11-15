@@ -89,6 +89,13 @@ module.exports = function(storage) {
   function save(novel, text) {
     return $do {
       writeAsText(path.join(novel.path, 'contents'), text);
+      saveMetadata(novel)
+    }
+  }
+
+  exports.saveMetadata = saveMetadata;
+  function saveMetadata(novel) {
+    return $do {
       var newNovel = extend(novel, { modifiedAt: Maybe.of(new Date) });
       writeAsText(path.join(novel.path, 'novel.json'), JSON.stringify(novelToJson(newNovel)));
       return newNovel

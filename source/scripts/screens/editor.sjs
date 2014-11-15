@@ -130,6 +130,8 @@ module.exports = function(screenManager, storage) {
     addNewSection: function() {
       var editorContainer = this.refs.editorContainer.getDOMNode();
       var article = this.refs.article.getDOMNode();
+      article.appendChild($('<h2><br /></h2>').get(0));
+      
       var range = document.createRange();
       range.selectNodeContents(article);
       range.collapse(false);
@@ -165,12 +167,14 @@ module.exports = function(screenManager, storage) {
       return { sections: [] }
     },
 
-    notifyCancel: function() {
-      if (this.props.onCancel) this.props.onCancel()
-    },
-
-    closeProject: function() {
-      if (this.props.onClose)  this.props.onClose()
+    getDefaultProps: function() {
+      return {
+        onCancel: function(){ },
+        onNewSection: function(){ },
+        onNovelExport: function(){ },
+        onNovelEdit: function(){ },
+        onNovelClose: function(){ }
+      }
     },
 
     onTextUpdated: function(data) {
@@ -187,13 +191,6 @@ module.exports = function(screenManager, storage) {
       }
     },
 
-    newSection: function() {
-      if (this.props.onNewSection)  this.props.onNewSection()
-    },
-
-    exportNovel: function() {
-      if (this.props.onExport)  this.props.onExport()
-    },
 
     showSettings: function() {
       utils.run($do {
@@ -213,7 +210,7 @@ module.exports = function(screenManager, storage) {
     render: function() {
       return (
         <div className="sidebar-overlay">
-          <div className="overlay-area" onClick={this.notifyCancel}></div>
+          <div className="overlay-area" onClick={this.props.onCancel}></div>
           <div className="sidebar">
             <ul className="tooling-list">
               <li className="tooling-section">
@@ -229,7 +226,7 @@ module.exports = function(screenManager, storage) {
                     }.bind(this))
                   }
                   <li className="item new-item icon-new-item">
-                    <a href="#" onClick={this.newSection}>New Chapter</a>
+                    <a href="#" onClick={this.props.onNewSection}>New Chapter</a>
                   </li>
                 </ul>
               </li>
@@ -238,10 +235,13 @@ module.exports = function(screenManager, storage) {
                 <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
                   <li className="item icon-export">
-                    <a href="#" onClick={this.exportNovel}>Export as markdown</a>
+                    <a href="#" onClick={this.props.onNovelExport}>Export as markdown</a>
+                  </li>
+                  <li className="item icon-settings">
+                    <a href="#" onClick={this.props.onNovelEdit}>Edit metadata</a>
                   </li>
                   <li className="item icon-close">
-                    <a href="#" onClick={this.closeProject}>Close</a>
+                    <a href="#" onClick={this.props.onNovelClose}>Close</a>
                   </li>
                 </ul>
               </li>
@@ -250,7 +250,7 @@ module.exports = function(screenManager, storage) {
                 <h3 className="tooling-section-title">Raven</h3>
                 <ul className="tooling-links">
                   <li className="item icon-settings">
-                    <a href="#" onClick={this.showSettings}>Settings</a>
+                    <a href="#" onClick={this.showSettings}>Global settings</a>
                   </li>
                   <li className="item icon-about">
                     <a href="#" onClick={this.showAbout}>About Raven</a>
@@ -347,6 +347,29 @@ module.exports = function(screenManager, storage) {
         return window.alert('Novel successfully exported.');
       })
     },
+
+    editNovelMeta: function() {
+      var self = this;
+      utils.run($do {
+        screenManager.navigate(screenManager.STACK, '/dialog/story', {
+          initialAuthor: self.state.novel.author,
+          initialTags: self.state.novel.tags || [],
+          path: self.state.novel.path,
+          title: self.state.novel.title,
+          onSave: function(newData) {
+            var oldNovel = self.state.novel;
+            var currentNovel = extend(oldNovel, {
+              author: newData.author,
+              tags: newData.tags
+            });
+            return $do {
+              newNovel <- Novel.saveMetadata(currentNovel);
+              return self.setState({ novel: newNovel });
+            }
+          }
+        })
+      })
+    },
     
     render: function() {
       var screenClasses = React.addons.classSet({
@@ -364,8 +387,9 @@ module.exports = function(screenManager, storage) {
                   ref="editor" />
           <Sidebar onCancel={this.deactivateSidebar} 
                    onNewSection={this.addNewSection}
-                   onExport={this.exportNovel}
-                   onClose={this.close}
+                   onNovelExport={this.exportNovel}
+                   onNovelClose={this.close}
+                   onNovelEdit={this.editNovelMeta}
                    ref="sidebar" />
         </div>
       )

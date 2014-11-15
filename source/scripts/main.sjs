@@ -125,6 +125,7 @@ module.exports = function(window, document, $, md, gui) {
   screenManager.register('/editor', Screens.Editor);
   screenManager.register('/dialog/settings', Screens.SettingsDialog);
   screenManager.register('/dialog/about', Screens.AboutDialog);
+  screenManager.register('/dialog/story', Screens.StoryDialog);
   
 
 
