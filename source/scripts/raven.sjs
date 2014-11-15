@@ -1,4 +1,9 @@
 var ui = require('nw.gui');
+var Signal = require('./scripts/signal');
+
+window.Intent = {
+  quit: new Signal()
+};
 
 window.onload = function() {
   require('./scripts/main')(window, document, jQuery, md, ui).fork(
@@ -12,7 +17,12 @@ window.onload = function() {
 
 
 $('#app-close-button').on('click', function() {
-  ui.App.quit()
+  Intent.quit.trigger(null).fork(
+    function error(){ },
+    function success(){
+      ui.App.quit()
+    }
+  )
 });
 
 if (process.platform === 'darwin') {

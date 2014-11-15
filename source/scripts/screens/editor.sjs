@@ -3,6 +3,7 @@ module.exports = function(screenManager, storage) {
   var React        = require('react/addons');
   var Future       = require('data.future');
   var components   = require('./components');
+  var Dialogs      = require('./dialogs')(screenManager);
   var utils        = require('../utils');
   var Novel        = require('../novel')(storage);
   var extend       = require('xtend');
@@ -127,6 +128,14 @@ module.exports = function(screenManager, storage) {
 
     getArticle: function() {
       return this.refs.article.getDOMNode().innerHTML;
+    },
+
+    getHeader: function() {
+      return this.refs.header.getDOMNode().innerText;
+    },
+
+    isDirty: function() {
+      return this.state.modified
     },
 
     addNewSection: function() {
@@ -304,6 +313,28 @@ module.exports = function(screenManager, storage) {
 
     getDefaultProps: function() {
       return { initialText: '<p><br></p>' }
+    },
+
+    componentWillMount: function() {
+      window.Intent.quit.listen(this.onQuit)
+    },
+
+    componentWillUnmount: function() {
+      window.Intent.quit.deafen(this.onQuit);
+    },
+
+    onQuit: function(event) {
+      if (this.refs.editor.isDirty()) {
+        
+        var novel = this.state.novel;
+        var editor = this.refs.editor;
+        return $do {
+          utils.spawn(Dialogs.message('Raven', 'Hang on a little while we save your novel...'));
+          Novel.save(extend(novel, { title: editor.getHeader() }), editor.getArticle());
+        }
+      } else {
+        return Future.of()
+      }
     },
 
     deactivateSidebar: function() {

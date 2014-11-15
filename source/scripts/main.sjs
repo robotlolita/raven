@@ -72,6 +72,11 @@ module.exports = function(window, document, $, md, gui) {
         }
       })
     }
+    
+    function newLayer() {
+      return $(document.createElement('div')).addClass('layer').get(0)
+    }
+
 
     function changeToScreen(stack, screen, data) {
       return !current?        new Future(λ(f) -> (doChange(), f()))
@@ -84,11 +89,21 @@ module.exports = function(window, document, $, md, gui) {
         if (stack) {
           history.push(current);
         }
-        var layer = $(document.createElement('div')).addClass('layer').get(0)
+        var layer = newLayer();
         $('#app').append(layer);
         React.render(screen, layer);
         current = layer;
       }
+    }
+
+    function showDialog(screen) {
+      return new Future(function(reject, resolve) {
+        history.push(current);
+        var layer = newLayer();
+        $('#app').append(layer);
+        React.render(screen, layer);
+        current = layer;
+      });
     }
 
     function navigate(stack, url, props, data) {
@@ -108,6 +123,7 @@ module.exports = function(window, document, $, md, gui) {
 
     return {
       changeTo: changeToScreen,
+      showDialog: showDialog,
       navigate: navigate,
       register: register,
       back: back,

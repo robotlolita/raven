@@ -18,6 +18,11 @@ exports.run = function(future) {
   )
 };
 
+exports.spawn = function(future) {
+  exports.run(future);
+  return Future.of();
+}
+
 exports.home = function() {
   var env = process.env;
   return process.platform === 'win32'?  env.USERPROFILE || (env.HOMEDRIVE + env.HOMEPATH)
