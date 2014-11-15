@@ -140,6 +140,15 @@ icon(char)
 .icon-about
   icon: "\e091"
 
+.icon-html
+  icon: "\e149"
+
+.icon-markdown
+  icon: "\e062"
+
+.icon-text-plain
+  icon: "\e062"
+
 // -- Browser elements -------------------------------------------------
 ::-webkit-scrollbar {
     width: 5px
@@ -474,6 +483,9 @@ input, textarea {
         font-weight: 600
         font-size: 1.2em
         line-height: 150%
+    }
+    .info {
+        color: #aaa
     }
     &:before {
         font-size: 48px
@@ -915,4 +927,27 @@ input, textarea {
 }
 .medium-editor-toolbar {
     actionable: true
+}
+
+#export-story-screen {
+    .welcome {
+        position: relative
+    }
+
+    .selecting-section, .saving-section, .error-section {
+        opacity: 0
+        position: absolute
+        top: -1000%
+    }
+    &.mode-selecting .selecting-section, &.mode-saving .saving-section, &.mode-error .error-section {
+        transition: opacity 250ms ease-in
+        opacity: 1
+        position: relative
+        transition: none
+        z-index: 2
+        background: base-colour
+    }
+    .export-formats {
+        margin: 4em
+    }
 }

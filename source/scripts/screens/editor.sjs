@@ -174,7 +174,6 @@ module.exports = function(screenManager, storage) {
         onCancel: function(){ },
         onNewSection: function(){ },
         onNovelExport: function(){ },
-        onNovelExportHtml: function(){ },
         onNovelEdit: function(){ },
         onNovelClose: function(){ }
       }
@@ -238,10 +237,7 @@ module.exports = function(screenManager, storage) {
                 <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
                   <li className="item icon-export">
-                    <a href="#" onClick={this.props.onNovelExport}>Export as markdown</a>
-                  </li>
-                  <li className="item icon-export">
-                    <a href="#" onClick={this.props.onNovelExportHtml}>Export as HTML</a>
+                    <a href="#" onClick={this.props.onNovelExport}>Export as...</a>
                   </li>
                   <li className="item icon-settings">
                     <a href="#" onClick={this.props.onNovelEdit}>Edit metadata</a>
@@ -345,28 +341,19 @@ module.exports = function(screenManager, storage) {
       this.deactivateSidebar();
     },
 
-    exportNovelToHtml: function() {
-      var self = this;
-      var editor = this.refs.editor;
-      utils.run($do {
-        Novel.exporters.webpage(self.state.novel, editor.getArticle());
-        return showMessage('Novel successfully exported.');
-      })
-    },
-    
     exportNovel: function() {
       var self = this;
       var editor = this.refs.editor;
-      utils.run($do {
-        Novel.saveAsMarkdown(self.state.novel, editor.getArticle());
-        return showMessage('Novel successfully exported.');
-      })
+      utils.run(screenManager.navigate(screenManager.STACK, '/dialog/story/export', {
+        novel: self.state.novel,
+        text: editor.getArticle()
+      }))
     },
 
     editNovelMeta: function() {
       var self = this;
       utils.run($do {
-        screenManager.navigate(screenManager.STACK, '/dialog/story', {
+        screenManager.navigate(screenManager.STACK, '/dialog/story/meta', {
           initialAuthor: self.state.novel.author,
           initialTags: self.state.novel.tags || [],
           path: self.state.novel.path,
@@ -403,7 +390,6 @@ module.exports = function(screenManager, storage) {
           <Sidebar onCancel={this.deactivateSidebar} 
                    onNewSection={this.addNewSection}
                    onNovelExport={this.exportNovel}
-                   onNovelExportHtml={this.exportNovelToHtml}
                    onNovelClose={this.close}
                    onNovelEdit={this.editNovelMeta}
                    ref="sidebar" />

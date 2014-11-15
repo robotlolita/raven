@@ -16,13 +16,13 @@ exports.run = function(future) {
     },
     function(){ }
   )
-}
+};
 
 exports.home = function() {
   var env = process.env;
   return process.platform === 'win32'?  env.USERPROFILE || (env.HOMEDRIVE + env.HOMEPATH)
   :      /* otherwise */                env.HOME
-}
+};
 
 exports.debounce = function(f, time) {
   var timer;
@@ -34,7 +34,7 @@ exports.debounce = function(f, time) {
       f.apply(_this, args)
     }, time)
   }
-}
+};
 
 exports.selectDirectory = function(initial) {
   return new Future(function(reject, resolve) {
@@ -52,26 +52,33 @@ exports.selectDirectory = function(initial) {
       $(i).detach();
     }
   })
-}
+};
 
 exports.saveAsDialog = function(initial) {
   return new Future(function(reject, resolve) {
     var i = document.createElement('input');
-    $(i).attr({ type: 'file', nwsaveas: initial })
-        .hide()
+    $(i).attr({ type: 'file', nwsaveas: initial });
+    i.files.append(new window.File('', ''));
+
+    $(i).hide()
         .on('change', notifySelection)
         .appendTo($('body'))
         .click();
 
     function notifySelection() {
-      resolve(i.value);
+      if (i.value)  resolve(i.value);
+      else          reject(new Error(''));
       $(i).detach();
     }
   })
-}
+};
+
+exports.values = function(object) {
+  return Object.keys(object).map(λ(k) -> object[k])
+};
 
 exports.resource = path.join.bind(path, path.join(__dirname, '../../resources'));
 
 exports.showMessage = function(a) {
 
-}
+};

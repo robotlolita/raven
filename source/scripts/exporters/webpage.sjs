@@ -55,6 +55,11 @@ module.exports = function(storage) {
     }
   }
 
-  return saveAsHtml
+  return {
+    save: saveAsHtml,
+    icon: 'icon-html',
+    title: 'WebPage',
+    description: 'Exports to a web-page optimised for reading.'
+  }
 
 }

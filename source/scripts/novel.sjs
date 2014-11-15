@@ -4,7 +4,6 @@ var Future   = require('data.future');
 var Maybe    = require('data.maybe');
 var extend   = require('xtend');
 var FS       = require('io.filesystem')(fs);
-var entities = new (require('html-entities').AllHtmlEntities);
 
 var { v4:uuid }               = require('node-uuid');
 var { slugify, saveAsDialog } = require('./utils');
@@ -121,16 +120,6 @@ module.exports = function(storage) {
       }
     }
   }
-
-  exports.saveAsMarkdown = curry(2, saveAsMarkdown);
-  function saveAsMarkdown(novel, text) {
-    return $do {
-      var md = htmlToMarkdown('<h1>' + entities.encode(novel.title) + '</h1>' + text);
-      file <- saveAsDialog(slugify(novel.title) + '.md');
-      FS.writeAsText(file, md);
-    }
-  }
-
 
   return exports;
 }
