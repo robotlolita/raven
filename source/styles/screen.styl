@@ -13,6 +13,11 @@ control-focus-colour = #779ecb
 invert-base-colour = base-font-colour
 invert-base-font-colour = base-colour
 
+code-font = "ACode"
+serif-font = "ASerif"
+sans-font = "ASans"
+header-font = "ACaption"
+
 primary-accent-colour = #c44878
 primary-base-colour = #e0749e
 primary-light-colour = #e08faf
@@ -167,14 +172,14 @@ html, body, #app, #app > .layer, .screen {
     height: 100%
 }
 body {
-    font-family: "Source Sans Pro", sans
+    font-family: sans-font
     color: base-font-colour
     background: base-colour
     border: 1px solid #ccc
     -webkit-app-region: drag
 }
 input, textarea {
-    font-family: "Source Sans Pro", sans;
+    font-family: sans-font
     actionable: true
 }
 
@@ -314,7 +319,7 @@ input, textarea {
 
         code {
             color: #ccc
-            font-family: "Source Code Pro"
+            font-family: code-font
             font-size: 0.9em
         }
         strong {
@@ -580,7 +585,7 @@ input, textarea {
     height: 100%
     overflow-y: scroll
     padding: 40px 20px 30px 20px
-    font-family: "Lora", serif
+    font-family: serif-font
 
 
     header, .article-wrapper, article {
@@ -593,9 +598,10 @@ input, textarea {
     }
     header {
         font-size: 2.5em
-        font-weight: bold
+        font-weight: 800
         margin-bottom: 1em
-        font-family: "PT Sans Caption", sans-serif
+        font-family: header-font
+        color: #777
     }
     article {
         min-height: 100%
@@ -619,10 +625,10 @@ input, textarea {
     }
     h2 {
         font-size: 2em
-        font-weight: bold
+        font-weight: 800
         margin: 1.5em 0 0.8em 0
-        font-family: "PT Sans Caption", sans-serif
-        color: #777
+        font-family: header-font
+        color: #999
     }
     
     a {
@@ -678,7 +684,7 @@ input, textarea {
         left: 0px
         padding: 0 10px
         text-transform: uppercase
-        font-family: "Source Sans Pro", sans
+        font-family: sans-font
         color: #999
         font-size: 0.8em
         background: #f3f3f3
@@ -884,7 +890,7 @@ input, textarea {
         padding-top: 256px
     }
     .app-title {
-        font-family: "Lora", serif
+        font-family: serif-font
         font-size: 72px
     }
     .app-version {
