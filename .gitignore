@@ -2,3 +2,4 @@ node_modules/
 www/
 cache/
 dist/
+libudev.so.0

@@ -60,7 +60,9 @@ css-watch:
 prebuild: www/index.html static css scripts
 
 run: prebuild
-	$(nw) .
+	./tools/fix-webkit
+	LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH" $(nw) .
+
 
 package: prebuild
 	rm -rf dist
