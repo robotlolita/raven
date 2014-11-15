@@ -28,10 +28,10 @@ Raven is a minimal, distraction-free text editor with good typography.
  4. Select the folder where you want to store your novels;
  5. Create a new novel, and start writing.
 
-[linux-32]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-linux32.zip
-[linux-64]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-linux64.zip
-[mac]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-osx.zip
-[win]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha/Raven-win.zip
+[linux-32]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-linux32.tar.gz
+[linux-64]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-linux64.tar.gz
+[mac]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-osx.zip
+[win]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-win.zip
 
 ## Building
 
