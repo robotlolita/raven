@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd dist/Raven/win
+zip ../Raven-win.zip * -r
+cd -
+cd dist/Raven/osx
+zip ../Raven-osx.zip * -r
+cd -
+cd dist/Raven/linux32
+tar -czf ../Raven-linux32.tar.gz *
+cd -
+cd dist/Raven/linux64
+tar -czf ../Raven-linux64.tar.gz *
+cd -

@@ -73,6 +73,7 @@ package: prebuild
 	cd dist/app && npm install --production
 	node ./tools/build
 	./tools/fix-linux-builds
+	./tools/zip-packages
 	rm -rf dist/app
 
 
