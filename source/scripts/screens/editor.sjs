@@ -221,14 +221,14 @@ module.exports = function(screenManager, storage) {
                   {
                     this.state.sections.map(function(section, i) {
                       return (
-                        <li className="item icon-text">
-                          <a href="#" onClick={this.navigateToSection(section.element)}>{section.text}</a>
+                        <li className="item icon-text" onClick={ this.navigateToSection(section.element) }>
+                          <a href="#">{section.text}</a>
                         </li>
                       )
                     }.bind(this))
                   }
-                  <li className="item new-item icon-new-item">
-                    <a href="#" onClick={this.props.onNewSection}>New Chapter</a>
+                  <li className="item new-item icon-new-item" onClick={ this.props.onNewSection }>
+                    <a href="#">New Chapter</a>
                   </li>
                 </ul>
               </li>
@@ -236,14 +236,14 @@ module.exports = function(screenManager, storage) {
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Novel</h3>
                 <ul className="tooling-links">
-                  <li className="item icon-export">
-                    <a href="#" onClick={this.props.onNovelExport}>Export as...</a>
+                  <li className="item icon-export" onClick={ this.props.onNovelExport }>
+                    <a href="#">Export as...</a>
                   </li>
-                  <li className="item icon-settings">
-                    <a href="#" onClick={this.props.onNovelEdit}>Edit metadata</a>
+                  <li className="item icon-settings" onClick={ this.props.onNovelEdit }>
+                    <a href="#">Edit metadata</a>
                   </li>
-                  <li className="item icon-close">
-                    <a href="#" onClick={this.props.onNovelClose}>Close</a>
+                  <li className="item icon-close" onClick={ this.props.onNovelClose }>
+                    <a href="#">Close</a>
                   </li>
                 </ul>
               </li>
@@ -251,11 +251,11 @@ module.exports = function(screenManager, storage) {
               <li className="tooling-section">
                 <h3 className="tooling-section-title">Raven</h3>
                 <ul className="tooling-links">
-                  <li className="item icon-settings">
-                    <a href="#" onClick={this.showSettings}>Global settings</a>
+                  <li className="item icon-settings" onClick={ this.showSettings }>
+                    <a href="#">Global settings</a>
                   </li>
-                  <li className="item icon-about">
-                    <a href="#" onClick={this.showAbout}>About Raven</a>
+                  <li className="item icon-about" onClick={ this.showAbout }>
+                    <a href="#">About Raven</a>
                   </li>
                 </ul>
               </li>
