@@ -206,6 +206,10 @@ module.exports = function(screenManager, storage) {
       })
     },
 
+    showAbout: function() {
+      utils.run(screenManager.navigate(screenManager.STACK, '/dialog/about'));
+    },
+
     render: function() {
       return (
         <div className="sidebar-overlay">
@@ -247,6 +251,9 @@ module.exports = function(screenManager, storage) {
                 <ul className="tooling-links">
                   <li className="item icon-settings">
                     <a href="#" onClick={this.showSettings}>Settings</a>
+                  </li>
+                  <li className="item icon-about">
+                    <a href="#" onClick={this.showAbout}>About Raven</a>
                   </li>
                 </ul>
               </li>

@@ -6,7 +6,8 @@ module.exports = function(screenManager, storage) {
 
     SetupFolder: require('./folder-config')(screenManager, storage),
 
-    Settings: require('./raven-config')(screenManager, storage)
+    SettingsDialog: require('./raven-config')(screenManager, storage),
+    AboutDialog: require('./about')(screenManager, storage)
   }
 
 }

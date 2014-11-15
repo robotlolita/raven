@@ -132,6 +132,9 @@ icon(char)
 .icon-settings
   icon: "\e050"
 
+.icon-about
+  icon: "\e091"
+
 // -- Browser elements -------------------------------------------------
 ::-webkit-scrollbar {
     width: 5px
@@ -264,7 +267,7 @@ input, textarea {
 }
 
 .regular-screen {
-    padding: 20px 60px
+    padding: 10px 60px
     
     .screen-heading {
         margin-bottom: 3em
@@ -847,4 +850,38 @@ input, textarea {
         color: #aaa;
         font-size: 1.1em;
     }
+}
+#about-screen {
+    .welcome {
+        top: 20%
+    }
+    .app-description {
+        text-align: center
+        background: url("../images/logo.png") no-repeat center 70px
+        background-size: 200px 200px
+        padding-top: 256px
+    }
+    .app-title {
+        font-family: "Lora", serif
+        font-size: 72px
+    }
+    .app-version {
+        color: #aaa
+        text-transform: uppercase
+        font-size: 0.9em
+    }
+    .app-copy-info {
+        position: absolute
+        left: 0px
+        bottom: 10%
+        width: 100%
+        text-align: center
+        color: #aaa
+        font-size: 0.9em
+
+        em {
+            color: #fac
+        }
+    }
+    
 }

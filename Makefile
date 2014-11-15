@@ -46,8 +46,9 @@ scripts: $(TGT) $(VENDOR_TGT)
 clean:
 	rm -rf www node_modules dist
 
-fonts:
+static:
 	cp -R source/fonts www
+	cp -R source/images www
 
 css:
 	mkdir -p $(STYLE_DST)
@@ -56,7 +57,7 @@ css:
 css-watch:
 	STYLUS_OPTIONS="--watch" $(MAKE) css
 
-prebuild: www/index.html fonts css scripts
+prebuild: www/index.html static css scripts
 
 run: prebuild
 	$(nw) .
@@ -71,4 +72,4 @@ package: prebuild
 	rm -rf dist/app
 
 
-.PHONY: css css-watch fonts clean
+.PHONY: css css-watch static clean

@@ -123,7 +123,8 @@ module.exports = function(window, document, $, md, gui) {
 
   screenManager.register('/', Screens.Entry);
   screenManager.register('/editor', Screens.Editor);
-  screenManager.register('/dialog/settings', Screens.Settings);
+  screenManager.register('/dialog/settings', Screens.SettingsDialog);
+  screenManager.register('/dialog/about', Screens.AboutDialog);
   
 
 
