@@ -2,7 +2,7 @@
   "name": "Raven",
   "main": "www/index.html",
   "description": "A minimalist editor for writers.",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha2",
   "keywords": [
     "text editor",
     "minimalist",
