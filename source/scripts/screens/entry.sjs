@@ -2,7 +2,6 @@ module.exports = function(screenManager, storage) {
 
   var React      = require('react');
   var components = require('./components');
-  var Editor     = require('./editor')(screenManager, storage);
   var utils      = require('../utils');
   var Novel      = require('../novel')(storage);
   var path       = require('path');
@@ -29,7 +28,7 @@ module.exports = function(screenManager, storage) {
       var name = this.state.name;
       utils.run($do {
         novel <- Novel.make(name);
-        screenManager.changeTo(Editor({ novel: novel }))
+        screenManager.navigate(screenManager.DONT_STACK, '/editor', { novel: novel })
       })
     },
   
@@ -74,7 +73,7 @@ module.exports = function(screenManager, storage) {
       var props = this.props;
       utils.run($do {
         text <- Novel.load(props);
-        screenManager.changeTo(Editor({ novel: props, initialText: text }))
+        screenManager.navigate(screenManager.DONT_STACK, '/editor', { novel: props, initialText: text })
       })
     },
 

@@ -137,7 +137,7 @@ icon(char)
 html {
     overflow: hidden
 }
-html, body, #app, .screen {
+html, body, #app, #app > .layer, .screen {
     height: 100%
 }
 body {
@@ -201,16 +201,23 @@ input, textarea {
     transform: translateY(-50%)
 }
 
-
-.screen {
+#app > .layer {
     transition: all 250ms ease-in-out
     position: relative
     left: 0px
+    opacity: 1
 
     &.fading {
         opacity: 0
         left: -30%
     }
+    &.hidden {
+        display: none
+    }
+}
+
+.screen {
+    transition: all 250ms ease-in-out
     
     .section-info, .section-subinfo {
         text-align: center

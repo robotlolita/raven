@@ -25,7 +25,7 @@ module.exports = function(screenManager, storage) {
         flag <- exists(self.state.novelHome);
         flag? Future.of(null) : makeDirectory("775", self.state.novelHome);
         storage.put('settings.home', self.state.novelHome);
-        screenManager.navigate('/');
+        screenManager.navigate(screenManager.DONT_STACK, '/');
       })
     },
 

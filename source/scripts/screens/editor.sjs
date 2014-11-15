@@ -290,7 +290,7 @@ module.exports = function(screenManager, storage) {
 
     close: function() {
       this.refs.editor.onClosed();
-      utils.run(screenManager.navigate('/'))
+      utils.run(screenManager.navigate(screenManager.DONT_STACK, '/'))
     },
 
     handleChanges: function(data) {

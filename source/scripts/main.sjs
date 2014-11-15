@@ -34,28 +34,69 @@ module.exports = function(window, document, $, md, gui) {
 
   var screenManager = (function() {
     var screenMap = {};
+    var history = [];
+    var current = null;
+    var TRANSITION_DELAY = 300;
 
-    function changeToScreen(screen, data) {
+    function removeScreen(screen, preserve) {
       return new Future(function(reject, resolve) {
-        if ($('#app > .screen').length === 0)  return doChange();
-        
-        $('#app > .screen').addClass('fading');
-        setTimeout(doChange, 300);
-        
-        function doChange() {
-          if (data) screen.setState(data);
-          React.render(screen, $('#app').get(0));
-          resolve(screen);
+        if (screen) {
+          $(screen).addClass('fading');
+          setTimeout(function() {
+            if (!preserve) {
+              React.unmountComponentAtNode(screen)
+              $(screen).detach();
+            } else {
+              $(screen).addClass('hidden')
+            }
+            resolve()
+          }, TRANSITION_DELAY)
+        } else {
+          resolve()
         }
-      });
+      })
+    }
+    
+    function back() {
+      return new Future(function(reject, resolve) {
+        var screen = history.pop()
+        if (!screen) {
+          reject(new Error('No history available.'))
+        } else {
+          utils.run($do {
+            removeScreen(current, false);
+            return $(screen).removeClass('fading hidden')
+            return current = screen;
+            return resolve(current)
+          })
+        }
+      })
     }
 
-    function navigate(url, props, data) {
+    function changeToScreen(stack, screen, data) {
+      return !current?        new Future(λ(f) -> (doChange(), f()))
+      :      /* otherwise */  $do {
+                                removeScreen(current, stack);
+                                return doChange()
+                              };
+
+      function doChange() {
+        if (stack) {
+          history.push(current);
+        }
+        var layer = $(document.createElement('div')).addClass('layer').get(0)
+        $('#app').append(layer);
+        React.render(screen, layer);
+        current = layer;
+      }
+    }
+
+    function navigate(stack, url, props, data) {
       console.log('>>> Navigating to ' + url);
       if (!(url in screenMap))
         throw new Error('No screen for ' + url);
 
-      return changeToScreen(screenMap[url](props), data);
+      return changeToScreen(stack, screenMap[url](props), data);
     }
 
     function register(url, screen) {
@@ -68,7 +109,10 @@ module.exports = function(window, document, $, md, gui) {
     return {
       changeTo: changeToScreen,
       navigate: navigate,
-      register: register
+      register: register,
+      back: back,
+      STACK: true,
+      DONT_STACK: false
     }
 
   }());
@@ -82,8 +126,8 @@ module.exports = function(window, document, $, md, gui) {
   
   
   return storage.at('settings.home').cata({
-    Rejected: λ(_) -> screenManager.changeTo(Screens.SetupFolder()),
-    Resolved: λ(_) -> screenManager.changeTo(Screens.Entry())
+    Rejected: λ(_) -> screenManager.changeTo(screenManager.DONT_STACK, Screens.SetupFolder()),
+    Resolved: λ(_) -> screenManager.changeTo(screenManager.DONT_STACK, Screens.Entry())
   }).chain(λ(a) -> a);
 
 }
