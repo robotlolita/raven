@@ -10,6 +10,8 @@ module.exports = function(screenManager, storage) {
   var Window       = WebkitUI.Window.get();
   var $            = jQuery;
 
+  var { showMessage } = utils;
+  
   var SAVE_DELAY = 5000;
 
   function countWords(text) {
@@ -172,6 +174,7 @@ module.exports = function(screenManager, storage) {
         onCancel: function(){ },
         onNewSection: function(){ },
         onNovelExport: function(){ },
+        onNovelExportHtml: function(){ },
         onNovelEdit: function(){ },
         onNovelClose: function(){ }
       }
@@ -236,6 +239,9 @@ module.exports = function(screenManager, storage) {
                 <ul className="tooling-links">
                   <li className="item icon-export">
                     <a href="#" onClick={this.props.onNovelExport}>Export as markdown</a>
+                  </li>
+                  <li className="item icon-export">
+                    <a href="#" onClick={this.props.onNovelExportHtml}>Export as HTML</a>
                   </li>
                   <li className="item icon-settings">
                     <a href="#" onClick={this.props.onNovelEdit}>Edit metadata</a>
@@ -339,12 +345,21 @@ module.exports = function(screenManager, storage) {
       this.deactivateSidebar();
     },
 
+    exportNovelToHtml: function() {
+      var self = this;
+      var editor = this.refs.editor;
+      utils.run($do {
+        Novel.exporters.webpage(self.state.novel, editor.getArticle());
+        return showMessage('Novel successfully exported.');
+      })
+    },
+    
     exportNovel: function() {
       var self = this;
       var editor = this.refs.editor;
       utils.run($do {
         Novel.saveAsMarkdown(self.state.novel, editor.getArticle());
-        return window.alert('Novel successfully exported.');
+        return showMessage('Novel successfully exported.');
       })
     },
 
@@ -388,6 +403,7 @@ module.exports = function(screenManager, storage) {
           <Sidebar onCancel={this.deactivateSidebar} 
                    onNewSection={this.addNewSection}
                    onNovelExport={this.exportNovel}
+                   onNovelExportHtml={this.exportNovelToHtml}
                    onNovelClose={this.close}
                    onNovelEdit={this.editNovelMeta}
                    ref="sidebar" />

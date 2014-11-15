@@ -1,0 +1,156 @@
+@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Raleway:800);
+
+/** Global reset */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  color: #000;
+  background: #fff;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+/** Styles */
+body {
+    font-family: "Lora", serif;
+    color: #424242;
+    background-color: #fafafa;
+    padding: 2em 3em;
+    font-size: 20px;
+}
+
+.novel {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: 800;
+    margin-bottom: 1em;
+    font-family: "Raleway", sans;
+    color: #777;
+}
+blockquote {
+    border-left: 4px solid deepskyblue;
+    margin-left: -1em;
+    padding-left: 0.6em;
+    margin-bottom: 1.5em;
+}
+p {
+    margin: 0.5em 0 1.5em 0;
+    line-height: 1.3em;
+    text-align: justify;
+}
+h2 {
+    font-size: 2em;
+    font-weight: 800;
+    margin: 1.5em 0 0.8em 0;
+    font-family: "Raleway", sans;
+    color: #999;
+}
+hr {
+    border: none;
+    margin: 2em auto;
+    width: 30%;
+    text-align: center;
+    background: #e3e6e9;
+    position: relative;
+    height: 2px;
+}
+.meta-author {
+    color: #bbb;
+}
+.meta-author span {
+    color: #999;
+}

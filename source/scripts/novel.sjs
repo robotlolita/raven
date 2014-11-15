@@ -16,7 +16,10 @@ var zipWith                   = require('data.array/zips/zip-with');
 
 module.exports = function(storage) {
 
-  var exports = {};
+  var exports = {
+    exporters: require('./exporters')(storage)
+  };
+
 
   var novelHome        = storage.at('settings.home');
   var authorName       = storage.at('settings.author');

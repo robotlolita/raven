@@ -69,3 +69,9 @@ exports.saveAsDialog = function(initial) {
     }
   })
 }
+
+exports.resource = path.join.bind(path, path.join(__dirname, '../../resources'));
+
+exports.showMessage = function(a) {
+
+}
