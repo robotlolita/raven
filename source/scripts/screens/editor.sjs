@@ -351,6 +351,8 @@ module.exports = function(screenManager, storage) {
     },
 
     handleChanges: function(data) {
+      if (!this.isMounted()) return;
+
       var self = this;
       var novel = this.state.novel;
       var editor = this.refs.editor;
