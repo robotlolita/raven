@@ -69,6 +69,7 @@ package: prebuild
 	mkdir -p dist/app
 	cp package.json dist/app
 	cp www dist/app -R
+	cp resources dist/app -R
 	cd dist/app && npm install --production
 	node ./tools/build
 	./tools/fix-linux-builds
