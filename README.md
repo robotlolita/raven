@@ -1,5 +1,6 @@
 Raven
 =====
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/robotlolita/raven?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > "Why is a raven like a writing desk?"
 > Like Poe, you might write on both.
