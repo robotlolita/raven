@@ -79,7 +79,7 @@ module.exports = function(window, document, $, md, gui) {
 
 
     function changeToScreen(stack, screen, data) {
-      return !current?        new Future(λ(f) -> (doChange(), f()))
+      return !current?        new Future(λ(_, f) -> (doChange(), f()))
       :      /* otherwise */  $do {
                                 removeScreen(current, stack);
                                 return doChange()
