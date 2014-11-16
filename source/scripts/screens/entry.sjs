@@ -157,7 +157,11 @@ module.exports = function(screenManager, storage) {
     },
 
     componentWillMount: function() {
-      this.reload();
+      var self = this;
+      utils.run($do {
+        self.loader()
+        return self.setState({ mode: self.MODE_AUTO })
+      });
       this.setState({ reloader: setInterval(this.reload, this.RELOAD_DELAY) });
     },
 
@@ -165,12 +169,16 @@ module.exports = function(screenManager, storage) {
       clearInterval(this.state.reloader);
     },
 
-    reload: function() {
+    loader: function() {
       var self = this;
-      utils.run($do {
+      return $do {
         books <- Novel.list();
-        return self.setState({ mode: self.MODE_AUTO, books: sorted(byModification)(books) })
-      })
+        return self.setState({ books: sorted(byModification)(books) })
+      }
+    },
+
+    reload: function() {
+      utils.run(this.loader());
     },
 
     createMode: function() {
