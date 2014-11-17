@@ -50,6 +50,9 @@ static:
 	cp -R source/fonts www
 	cp -R source/images www
 
+node_modules: package.json
+	npm install
+
 css:
 	mkdir -p $(STYLE_DST)
 	$(stylus) $(STYLUS_PATHS) $$STYLUS_OPTIONS -o $(STYLE_DST) $(STYLE_SRC)
@@ -57,7 +60,7 @@ css:
 css-watch:
 	STYLUS_OPTIONS="--watch" $(MAKE) css
 
-prebuild: www/index.html static css scripts
+prebuild: www/index.html static css scripts node_modules
 
 run: prebuild
 	./tools/fix-webkit
