@@ -698,12 +698,14 @@ input, textarea {
 .editor-container {
     height: 100%
     position: relative
-    transition: margin 250ms ease-in-out
+    transition: margin 250ms ease-in-out, opacity 250ms ease-in-out
     padding-bottom: 32px
 
     .sidebar-active & {
         margin-left: 350px
         overflow: hidden
+        opacity: 0.2
+        -webkit-filter: blur(1px)
     }
 
     .statusbar {
@@ -778,11 +780,13 @@ input, textarea {
     }
 
     .overlay-area {
+        actionable: true
         width: 100%
         height: 100%
         position: absolute
         top: 0px
         left: 0px
+        cursor: pointer
     }
 
     .sidebar {
