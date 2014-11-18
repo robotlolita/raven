@@ -149,13 +149,15 @@ module.exports = function(storage) {
       author <- authorName.cata({ Rejected: λ(_) -> Maybe.Nothing(), Resolved: Maybe.of });
       var dir = path.join(base, slugify(title) + '-' + uuid());
       FS.makeDirectory("775", dir);
-      return {
+      var meta = {
         title: title,
         author: author,
         modifiedAt: Maybe.Nothing(),
         tags: [],
         path: dir
-      }
+      };
+      writeAsText(path.join(meta.path, 'novel.json'), JSON.stringify(novelToJson(meta)));
+      return meta
     }
   }
 
