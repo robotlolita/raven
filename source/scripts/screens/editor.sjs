@@ -353,7 +353,7 @@ module.exports = function(screenManager, storage) {
 
     onQuit: function(event) {
       if (this.refs.editor.isDirty()) {
-        
+        console.log('...saving novel...');
         var novel = this.state.novel;
         var editor = this.refs.editor;
         return $do {
@@ -374,8 +374,13 @@ module.exports = function(screenManager, storage) {
     },
 
     close: function() {
-      this.refs.editor.onClosed();
-      utils.run(screenManager.navigate(screenManager.DONT_STACK, '/'))
+      var self = this;
+      utils.run($do {
+        window.Intent.quit.trigger(null);
+        return self.refs.editor.onClosed();
+        screenManager.reset();
+        screenManager.navigate(screenManager.DONT_STACK, '/')
+      });
     },
 
     handleChanges: function(data) {

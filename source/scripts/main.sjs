@@ -1,5 +1,6 @@
 var Future  = require('data.future');
 var Maybe   = require('data.maybe');
+var { parallel } = require('control.async')(Future);
 var path    = require('path');
 
 module.exports = function(window, document, $, md, gui) {
@@ -72,6 +73,14 @@ module.exports = function(window, document, $, md, gui) {
         }
       })
     }
+
+    function reset() {
+      return $do {
+        parallel(([current] +++ history).map(λ(s) -> removeScreen(s, false)));
+        return history = [];
+        return current = null;
+      }
+    }
     
     function newLayer() {
       return $(document.createElement('div')).addClass('layer').get(0)
@@ -127,6 +136,7 @@ module.exports = function(window, document, $, md, gui) {
       navigate: navigate,
       register: register,
       back: back,
+      reset: reset,
       STACK: true,
       DONT_STACK: false
     }
