@@ -122,7 +122,15 @@ module.exports = function(storage) {
 
   exports.load = load;
   function load(novel) {
-    return FS.read({ encoding: novel.encoding }, path.join(novel.path, 'contents'));
+    var filename = path.join(novel.path, 'contents');
+    return $do {
+      flag <- FS.exists(filename);
+      if (flag) $do{
+        FS.read({ encoding: novel.encoding }, filename)
+      } else $do {
+        Future.of('')
+      }
+    };
   }
 
   exports.save = curry(2, save);
