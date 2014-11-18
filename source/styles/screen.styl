@@ -5,10 +5,11 @@
 global-reset()
 jsk-grid-width = 100%
 
-base-font-colour = #424242
+base-font-colour = #34495e
 base-colour = #f3f3f3
-control-colour = #aec6cf
-control-focus-colour = #779ecb
+control-colour = #3498db
+control-focus-colour = #2980b9
+text-colour = #424242
 
 invert-base-colour = base-font-colour
 invert-base-font-colour = base-colour
@@ -18,19 +19,10 @@ serif-font = "ASerif"
 sans-font = "ASans"
 header-font = "ACaption"
 
-primary-accent-colour = #c44878
-primary-base-colour = #e0749e
-primary-light-colour = #e08faf
-primary-dark-colour = #952450
+secondary-accent-colour = #1abc9c
+secondary-colour = #16a085
 
-secondary-accent-colour = #1a6b62
-secondary-colour = #37756e
-secondary-light-colour = #7dc3bc
-secondary-alternate-colour = #338d83
 
-tertiary-accent-colour = #e3dc53
-tertiary-colour = #bcb759
-tertiary-light-colour = #f0eb7c
 
 @font-face
   font-family: 'Typicons'
@@ -633,6 +625,8 @@ input, textarea {
     }
     article {
         min-height: 100%
+        color: control-colour
+        -webkit-text-fill-color: text-colour
     }
     .article-wrapper {
         padding-bottom: 50px
@@ -656,7 +650,7 @@ input, textarea {
         font-weight: 800
         margin: 1.5em 0 0.8em 0
         font-family: header-font
-        color: #999
+        -webkit-text-fill-color: #999
     }
     
     a {
@@ -672,7 +666,7 @@ input, textarea {
         margin: 2em auto
         width: 30%
         text-align: center
-        color: #e3e6e9
+        -webkit-text-fill-color: #e3e6e9
         position: relative
 
         &:before {
