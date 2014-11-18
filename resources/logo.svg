@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256"
+   height="256"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.28"
+     inkscape:cx="338.8498"
+     inkscape:cy="108.12002"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="845"
+     inkscape:window-x="1366"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-88.893417,-558.09888)">
+    <rect
+       ry="19.431156"
+       y="563.29388"
+       x="88.893417"
+       height="250.80499"
+       width="256"
+       id="rect3790"
+       style="fill:#2c3e50;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <rect
+       style="fill:#34495e;fill-opacity:1;stroke:none"
+       id="rect2985"
+       width="256"
+       height="250.80499"
+       x="88.893417"
+       y="558.09888"
+       ry="19.431156"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <rect
+       ry="0"
+       y="578.21033"
+       x="109.42139"
+       height="210.58224"
+       width="214.94409"
+       id="rect3773"
+       style="fill:#ecf0f1;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <rect
+       ry="0"
+       y="596.31287"
+       x="264.24124"
+       height="179.0421"
+       width="39.189754"
+       id="rect3788"
+       style="fill:#2980b9;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <rect
+       style="fill:#3498db;fill-opacity:1;stroke:none"
+       id="rect3786"
+       width="39.189754"
+       height="179.0421"
+       x="264.24124"
+       y="591.11786"
+       ry="0"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <g
+       id="g3828"
+       transform="matrix(1.3063252,0,0,-1.2987511,-48.343706,1271.0424)"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999">
+      <path
+         sodipodi:nodetypes="cccccccccc"
+         style="fill:#7f8c8d;fill-opacity:1;stroke:none"
+         d="m 185.75,400.95533 c -6.49661,23.06662 -23.36136,44.3782 -45.61418,52.6742 4.76862,0.12923 9.48223,-2.6742 14.36418,-2.6742 16.10171,-8.50058 28.75566,-22.67342 35.25,-39.875 l 0,-0.125 49.6875,0 0,-10 -49.6875,0 -0.3125,0 z"
+         id="path3818"
+         inkscape:connector-curvature="0" />
+      <path
+         inkscape:connector-curvature="0"
+         id="rect3794"
+         d="m 185.75,403.65625 c -6.49661,23.06662 -23.74718,41.6415 -46,49.9375 l 0,0.0625 14.75,0 c 16.10171,-8.50058 28.75566,-22.67342 35.25,-39.875 l 0,-0.125 49.6875,0 0,-10 -49.6875,0 -0.3125,0 -3.6875,0 z"
+         style="fill:#95a5a6;fill-opacity:1;stroke:none" />
+    </g>
+    <path
+       transform="matrix(1.3063252,0,0,-1.2987511,-48.343706,1266.8343)"
+       d="m 218.19295,457.38232 c 0,5.02103 -4.07035,9.09138 -9.09137,9.09138 -5.02103,0 -9.09137,-4.07035 -9.09137,-9.09138 0,-5.02102 4.07034,-9.09137 9.09137,-9.09137 5.02102,0 9.09137,4.07035 9.09137,9.09137 z"
+       sodipodi:ry="9.0913725"
+       sodipodi:rx="9.0913725"
+       sodipodi:cy="457.38232"
+       sodipodi:cx="209.10158"
+       id="path3824"
+       style="fill:#7f8c8d;fill-opacity:1;stroke:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <path
+       style="fill:#7f8c8d;fill-opacity:1;stroke:none"
+       d="m 207.62306,624.30909 c -6.87524,24.26944 -11.17054,34.21574 -34.72029,42.94434 5.04664,0.13587 -2.02928,6.23644 3.13722,6.23644 17.04015,-8.94385 28.94336,-20.4293 35.8162,-38.52786 l 0,-0.13152 52.58335,0 0,-10.52145 -52.58335,0 -0.33072,0 -3.90241,0 z"
+       id="path3816"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <path
+       style="fill:#7f8c8d;fill-opacity:1;stroke:none"
+       d="m 165.79739,670.58129 c -0.94865,1.39447 -3.58858,2.46315 -6.89481,2.80735 l 0,1.83976 55.18587,0 0,-4.64711 -48.29106,0 z"
+       id="rect3826"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path3812"
+       d="m 207.62306,620.8013 c -6.87524,24.26943 -25.13119,43.81291 -48.68095,52.54151 l 0,0.0657 15.60965,0 c 17.04015,-8.94385 30.43159,-23.85575 37.30443,-41.95431 l 0,-0.13151 52.58335,0 0,-10.52146 -52.58335,0 -0.33072,0 -3.90241,0 z"
+       style="fill:#95a5a6;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#95a5a6;fill-opacity:1;stroke:none"
+       id="path3820"
+       sodipodi:cx="209.10158"
+       sodipodi:cy="457.38232"
+       sodipodi:rx="9.0913725"
+       sodipodi:ry="9.0913725"
+       d="m 218.19295,457.38232 c 0,5.02103 -4.07035,9.09138 -9.09137,9.09138 -5.02103,0 -9.09137,-4.07035 -9.09137,-9.09138 0,-5.02102 4.07034,-9.09137 9.09137,-9.09137 5.02102,0 9.09137,4.07035 9.09137,9.09137 z"
+       transform="matrix(1.3063252,0,0,-1.2987511,-48.343706,1265.1123)"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+    <rect
+       style="fill:#95a5a6;fill-opacity:1;stroke:none"
+       id="rect3822"
+       width="42.222301"
+       height="4.6383967"
+       x="171.8654"
+       y="-673.44934"
+       transform="scale(1,-1)"
+       inkscape:export-filename="/home/queen/Projects/Raven-Group/Raven/resources/new-icons/16.png"
+       inkscape:export-xdpi="5.6199999"
+       inkscape:export-ydpi="5.6199999" />
+  </g>
+</svg>
