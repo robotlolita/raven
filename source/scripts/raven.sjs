@@ -41,6 +41,10 @@ if (process.platform === 'darwin') {
   Mousetrap.bind("command+v", function() {
     document.execCommand("paste");
   });
+
+  Mousetrap.bind("command+u", function() {
+    document.execCommand("underline");
+  });
 }
 
 Mousetrap.bind("ctrl+shift+i", function() {

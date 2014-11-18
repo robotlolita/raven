@@ -152,6 +152,17 @@ module.exports = function(screenManager, storage) {
       editorContainer.scrollTop = article.scrollHeight
     },
 
+    toggleHeadingAtPoint: function() {
+      var editor = this.state.editor;
+      var sel    = editor.getSelectionData(editor.selection.anchorNode);
+
+      if (sel.tagName === 'h2') {
+        document.execCommand('formatBlock', false, 'p');
+      } else {
+        document.execCommand('formatBlock', false, 'h2');
+      }
+    },
+
     render: function() {
       var modified = this.state.modified? 'Modified' : 'Saved'
       
@@ -163,9 +174,9 @@ module.exports = function(screenManager, storage) {
           </div>
 
           <section className="editor" ref="editorContainer">
-            <header id="editor-header" className="editable header" ref="header"></header>
+            <header id="editor-header" className="editable header mousetrap" ref="header"></header>
             <div className="article-wrapper">
-              <article id="editor-article" className="editable content" ref="article"></article>
+              <article id="editor-article" className="editable content mousetrap" ref="article"></article>
             </div>
           </section>
         </div>
@@ -316,11 +327,24 @@ module.exports = function(screenManager, storage) {
     },
 
     componentWillMount: function() {
-      window.Intent.quit.listen(this.onQuit)
+      window.Intent.quit.listen(this.onQuit);
+    },
+
+    componentDidMount: function() {
+      window.Mousetrap.bind('esc', this.toggleSidebar);
+      window.Mousetrap.bind('ctrl+h', function() {
+        this.refs.editor.toggleHeadingAtPoint();
+      }.bind(this));
     },
 
     componentWillUnmount: function() {
       window.Intent.quit.deafen(this.onQuit);
+      window.Mousetrap.unbind('esc');
+      window.Mousetrap.unbind('ctrl+h');
+    },
+
+    toggleSidebar: function() {
+      this.setState({ isSidebarActive: !this.state.isSidebarActive });
     },
 
     onQuit: function(event) {
