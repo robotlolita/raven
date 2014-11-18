@@ -16,14 +16,20 @@ window.onload = function() {
 };
 
 
-$('#app-close-button').on('click', function() {
+ui.Window.get().on('close', function() {
+  var self = this;
   Intent.quit.trigger(null).fork(
-    function error(){ },
-    function success(){
-      ui.App.quit()
-    }
-  )
-});
+     function error(){ },
+     function success(){
+       self.close(true)
+     }
+   )  
+})
+
+$('#app-close-button').on('click', function() {
+  ui.App.closeAllWindows()
+})
+
 
 if (process.platform === 'darwin') {
   Mousetrap.bind("command+a", function() {
