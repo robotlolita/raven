@@ -35,12 +35,13 @@
   "window": {
     "title": "Raven",
     "toolbar": false,
-    "frame": false,
+    "frame": true,
     "width": 800,
     "height": 700,
     "min_width": 480,
     "min_height": 300,
     "resizable": true,
+    "position": "center",
     "icon": "resources/icon.png"
   },
   "devDependencies": {
@@ -75,6 +76,7 @@
     "medium-editor": "git://github.com/robotlolita/medium-editor#raven-1.0.0",
     "html-entities": "~1.1.1",
     "to-slug": "0.0.0",
-    "marked": "~0.3.2"
+    "marked": "~0.3.2",
+    "encoding": "~0.1.11"
   }
 }

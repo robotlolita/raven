@@ -43,6 +43,7 @@ actionable(x)
 action-button()
   actionable: true
   transition: all 0.3s ease-out
+  -webkit-transform-style: preserve-3d;
 
   &:active {
       transition: all 0.1s ease-out
@@ -221,6 +222,7 @@ input, textarea {
     height: 32px
     text-align: center
     line-height: 32px
+    display: none
 
     &:hover {
         color: base-font-colour
@@ -245,6 +247,7 @@ input, textarea {
     position: relative
     top: 50%
     transform: translateY(-50%)
+    -webkit-transform-style: perserve-3d
 }
 
 #app > .layer {
@@ -689,12 +692,17 @@ input, textarea {
     }
 
 }
+
 .editor-container {
     height: 100%
     position: relative
     transition: margin 250ms ease-in-out, opacity 250ms ease-in-out
     padding-bottom: 32px
 
+    #app .fading & {
+        -webkit-filter: none
+    }
+    
     .sidebar-active & {
         margin-left: 350px
         overflow: hidden

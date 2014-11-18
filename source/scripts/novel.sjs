@@ -25,11 +25,13 @@ module.exports = function(storage) {
   var authorName       = storage.at('settings.author');
   var joinPath         = λ a b -> path.join(a, b);
   var appendPath       = flip(joinPath);
+  var extendWith       = λ a b -> extend(b, a);
   var extendWithPath   = λ(data, path) -> extend(data, { path: path });
   var toNullable       = λ(a) -> a.cata({ Nothing: λ(_) -> null,
                                         Just:    λ(a) -> a });
-  var writeAsText      = FS.write({ encoding: 'utf16le' });
-  var readAsText       = FS.read({ encoding: 'utf16le' });
+  var writeAsText      = FS.writeAsText;
+  var readAsText       = FS.readAsText;
+  var UTF16            = { encoding: 'utf16le' }
   var isNovelDirectory = λ(dir) -> $do {
                            isDir   <- FS.isDirectory(dir);
                            hasMeta <- FS.exists(path.join(dir, 'novel.json'));
@@ -44,7 +46,8 @@ module.exports = function(storage) {
       title      : a.title,
       author     : Maybe.fromNullable(a.author),
       modifiedAt : a.modifiedAt? Maybe.of(new Date(a.modifiedAt)) : Maybe.Nothing(),
-      tags       : a.tags || []
+      tags       : a.tags || [],
+      encoding   : a.encoding || 'utf8'
     }
   }
 
@@ -57,15 +60,31 @@ module.exports = function(storage) {
     }
   }
 
+  function parseJson(data) {
+    return new Future(function(reject, resolve) {
+      try {
+        resolve(JSON.parse(data));
+      } catch (e) {
+        reject(e);
+      }
+    })
+  }
+
+  var log = λ a b -> (console.log(a), b)
+
+  function readNovelMetadata(file) {
+    return FS.readAsText(file).chain(parseJson)
+       <|> FS.read(UTF16, file).chain(parseJson).map(extendWith({ encoding: 'utf16le' }));
+  }
+
   exports.list = list;
   function list() {
     return $do {
       dir     <- novelHome;
       folders <- FS.listDirectory(dir);
       dirs    <- filterM(Future, isNovelDirectory, folders.map(joinPath(dir)));
-      files   <- parallel(dirs.map(appendPath('novel.json') ->> readAsText));
-      var data = files.map(unary(JSON.parse) ->> normaliseNovel)
-      return zipWith(extendWithPath, data, dirs);
+      files   <- parallel(dirs.map(appendPath('novel.json') ->> readNovelMetadata));
+      return zipWith(extendWithPath, files.map(normaliseNovel), dirs);
     }
   }
 
@@ -103,7 +122,7 @@ module.exports = function(storage) {
 
   exports.load = load;
   function load(novel) {
-    return readAsText(path.join(novel.path, 'contents'));
+    return FS.read({ encoding: novel.encoding }, path.join(novel.path, 'contents'));
   }
 
   exports.save = curry(2, save);

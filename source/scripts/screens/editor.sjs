@@ -8,6 +8,7 @@ module.exports = function(screenManager, storage) {
   var Novel        = require('../novel')(storage);
   var extend       = require('xtend');
   var MediumEditor = require('medium-editor');
+  var encoding     = require('encoding');
   var Window       = WebkitUI.Window.get();
   var $            = jQuery;
 
@@ -19,7 +20,9 @@ module.exports = function(screenManager, storage) {
     return text.trim().split(/\s+/).length
   }
 
-
+  function fixWebkitText(data) {
+    return data
+  }
 
   var WordCount = React.createClass({
     getDefaultProps: function() {
@@ -88,9 +91,9 @@ module.exports = function(screenManager, storage) {
       $(root).on('input', '.editable', function() {
         this.handleStateUpdate({
           content: article,
-          header: header,
+          contentHtml: this.getArticle(),
           contentText: article.innerText,
-          headerText: header.innerText
+          header: this.getHeader()
         })
       }.bind(this));
 
@@ -98,6 +101,7 @@ module.exports = function(screenManager, storage) {
 
       if (this.props.onLoaded)  this.props.onLoaded({
         content: article,
+        contentHtml: this.getArticle(),
         contentText: article.innerText
       })
     },
@@ -118,7 +122,7 @@ module.exports = function(screenManager, storage) {
 
     handleStateUpdate: function(data) {
       this.setState({ 
-        text: data.content.innerHTML,
+        text: data.content,
         plainText: data.contentText,
         modified: true
       });
@@ -381,8 +385,12 @@ module.exports = function(screenManager, storage) {
       var novel = this.state.novel;
       var editor = this.refs.editor;
       var sidebar = this.refs.sidebar;
+
+      var title = fixWebkitText(data.header);
+      var text  = fixWebkitText(data.contentHtml);
+
       utils.run($do {
-        newNovel <- Novel.save(extend(novel, { title: data.headerText }), data.content.innerHTML);
+        newNovel <- Novel.save(extend(novel, { title: title }), text);
         return self.setState({ novel: newNovel });
         return editor.onSaved();
         return sidebar.onTextUpdated(data);
