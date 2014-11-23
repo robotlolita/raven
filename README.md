@@ -1,8 +1,8 @@
 Raven
 =====
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/robotlolita/raven?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Latest release](https://github.com/robotlolita/raven/releases)](http://img.shields.io/github/release/robotlolita/raven.svg?style=flat)
-[![Dependencies](https://david-dm.org/robotlolita/raven)](http://img.shields.io/david/robotlolita/raven.svg?style=flat)
+[![Latest release](http://img.shields.io/github/release/robotlolita/raven.svg?style=flat)](https://github.com/robotlolita/raven/releases)
+[![Dependencies](http://img.shields.io/david/robotlolita/raven.svg?style=flat)](https://david-dm.org/robotlolita/raven)
 
 
 
