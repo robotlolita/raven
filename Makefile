@@ -29,6 +29,8 @@ $(LIB_DIR)/%.js: $(SRC_DIR)/%.sjs
 	       --module lambda-chop/macros \
 	       --module es6-macros/macros/destructure \
 	       --module macros.operators/macros \
+	       --module sparkler/macros \
+	       --module adt-simple/macros \
 	       --output $@ \
 	       $<
 
@@ -67,17 +69,22 @@ run: prebuild
 	LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH" $(nw) .
 
 
-package: prebuild
-	rm -rf dist
+package.nw: prebuild
+	rm -rf dist/app
+	rm -f dist/package.nw
 	mkdir -p dist/app
 	cp package.json dist/app
 	cp www dist/app -R
 	cp resources dist/app -R
 	cd dist/app && npm install --production
+	cd dist/app && zip ../package.nw * -r
+
+package: prebuild
+	rm -rf dist
+	$(MAKE) package.nw
 	node ./tools/build
 	./tools/fix-linux-builds
 	./tools/zip-packages
-	rm -rf dist/app
 
 
-.PHONY: css css-watch static clean
+.PHONY: css css-watch static clean package.nw

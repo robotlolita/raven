@@ -24,6 +24,7 @@ var slug = require('to-slug');
 var fs = require('fs');
 var path = require('path');
 var Future = require('data.future');
+var mv = require('mv');
 var $ = jQuery;
 
 exports.slugify = slug;
@@ -133,3 +134,12 @@ exports.resource = path.join.bind(path, path.join(__dirname, '../../resources'))
 exports.showMessage = function(a) {
 
 };
+
+exports.move = function(a, b) {
+  return new Future(function(reject, resolve) {
+    mv(a, b, function(error) {
+      if (error)  reject(error)
+      else        resolve()
+    })
+  })
+}

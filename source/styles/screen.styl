@@ -35,10 +35,10 @@ text-colour = #424242
 invert-base-colour = base-font-colour
 invert-base-font-colour = base-colour
 
-code-font = "ACode"
-serif-font = "ASerif"
-sans-font = "ASans"
-header-font = "ACaption"
+code-font = "ACode", monospace
+serif-font = "ASerif", serif
+sans-font = "ASans", sans-serif
+header-font = "ACaption", sans-serif
 
 secondary-accent-colour = #1abc9c
 secondary-colour = #16a085
@@ -936,7 +936,7 @@ input, textarea {
     }
 }
 #about-screen {
-    .welcome {
+    .about-section .welcome {
         top: 20%
     }
     .app-description {
@@ -967,7 +967,15 @@ input, textarea {
             color: #fac
         }
     }
-    
+    .app-updates {
+        margin-top: 1em;
+        
+        .busy {
+            color: #ccc
+            font-size: 0.9em
+            text-transform: uppercase
+        }
+    }
 }
 .medium-editor-toolbar {
     actionable: true
@@ -1008,6 +1016,20 @@ input, textarea {
     }
     &.mode-new .create-section,
     &.mode-load .load-section {
+        active-section()
+    }
+}
+
+#about-screen {
+    position: relative
+
+    .about-section, .updating-section {
+        inactive-section()
+        background: base-colour
+        height: 100%
+    }
+    &.mode-about .about-section,
+    &.mode-updating .updating-section {
         active-section()
     }
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN=app
+BIN=nw
 HERE=`dirname $(readlink -f $0)`
 
 LIBUDEV_0=libudev.so.0
