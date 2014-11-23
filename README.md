@@ -1,6 +1,10 @@
 Raven
 =====
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/robotlolita/raven?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Latest release](https://github.com/robotlolita/raven/releases)](http://img.shields.io/github/release/robotlolita/raven.svg?style=flat)
+[![Dependencies](https://david-dm.org/robotlolita/raven)](http://img.shields.io/david/robotlolita/raven.svg?style=flat)
+
+
 
 > "Why is a raven like a writing desk?"
 > Like Poe, you might write on both.
@@ -29,10 +33,10 @@ Raven is a minimal, distraction-free text editor with good typography.
  4. Select the folder where you want to store your novels;
  5. Create a new novel, and start writing.
 
-[linux-32]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-linux32.tar.gz
-[linux-64]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-linux64.tar.gz
-[mac]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-osx.zip
-[win]: https://github.com/robotlolita/raven/releases/download/v0.1.0-alpha3/Raven-win.zip
+[linux-32]: https://github.com/robotlolita/raven/releases/download/v0.2.0-alpha/Raven-linux32.tar.gz
+[linux-64]: https://github.com/robotlolita/raven/releases/download/v0.2.0-alpha/Raven-linux64.tar.gz
+[mac]: https://github.com/robotlolita/raven/releases/download/v0.2.0-alpha/Raven-osx.zip
+[win]: https://github.com/robotlolita/raven/releases/download/v0.2.0-alpha/Raven-win.zip
 
 ## Building
 
