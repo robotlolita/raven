@@ -421,6 +421,13 @@ a:hover {
 .download-section h2 {
   color: #ecf0f1;
 }
+.download-section h2 small {
+  display: block;
+  font-size: 0.5em;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #d1dadd;
+  text-transform: initial;
+}
 .download-section .jsk-button {
   color: #fff;
 }
