@@ -1,0 +1,10 @@
+{
+  "name": "raven.website",
+  "version": "0.0.0",
+  "devDependencies": {
+    "entypo-stylus": "~0.1.0",
+    "stylus": "~0.49.3",
+    "nib": "~1.0.4",
+    "jumperskirt": "~0.1.1"
+  }
+}

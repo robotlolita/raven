@@ -1,0 +1,213 @@
+@import "nib"
+@import "jumperskirt/includes/colours"
+@import "jumperskirt/includes/settings"
+@import "jumperskirt/includes/reset"
+@import "jumperskirt/grid"
+@import "jumperskirt/typography"
+@import "jumperskirt/button"
+
+jsk-grid-width = 100%
+
+.centred {
+    min-width: 960px
+    max-width: 90%
+    margin: 0 auto
+}
+
+a {
+    text-decoration: none
+    color: petermann
+    transition: all 250ms ease-out
+
+    &:hover {
+        color: belize-hole
+    }
+}
+
+.heading {
+    background: clouds
+    height: 100px
+    line-height: 100px
+
+    .logo {
+        float: left
+        width: 40%
+        font-size: 64px
+        line-height: 100px
+        margin: 0
+        font-family: "Lora", serif
+        font-weight: 400
+
+        a {
+            color: asbestos
+        }
+    }
+
+    .navigation {
+        float: right
+        width: 50%
+        height: 100px
+        text-align: right
+        li {
+            display: inline-block
+            font-size: 18px
+            font-weight: 600
+            text-transform: uppercase
+            a {
+                color: asbestos
+                height: 100px
+                padding: 0 1em
+                line-height: 120px
+                border-bottom: 5px solid clouds
+                display: inline-block
+
+                &:hover {
+                    color: petermann
+                    border-color: petermann
+                }
+            }
+        }
+    }
+}
+
+.main-banner {
+    background: wet-asphalt
+
+    .banner-panels {
+        bottom: 15%
+        position: absolute
+
+        .panel-image {
+            jsk-grid-column: 7
+        }
+        .panel-description {
+            jsk-grid-column: 5
+        }
+    }
+}
+
+.section-title {
+    margin: 1.5em 0
+    font-weight: 300
+    text-transform: uppercase
+}
+
+.feature-banner, .main-banner {
+    max-height: 600px
+    height: 600px
+    width: 100%
+    overflow: hidden
+    position: relative
+    color: asbestos
+
+    &.dark {
+        color: darken(clouds, 15%)
+    }
+    .centred {
+        height: 100%
+        position: relative
+    }
+    .banner-panels {
+        jsk-grid-row: 12
+    }
+    .panel-image {
+        jsk-grid-column: 6
+    }
+    .panel-description {
+        jsk-grid-column: 6
+        margin-top: 55px
+    }
+    h2 {
+        margin-top: 0
+        text-transform: uppercase
+        font-weight: 300
+        color: wet-asphalt
+    }
+    &.dark h2 {
+        color: clouds        
+    }
+    .description {
+        font-size: 1.2em
+    }
+    img {
+        width: 100%
+        height: auto
+    }
+    em {
+        color: concrete
+        display: block
+        margin-top: 1.5em
+        font-size: 0.9em
+    }
+    .actions {
+        margin-top: 2em
+        .jsk-button {
+            width: 100%
+            text-align: center
+        }
+    }
+}
+.features .feature-banner:nth-child(even) {
+    .panel-image {
+        float: right
+    }
+    .panel-description {
+        float: left
+    }
+}
+
+.download-section {
+    background: midnight
+    color: clouds
+    padding: 1em 0 4em 0
+    text-align: center
+
+    h2 {
+        color: clouds
+    }
+    .jsk-button {
+        color: #fff
+
+        small {
+            margin-left: 1em
+        }
+    }
+    .secondary:hover {
+        background: wet-asphalt
+    }
+    .secondary:active {
+        background: darken(midnight, 10%)
+    }
+    .spaced {
+        margin-left: 1em
+    }
+}
+
+.support-section {
+    .text {
+        font-size: 1.2em
+    }
+}
+
+.footer {
+    margin-top: 3em
+    background: asbestos
+    color: silver
+    padding: 2em 0
+    text-align: center
+    text-transform: uppercase
+    letter-spacing: 1px
+    font-size: 0.9em
+
+    em {
+        color: lighten(alizarin, 50%)
+        font-size: 2em
+        display: inline-block
+        line-height: 80%
+        vertical-align: middle
+    }
+    a {
+        color: clouds
+        font-weight: 600
+    }
+}
