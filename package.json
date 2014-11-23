@@ -2,7 +2,7 @@
   "name": "Raven",
   "main": "www/index.html",
   "description": "A minimalist editor for writers.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "releases": {
     "channel": "beta",
     "url": "https://api.github.com/repos/robotlolita/raven/releases"
