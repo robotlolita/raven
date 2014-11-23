@@ -429,10 +429,14 @@ a:hover {
   text-transform: initial;
 }
 .download-section .jsk-button {
-  color: #fff;
+  color: #ecf0f1;
 }
 .download-section .jsk-button small {
-  margin-left: 1em;
+  margin-left: 0.5em;
+  font-size: 85%;
+  line-height: 1.1em;
+  font-weight: 600;
+  color: #cce5f6;
 }
 .download-section .secondary:hover {
   background: #34495e;
