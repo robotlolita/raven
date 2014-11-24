@@ -32,10 +32,10 @@ exports.slugify = slug;
 exports.run = function(future) {
   future.fork(
     function(error){
-      if (error) {
+      if (error && error.message) {
         console.log('Error: ' + error + '\n' + error.stack)
+        window.alert(error);
       }
-      window.alert(error);
     },
     function(){ }
   )
