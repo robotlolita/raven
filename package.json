@@ -2,7 +2,7 @@
   "name": "Raven",
   "main": "www/index.html",
   "description": "A minimalist editor for writers.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "releases": {
     "channel": "beta",
     "url": "https://api.github.com/repos/robotlolita/raven/releases"
@@ -78,7 +78,7 @@
     "data.array": "~0.1.3",
     "moment": "~2.8.3",
     "node-uuid": "~1.4.1",
-    "medium-editor": "git://github.com/robotlolita/medium-editor#raven-1.0.0",
+    "medium-editor": "git://github.com/robotlolita/medium-editor#raven-0.3.0",
     "html-entities": "~1.1.1",
     "to-slug": "0.0.0",
     "marked": "~0.3.2",
