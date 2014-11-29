@@ -48,6 +48,14 @@ ui.Window.get().on('close', function() {
    )  
 })
 
+ui.Window.get().on('enter-fullscreen', function() {
+  $('body').addClass('fullscreen')
+})
+
+ui.Window.get().on('leave-fullscreen', function() {
+  $('body').removeClass('fullscreen')
+})
+
 $('#app-close-button').on('click', function() {
   ui.App.closeAllWindows()
 })

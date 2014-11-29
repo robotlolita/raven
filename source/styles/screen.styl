@@ -237,16 +237,21 @@ input, textarea {
     font-size: 24px
     color: #aaa
     right: 20px
-    top: 10px
     z-index: 9000
     width: 32px
     height: 32px
     text-align: center
     line-height: 32px
-    display: none
+    opacity: 0
+    top: -100px
+    transition: color 250ms ease-in-out, opacity 250ms ease-in-out, trasform 250ms ease-in-out, top 150ms ease-in
 
     &:hover {
         color: base-font-colour
+    }
+    .fullscreen & {
+        top: 10px
+        opacity: 1
     }
 }
 
