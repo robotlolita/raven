@@ -5,7 +5,7 @@ var platform = path.join.bind(path, path.join(__dirname, '..', 'platform'))
 var nw = new NwBuilder({
   files: './dist/app/**',
   platforms: ['win', 'linux32', 'linux64', 'osx'],
-  version: '0.8.6',
+  version: '0.11.3',
   buildDir: 'dist',
   macIcns: platform('osx/raven.icns'),
   winIco: platform('windows/raven.ico')
