@@ -149,11 +149,10 @@ active-section()
 .icon-export
   icon: "\e06d"
 
-.icon-fullscreen
+.icon-mode
   icon: "\e012"
-
-.icon-restore-window
-  icon: "\e014"
+  .fullscreen &
+    icon: "\e014"
 
 .icon-back
   icon: "\e047"
@@ -230,23 +229,27 @@ input, textarea {
     font-weight: 600
     z-index: 200
 }
-#app-close-button {
-    action-button()
+.app-toolbar {
     position: fixed
-    text-decoration: none
-    font-size: 24px
-    color: #aaa
     right: 20px
-    z-index: 9000
-    width: 32px
-    height: 32px
-    text-align: center
-    line-height: 32px
     top: 10px
-    transition: color 250ms ease-in-out
+    z-index: 9000
 
-    &:hover {
-        color: base-font-colour
+    .app-tool-button {
+        action-button()
+        text-decoration: none
+        font-size: 24px
+        color: #aaa
+        width: 32px
+        height: 32px
+        margin-left: 10px
+        text-align: center
+        line-height: 32px
+        transition: color 250ms ease-in-out
+
+        &:hover {
+            color: base-font-colour
+        }
     }
 }
 

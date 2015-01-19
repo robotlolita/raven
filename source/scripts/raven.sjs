@@ -60,6 +60,9 @@ $('#app-close-button').on('click', function() {
   ui.App.closeAllWindows()
 })
 
+$('#app-mode-button').on('click', function() {
+  ui.Window.get().toggleKioskMode()
+})
 
 if (process.platform === 'darwin') {
   Mousetrap.bind("command+a", function() {
