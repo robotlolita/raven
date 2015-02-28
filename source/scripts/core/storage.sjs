@@ -18,6 +18,9 @@ module.exports = function(Platform) {
     InvalidFormat { key: String, value: *, error: Error }
   } deriving (Base, Cata)
 
+  // #### method: describe
+  // Returns a textual description of the error.
+  // @type this:StorageError → String
   StorageError::describe = function() {
     return match this {
       InexistentKey(k, _)    => "Key " + show(k) + " doesn't exist in the storage.",
@@ -25,9 +28,14 @@ module.exports = function(Platform) {
     }
   };
 
+  // #### method: make
+  // Constructs a new instance of a StorageError
   InexistentKey::make = λ[InexistentKey(#, new Error())];
   InvalidFormat::make = λ[InvalidFormat(#, #, new Error())];
 
+  // #### method: stack
+  // Returns a stack trace for the StorageError
+  // @type this:StorageError → String
   StorageError::stack = function() {
     return this.error.stack.split('\n').slice(1).join('\n')
   };
