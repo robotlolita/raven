@@ -50,6 +50,7 @@ module.exports = function(Platform) {
   
   // -- Exports --------------------------------------------------------
   return {
+    StorageError: StorageError,
     at: at,
     put: curry(2, put)
   }
