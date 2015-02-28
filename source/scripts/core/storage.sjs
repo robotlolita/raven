@@ -12,7 +12,7 @@ module.exports = function(Platform) {
   //
   // Errors that might occur while storing/retrieving values.
   union StorageError {
-    NonExistentKey { key: String },
+    InexistentKey { key: String },
     InvalidFormat { key: String, value: * }
   }
 
@@ -31,7 +31,7 @@ module.exports = function(Platform) {
           reject(InvalidFormat(key, store[key]))
         }
       } else {
-        reject(NonExistentKey(key))
+        reject(InexistentKey(key))
       }
     })
   }
