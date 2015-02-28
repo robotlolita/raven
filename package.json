@@ -81,7 +81,7 @@
     "medium-editor": "git://github.com/robotlolita/medium-editor#raven-0.3.0",
     "html-entities": "~1.1.1",
     "to-slug": "0.0.0",
-    "marked": "~0.3.2",
+    "marked": "~0.3.3",
     "encoding": "~0.1.11",
     "semver": "~4.1.0",
     "net.http-client": "~0.2.4",
