@@ -5,11 +5,11 @@
 module.exports = function(Platform) {
 
   // -- Dependencies ---------------------------------------------------
-  var {React} = Platform;
-  var {Base} = require('adt-simple');
-  var Maybe = require('data.maybe');
-  var Task = require('data.future');
-  var {curry} = require('core.lambda');
+  var {React}           = Platform;
+  var {Base}            = require('adt-simple');
+  var Maybe             = require('data.maybe');
+  var Task              = require('data.future');
+  var {curry}           = require('core.lambda');
   var {delay, parallel} = require('control.async')(Task);
 
   var {addons: {classSet}} = React;
@@ -80,9 +80,9 @@ module.exports = function(Platform) {
 
     function pushNewScreen() {
       return $do {
-        new Task(λ(_, f) -> { sm.setState({ current: Entering(dir, screen) }); f() });
+        new Task(λ(_, f) -> { sm.setState({ current: Maybe.Just(Entering(dir, screen)) }); f() });
         delay(sm.props.transitionDuration);
-        Task.of(sm.setState({ current: Visible(screen) }));
+        Task.of(sm.setState({ current: Maybe.Just(Visible(screen)) }));
       }
     }
 
@@ -112,8 +112,8 @@ module.exports = function(Platform) {
     Right
   } deriving (Base)
 
-  Left::invert = λ[Right];
-  Right::invert = λ[Left];
+  Left.invert = λ[Right];
+  Right.invert = λ[Left];
 
   // ### object: ScreenState
   //
@@ -129,7 +129,7 @@ module.exports = function(Platform) {
   // ### object: ScreenManager
   //
   // A React component that manages screens in an application.
-  return React.createClass({
+  var ScreenManager = React.createClass({
     statics: {
       display: Display,
       direction: Direction,
@@ -138,7 +138,7 @@ module.exports = function(Platform) {
 
     // #### method: getDefaultProps
     //
-    // @type: { transitionDuration: Number }
+    // @type: Unit → { transitionDuration: Number }
     getDefaultProps: function() {
       return {
         transitionDuration: 300
@@ -147,11 +147,11 @@ module.exports = function(Platform) {
 
     // #### method: getInitialState
     //
-    // @type::
-    //   { history: Array(ScreenState)
-    //   , current: Maybe(ScreenState)
-    //   , transitionDuration: Number
-    //   }
+    // @type:: 
+    //   Unit → { history: Array(ScreenState)
+    //          , current: Maybe(ScreenState)
+    //          , transitionDuration: Number
+    //          }
     getInitialState: function() {
       return {
         history: [],
@@ -163,7 +163,7 @@ module.exports = function(Platform) {
     //
     // Returns a list of screens that have been previously displayed.
     //
-    // @type: unit → Array(ScreenState)
+    // @type: this:ScreenManager → Array(ScreenState)
     getHistory: function() {
       return this.state.history
     },
@@ -172,16 +172,16 @@ module.exports = function(Platform) {
     //
     // Returns the current screen being displayed.
     //
-    // @type: unit → Maybe(ScreenState)
+    // @type: this:ScreenManager → Maybe(ScreenState)
     getCurrent: function() {
-      return this.current;
+      return this.state.current;
     },
 
     // #### method: show
     //
     // Shows a screen.
     //
-    // @type: React.Class → Task(α, unit)
+    // @type: this:ScreenManager, React.Class → Task(α, unit)
     show: function(screen) {
       return changeTo(Stack, Left, screen, this);
     },
@@ -190,7 +190,7 @@ module.exports = function(Platform) {
     //
     // Returns to the previous screen in history.
     //
-    // @type: unit → Task(Error, unit)
+    // @type: this:ScreenManager → Task(Error, unit)
     back: function() {
       var history = this.state.history;
       if (history.length > 0) {
@@ -202,13 +202,13 @@ module.exports = function(Platform) {
       } else {
         return Task.rejected(new Error('No history available.'));
       }
-    }
+    },
 
     // #### method: renderScreen
     //
     // Renders a ScreenState.
     //
-    // @type: ScreenState → React.Class
+    // @type: this:ScreenManager, ScreenState → React.Class
     renderScreen: function(screenState) {
       var frameClass = 'screen-frame ' + stateClass(screenState).join(' ');
 
@@ -223,16 +223,17 @@ module.exports = function(Platform) {
     //
     // Returns the render tree for this component.
     //
-    // @type: unit → React.Class
+    // @type: this:ScreenManager → React.Class
     render: function() {
       return (
         <div className="application screen-manager">
           { this.state.history.map(this.renderScreen) }
-          { this.current.map(this.renderScreen) }
+          { this.state.current.map(this.renderScreen) }
         </div>
       )
     }
     
-  })
+  });
 
+  return ScreenManager
 }
