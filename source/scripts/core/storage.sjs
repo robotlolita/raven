@@ -3,18 +3,36 @@
 // A wrapper over localStorage
 module.exports = function(Platform) {
   // -- Dependencies ---------------------------------------------------
-  var store     = Platform.window.localStorage;
-  var Task      = require('data.future');
-  var { curry } = require('core.lambda');
+  var store          = Platform.window.localStorage;
+  var Task           = require('data.future');
+  var show           = require('core.inspect');
+  var { curry }      = require('core.lambda');
+  var { Base, Cata } = require('adt-simple');
 
   // -- Data structures ------------------------------------------------
   // ### object: StorageError
   //
   // Errors that might occur while storing/retrieving values.
   union StorageError {
-    InexistentKey { key: String },
-    InvalidFormat { key: String, value: * }
-  }
+    InexistentKey { key: String, error: Error },
+    InvalidFormat { key: String, value: *, error: Error }
+  } deriving (Base, Cata)
+
+  StorageError::describe = function() {
+    return match this {
+      InexistentKey(k, _)    => "Key " + show(k) + " doesn't exist in the storage.",
+      InvalidFormat(k, v, _) => "Key " + show(k) + " contains an invalid value: " + show(v)
+    }
+  };
+
+  InexistentKey::make = λ[InexistentKey(#, new Error())];
+  InvalidFormat::make = λ[InvalidFormat(#, #, new Error())];
+
+  StorageError::stack = function() {
+    return this.error.stack.split('\n').slice(1).join('\n')
+  };
+    
+  
 
   // -- Implementation -------------------------------------------------
   // ### function: at
@@ -28,10 +46,10 @@ module.exports = function(Platform) {
         try {
           resolve(JSON.parse(store[key]))
         } catch (e) {
-          reject(InvalidFormat(key, store[key]))
+          reject(InvalidFormat.make(key, store[key]))
         }
       } else {
-        reject(InexistentKey(key))
+        reject(InexistentKey.make(key))
       }
     })
   }
