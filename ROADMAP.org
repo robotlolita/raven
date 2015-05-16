@@ -2,7 +2,7 @@
 #+TODO: TODO WORKING | DONE DROPPED
 #+TYP_TODO: FEATURE BUG TODO | DONE
 
-* The Bells
+* [0/18] The Bells
 - Get rid of all implicit assumptions (folder state, editing exclusivity, etc)
 - Importing from txt, markdown, webpage, odt, and docx
 - Exporting to txt, markdown, webpage, pdf, odt, and docx
