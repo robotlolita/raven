@@ -1,0 +1,45 @@
+#+STARTUP: content
+#+TODO: TODO WORKING | DONE DROPPED
+#+TYP_TODO: FEATURE BUG TODO | DONE
+
+* The Bells
+- Get rid of all implicit assumptions (folder state, editing exclusivity, etc)
+- Importing from txt, markdown, webpage, odt, and docx
+- Exporting to txt, markdown, webpage, pdf, odt, and docx
+- Medium-style annotations
+- Scrivener-style organisational features (Characters, Places, Notes)
+** FEATURE Check updates in background, alert users
+** WORKING Use JumperSkirt for UI
+** FEATURE [#C] Show progress information when updating
+** FEATURE [#C] Provide a command to see keyboard shortcuts           :EASY:
+** FEATURE [#C] Display what's new in the update                      :EASY:
+** TODO [#A] Figure out how the auto-updater should work on OS/X
+** TODO [#C] Use ADTs for tracking modes                              :EASY:
+** BUG [#A] Don't use strings for error messages                    :TEDIOUS:
+** TODO Provide more helpful error messages                        :TEDIOUS:
+** BUG [#C] Editor assumes that no other application will mess with novel files while Raven is open
+** BUG [#C] Migrating folders assumes that there'll be no conflicts
+** FEATURE Exporting to .Doc{,x}
+** FEATURE Exporting to .PDF
+** BUG [#A] Saving the novel should be an atomic operation            :EASY:
+** FEATURE [#C] Search/Replace                                        :EASY:
+** FEATURE [#B] Medium-style annotations
+** FEATURE [#C] Dark mode
+** FEATURE [#C] Always show novel and section title in heading
+
+* Future
+** TODO Provide .deb/.rpm packages
+** FEATURE [#C] Support changing font sizes and paragraph styles
+** FEATURE Allow formatting text with Markdown
+** FEATURE Importing from Scrivener
+** FEATURE [#C] Importing/Exporting plugins
+** FEATURE [#C] Automatically convert quotes/dashes/etc to proper characters
+** FEATURE Support multiple instances of Raven
+** TODO [#C] Use better icons for the toolbar buttons                 :EASY:
+** FEATURE Use a novel excerpt when no cover is available
+** FEATURE [#C] Versioning and diffing                                :HARD:
+** FEATURE [#C] Word/Time goals                                       :HARD:
+** FEATURE [#C] i18n                                               :TEDIOUS:
+** FEATURE [#C] Spellchecking                                         :HARD:
+** FEATURE [#C] Auto-complete character/place names
+** FEATURE Focus mode
