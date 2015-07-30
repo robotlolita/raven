@@ -48,7 +48,7 @@ module.exports = function(storage) {
   var joinPath         = λ a b -> path.join(a, b);
   var appendPath       = flip(joinPath);
   var extendWith       = λ a b -> extend(b, a);
-  var extendWithPath   = λ(data, path) -> extend(data, { path: path });
+  var extendWithPath   = function(data, path){ return extend(data, { path: path }) };
   var toNullable       = λ(a) -> a.cata({ Nothing: λ(_) -> null,
                                         Just:    λ(a) -> a });
   var writeAsText      = FS.writeAsText;
