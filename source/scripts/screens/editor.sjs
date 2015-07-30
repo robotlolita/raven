@@ -125,7 +125,9 @@ module.exports = function(screenManager, storage) {
         content: article,
         contentHtml: this.getArticle(),
         contentText: article.innerText
-      })
+      });
+
+      article.focus();
     },
 
     onSaved: function() {
