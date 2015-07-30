@@ -46,6 +46,7 @@ installed. Once you do, just run the following commands:
 ```shell
 $ git clone git://github.com/robotlolita/raven
 $ cd raven
+$ npm install
 $ make run                      # This assumes `nw` is in your PATH
 ```
 
