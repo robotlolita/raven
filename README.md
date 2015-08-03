@@ -47,7 +47,19 @@ installed. Once you do, just run the following commands:
 $ git clone git://github.com/robotlolita/raven
 $ cd raven
 $ npm install
-$ make run                      # This assumes `nw` is in your PATH
+```
+
+To run it under recent Linux distributions (Ubuntu 13.04+, Fedora 18+, Arch,
+Gentoo, etc) you'll need the following to run Raven:
+
+```shell
+$ make run-linux
+```
+
+On all other platforms, you'll need the following to run Raven:
+
+```shell
+$ make run
 ```
 
 [Node Webkit]: https://github.com/rogerwang/node-webkit

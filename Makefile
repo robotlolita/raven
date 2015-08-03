@@ -64,9 +64,12 @@ css-watch:
 
 prebuild: www/index.html static css scripts node_modules
 
-run: prebuild
+run-linux: prebuild
 	./tools/fix-webkit
 	LD_LIBRARY_PATH="$(pwd):$LD_LIBRARY_PATH" $(nw) .
+
+run: prebuild
+	$(nw) .
 
 
 package.nw: prebuild
