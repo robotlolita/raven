@@ -1,4 +1,4 @@
-bin    = $(shell npm bin)
+bin    = "$(shell npm bin)"
 stylus = $(bin)/stylus
 sjs    = $(bin)/sjs
 nw     = nw
